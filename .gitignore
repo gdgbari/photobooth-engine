@@ -4,3 +4,4 @@ __pycache__/
 *.pyo
 .idea/
 .DS_Store
+settings.yaml
