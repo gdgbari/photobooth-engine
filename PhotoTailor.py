@@ -5,7 +5,12 @@ import os
 
 class Tailor:
 
-    def __init__(self, chosen_photo_path: str, chosen_effect_path: str, output_folder_path: str):
+    def __init__(self):
+        self._photo_path = ''
+        self._effect_path = ''
+        self._output_folder_path = ''
+
+    def set_infos(self,chosen_photo_path: str, chosen_effect_path: str, output_folder_path: str):
         self._photo_path = chosen_photo_path
         self._effect_path = chosen_effect_path
         self._output_folder_path = output_folder_path
