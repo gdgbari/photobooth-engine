@@ -41,3 +41,7 @@ class PhotoManager:
                     return file_path
         finally:
             print('nothing detected')
+
+# DEBUG
+# ph_manager = PhotoManager()
+# ph_manager.start_camera()
