@@ -27,3 +27,12 @@ class FolderManager:
         for folder in folder_list:
             if not os.path.exists(folder):
                 os.makedirs(folder)
+
+    def get_current_path(self) -> str:
+        return self._current_folder_path
+
+    def get_originals_path(self) -> str:
+        return self._originals_folder_path
+
+    def get_output_folder_path(self) -> str:
+        return self._output_folder_path
