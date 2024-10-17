@@ -43,3 +43,9 @@ class UserInterface:
                 return False
 
             print('Some error occurred, please try again')
+
+    def press_to_shot(self):
+        input('press any key to shoot')
+
+    def notify_shot_taken(self):
+        print('shot taken')
