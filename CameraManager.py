@@ -57,6 +57,7 @@ class PhotoManager:
         camera_file = self._camera.file_get(
             file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL)
         camera_file.save(target)
+        os.chmod(target, 0o777)
 
         user_interactor.notify_shot_taken()
         #subprocess.call(['xdg-open', target])
