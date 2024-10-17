@@ -33,17 +33,13 @@ class UserInterface:
         image.show()
 
         while True:
-            print('Do you like it?')
-            print('[1]: yes')
-            print('[2] no')
+            print('Do you like it? y/n')
 
             decision = input('choose: ')
 
-            if decision.isdigit():
-                decision = int(decision)
-                if decision == 1:
-                    return True
-                elif decision == 2:
-                    return False
+            if decision == 'y':
+                return True
+            elif decision == 'n':
+                return False
 
             print('Some error occurred, please try again')

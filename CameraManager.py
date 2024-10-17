@@ -1,5 +1,8 @@
 import gphoto2 as gp
 import os
+from SettingsManager import Settings
+
+
 # let's be honest, the library chosen is a complete mess, the author himself said that:
 # " it should not be used in a pythonic way "
 
@@ -42,6 +45,23 @@ class PhotoManager:
         finally:
             print('nothing detected')
 
+    def get_shoot_from_pc(self, path):
+        input('press any key to shoot')
+        print('Capturing image')
+        file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
+        print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
+        target = os.path.join(path, file_path.name)
+        print('Copying image to', target)
+        camera_file = self._camera.file_get(
+            file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL)
+        camera_file.save(target)
+        #subprocess.call(['xdg-open', target])
+        return target
+
 # DEBUG
-# ph_manager = PhotoManager()
-# ph_manager.start_camera()
+settings = Settings()
+
+ph_manager = PhotoManager()
+ph_manager.start_camera()
+ph_manager.get_shoot_from_pc(settings.get_main_folder_path())
+ph_manager.stop_camera()
