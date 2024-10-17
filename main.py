@@ -6,6 +6,8 @@ from PhotoTailor import Tailor
 
 import utils
 
+from Runner import Runner
+
 def main():
     print('hello world')
 
@@ -27,11 +29,15 @@ def main():
     effect_path = utils.get_asset_path_from_name(effect_name)
     # let's edit it
     editor.set_infos(photo_path, effect_path, folders.get_output_folder_path())
-    editor.edit(name)
+    editor.edit(name, folders.get_output_folder_path())
 
-
+def new_main():
+    runner = Runner()
+    runner.prepare()
+    while runner.keep_going():
+        runner.main_execution()
 
 
 if __name__ == '__main__':
-    main()
+    new_main()
 
