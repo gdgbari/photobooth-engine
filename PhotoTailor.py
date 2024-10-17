@@ -2,6 +2,7 @@
 
 from PIL import Image
 import os
+import shutil
 
 class Tailor:
 
@@ -15,7 +16,7 @@ class Tailor:
         self._effect_path = chosen_effect_path
         self._output_folder_path = output_folder_path
 
-    def edit(self, edited_file_name: str):
+    def edit(self, edited_file_name: str, originals_folder : str)-> str:
 
         # analysis on the true height of the polaroid 41+760+10 = 810 -> the height of the background (760) is 93%
         # true height of the polaroid is 2000 -> the height wanted of the background is 1860
@@ -52,6 +53,16 @@ class Tailor:
         background.paste(foreground,(0,0),foreground)
 
         background.save(file_path, "PNG")
+
+        self._final_cleaning(originals_folder,edited_file_name)
+        return file_path
+
+    def _final_cleaning(self, originals_folder : str, file_name : str):
+        # at the end the file in the current folder has to be moved in the originals folder
+        previous_path = self._photo_path
+        final_path = os.path.join(originals_folder,file_name)
+        shutil.move(previous_path,final_path)
+
 
 # DEBUG
 # ph_path = "/home/gape01/PycharmProjects/photobooth/Assets/test.jpg"
