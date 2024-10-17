@@ -1,6 +1,7 @@
 import gphoto2 as gp
 import os
 from SettingsManager import Settings
+from UserInteraction import UserInterface
 
 
 # let's be honest, the library chosen is a complete mess, the author himself said that:
@@ -23,6 +24,7 @@ class PhotoManager:
         self._camera.exit()
 
     def get_shoot(self, download_path):
+        # WARNING, from now on the following is deprecated
         timeout = 5000
         try:
             print("waiting for a shoot...")
@@ -45,23 +47,25 @@ class PhotoManager:
         finally:
             print('nothing detected')
 
-    def get_shoot_from_pc(self, path):
-        input('press any key to shoot')
-        print('Capturing image')
+    def get_shoot_from_pc(self, path, user_interactor : UserInterface):
+        user_interactor.press_to_shot()
+        # print('Capturing image')
         file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
-        print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
+        # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
         target = os.path.join(path, file_path.name)
-        print('Copying image to', target)
+        # print('Copying image to', target)
         camera_file = self._camera.file_get(
             file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL)
         camera_file.save(target)
+
+        user_interactor.notify_shot_taken()
         #subprocess.call(['xdg-open', target])
         return target
 
 # DEBUG
-settings = Settings()
+#settings = Settings()
 
-ph_manager = PhotoManager()
-ph_manager.start_camera()
-ph_manager.get_shoot_from_pc(settings.get_main_folder_path())
-ph_manager.stop_camera()
+#ph_manager = PhotoManager()
+#ph_manager.start_camera()
+#ph_manager.get_shoot_from_pc(settings.get_main_folder_path())
+#ph_manager.stop_camera()
