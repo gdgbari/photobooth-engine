@@ -29,7 +29,7 @@ def main():
     effect_path = utils.get_asset_path_from_name(effect_name)
     # let's edit it
     editor.set_infos(photo_path, effect_path, folders.get_output_folder_path())
-    editor.edit(name, folders.get_output_folder_path())
+    editor.edit(name, folders.get_originals_path())
 
 def new_main():
     runner = Runner()
@@ -39,5 +39,5 @@ def new_main():
 
 
 if __name__ == '__main__':
-    new_main()
+    main()
 
