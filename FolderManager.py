@@ -27,6 +27,7 @@ class FolderManager:
         for folder in folder_list:
             if not os.path.exists(folder):
                 os.makedirs(folder)
+                os.chmod(folder, 0o777)
 
     def get_current_path(self) -> str:
         return self._current_folder_path
