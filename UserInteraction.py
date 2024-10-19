@@ -1,5 +1,6 @@
 from PIL import Image
-
+from utils import Platform
+import subprocess
 # I choose to use this functions in a class because then transitioning to a GUI will be easier
 
 class UserInterface:
@@ -28,9 +29,17 @@ class UserInterface:
         file_name = 'Polaroid - ' + str(chosen_edit) + '.png'
         return file_name
 
-    def confirm_shot(self, photo_path) -> bool:
-        image = Image.open(photo_path)
-        image.show()
+    def confirm_shot(self, photo_path, os_platform: Platform) -> bool:
+        if os_platform.is_linux():
+            image = Image.open(photo_path)
+            image.show()
+        elif os_platform.is_wsl():
+            windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
+            subprocess.run(['powershell.exe', 'Start-Process', windows_path])
+        elif os_platform.is_macos():
+            # maybe in the future this will change
+            image = Image.open(photo_path)
+            image.show()
 
         while True:
             print('Do you like it? y/n')

@@ -24,7 +24,7 @@ def main():
     # here the photo is in the 'current' folder
     # let's ask the user it is the photo he likes
     photo_path, name = utils.get_the_file_in_dir(folders.get_current_path())
-    user_interface.confirm_shot(photo_path)
+    user_interface.confirm_shot(photo_path, utils.detect_os())
     effect_name = user_interface.choose_polaroid_effect()
     effect_path = utils.get_asset_path_from_name(effect_name)
     # let's edit it

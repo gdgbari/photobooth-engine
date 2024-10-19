@@ -23,7 +23,7 @@ class Runner:
         while True:
             self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._ui)
             photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
-            if self._ui.confirm_shot(photo_path):
+            if self._ui.confirm_shot(photo_path, utils.detect_os()):
                 # the photo is accepted, we can go on
                 break
 
@@ -36,3 +36,6 @@ class Runner:
     def keep_going(self):
         # here in the future a more complex solution
         return self._continue
+
+    def final_cleaning(self):
+        self._camera.stop_camera()
