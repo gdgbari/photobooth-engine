@@ -1,6 +1,7 @@
 from PIL import Image
 from utils import Platform
 import subprocess
+import os
 # I choose to use this functions in a class because then transitioning to a GUI will be easier
 
 class UserInterface:
@@ -38,8 +39,13 @@ class UserInterface:
             subprocess.run(['powershell.exe', 'Start-Process', windows_path])
         elif os_platform.is_macos():
             # maybe in the future this will change
-            image = Image.open(photo_path)
-            image.show()
+            # image = Image.open(photo_path)
+            # image.show()
+            user = os.getlogin()
+            # Comando per aprire l'immagine come utente normale
+            comando = ["sudo", "-u", user, "open", photo_path]
+            # Esegui il comando
+            subprocess.run(comando)
 
         while True:
             print('Do you like it? y/n')
