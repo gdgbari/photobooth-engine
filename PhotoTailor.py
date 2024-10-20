@@ -71,6 +71,9 @@ class Tailor:
 
         background.save(edited_file_path, "JPEG")
 
+        # give 777 to edited file
+        os.chmod(edited_file_path, 0o777)
+
         self._final_cleaning(originals_folder,edited_file_name)
         return edited_file_path
 
