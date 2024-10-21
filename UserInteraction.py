@@ -31,13 +31,7 @@ class UserInterface:
         return file_name
 
     def confirm_shot(self, photo_path, os_platform: Platform) -> bool:
-        if os_platform.is_linux():
-            image = Image.open(photo_path)
-            image.show()
-        elif os_platform.is_wsl():
-            windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
-            subprocess.run(['powershell.exe', 'Start-Process', windows_path])
-        elif os_platform.is_macos():
+        if os_platform.is_linux() or os_platform.is_macos():
             # maybe in the future this will change
             # image = Image.open(photo_path)
             # image.show()
@@ -46,6 +40,9 @@ class UserInterface:
             comando = ["sudo", "-u", user, "open", photo_path]
             # Esegui il comando
             subprocess.run(comando)
+        elif os_platform.is_wsl():
+            windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
+            subprocess.run(['powershell.exe', 'Start-Process', windows_path])
 
         while True:
             print('Do you like it? y/n')
