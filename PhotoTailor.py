@@ -11,23 +11,24 @@ class Tailor:
         self._effect_path = ''
         self._output_folder_path = ''
 
-    def set_infos(self,chosen_photo_path: str, chosen_effect_path: str, output_folder_path: str):
+    def set_infos(self, first_photo: str, first_effect: str,second_photo: str, second_effect: str, output_folder_path: str):
         """
         Preliminary information for processing the single photo (it must be called before the editing of every photo).
-        :param chosen_photo_path: the path as string of the chosen photo
-        :param chosen_effect_path: the path as string of the chosen effect ( the polaroid file in /assets )
+        :param first_photo: the path as string of the chosen photo
+        :param first_effect: the path as string of the chosen effect ( the polaroid file in /assets )
         :param output_folder_path: the path as string of the edited file
         """
-        self._photo_path = chosen_photo_path
-        self._effect_path = chosen_effect_path
+        self._first_photo = first_photo
+        self._first_effect = first_effect
+        self._second_photo = second_photo
+        self._second_effect = second_effect
         self._output_folder_path = output_folder_path
 
-    def edit(self, edited_file_name: str, originals_folder : str)-> str:
+    def edit(self, edited_file_name: str)-> str:
         """
-        Edits the photo
+        Edits the photos
         :param edited_file_name: the name of the file (with extension!), it is not the path,
                it will be the name of the final file
-        :param originals_folder: the path of the folder where all the original photo will be hold
         :return: the path, as string, of the edited file
         """
         # DISCUSSION ABOUT THE DIMENSION AND RATIO OF THE IMAGE
@@ -44,8 +45,27 @@ class Tailor:
 
 
         edited_file_path = os.path.join(self._output_folder_path,edited_file_name)
-        background = Image.open(self._photo_path)
-        foreground = Image.open(self._effect_path)
+        first_photo = self._prepare_single_photo(self._first_photo,self._first_effect)
+        second_photo = self._prepare_single_photo(self._second_photo,self._second_effect)
+        output_file = self._combine_two_photos(first_photo,second_photo)
+
+        output_file.save(edited_file_path, "JPEG")
+
+        # give 777 to edited file
+        os.chmod(edited_file_path, 0o777)
+
+        # self._final_cleaning(originals_folder,edited_file_name)
+        return edited_file_path
+
+    def _combine_two_photos(self, first_photo: Image, second_photo: Image) -> Image:
+        output_image = Image.new('RGB', size=(2000,1500)) # right now the output is rotated
+        output_image.paste(first_photo, (0, 0))
+        output_image.paste(second_photo, (750, 0))
+        return output_image
+
+    def _prepare_single_photo(self, photo, effect) -> Image:
+        background = Image.open(photo)
+        foreground = Image.open(effect)
 
         # transform the background in order to have a height of 1528 px, width of same ratio
         background_width, background_height = background.size
@@ -58,30 +78,30 @@ class Tailor:
         # align the background width to the foreground width ( cutting the excess margin )
         foreground_width, foreground_height = foreground.size
         lateral_margin_to_cut = (background_width - foreground_width) // 2
-        background = background.crop((lateral_margin_to_cut, 0, lateral_margin_to_cut + foreground_width, background_height))
+        background = background.crop(
+            (lateral_margin_to_cut, 0, lateral_margin_to_cut + foreground_width, background_height))
 
         # add padding space on the top and the bottom of the background image, to have the same height of foreground
         margin_space = 82
-        new_background = Image.new('RGB',(foreground_width,foreground_height),'black')
-        new_background.paste(background,(0, margin_space))
+        new_background = Image.new('RGB', (foreground_width, foreground_height), 'black')
+        new_background.paste(background, (0, margin_space))
         background = new_background
 
         # combine background and foreground
-        background.paste(foreground,(0,0),foreground)
+        background.paste(foreground, (0, 0), foreground)
 
-        background.save(edited_file_path, "JPEG")
+        # now we want it in half h:2000 w:1500 -> h:1000 w:750
+        output = background.resize((750,1000))
 
-        # give 777 to edited file
-        os.chmod(edited_file_path, 0o777)
+        return output
 
-        self._final_cleaning(originals_folder,edited_file_name)
-        return edited_file_path
 
-    def _final_cleaning(self, originals_folder : str, file_name : str):
+    # def _final_cleaning(self, originals_folder : str, file_name : str):
+        # WARNING: this function is deprecated
         # at the end the file in the current folder has to be moved in the originals folder
-        previous_path = self._photo_path
-        final_path = os.path.join(originals_folder,file_name)
-        shutil.move(previous_path,final_path)
+        # previous_path = self._photo_path
+        # final_path = os.path.join(originals_folder,file_name)
+        # shutil.move(previous_path,final_path)
 
 
 # DEBUG
@@ -89,4 +109,10 @@ class Tailor:
 # eff_path = "/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png"
 # output_f = "/home/gape01/Desktop"
 # tailor = Tailor(ph_path,eff_path,output_f)
-# tailor.edit("prova.png")
+tailor = Tailor()
+tailor.set_infos('/mnt/c/Users/gassi/Desktop/main/test.jpg',
+                 '/mnt/c/Users/gassi/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
+                 '/mnt/c/Users/gassi/Desktop/main/test.jpg',
+                 '/mnt/c/Users/gassi/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
+                 '/mnt/c/Users/gassi/Desktop/main/output')
+tailor.edit("prova.jpg")
