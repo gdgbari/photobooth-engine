@@ -1,5 +1,6 @@
 import gphoto2 as gp
 import os
+import shutil
 from SettingsManager import Settings
 from UserInteraction import UserInterface
 
@@ -62,6 +63,15 @@ class PhotoManager:
         user_interactor.notify_shot_taken()
         #subprocess.call(['xdg-open', target])
         return target
+
+    def get_fake_shoot(self, path, user_interactor : UserInterface):
+        user_interactor.press_to_shot()
+        file_path = '/mnt/c/Users/gassi/Desktop/main/test.jpg'
+        file_name = input('input file name:')
+        target = os.path.join(path, file_name)
+        shutil.copyfile(file_path, target)
+        return target
+
 
 # DEBUG
 #settings = Settings()
