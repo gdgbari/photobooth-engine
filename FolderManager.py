@@ -1,4 +1,5 @@
 import os
+import shutil
 # FOLDERS EXPLANATION
 #
 #    main_folder
@@ -37,3 +38,22 @@ class FolderManager:
 
     def get_output_folder_path(self) -> str:
         return self._output_folder_path
+
+    def clean_current_path(self, chosen_photo_path: str)->str:
+        """
+        Move all the file from the current folder to the output folder but saves the new path of the chosen shoot
+        :param chosen_photo_path: it's the old path of the photo which we will hold
+        :return: the new path of the pointed photo
+        """
+        new_photo_path = ''
+
+        for filename in os.listdir(self._current_folder_path):
+
+            original_file_complete_path = os.path.join(self._current_folder_path, filename)
+            destination_path = os.path.join(self._originals_folder_path, filename)
+            shutil.move(original_file_complete_path, destination_path)
+
+            if original_file_complete_path == chosen_photo_path:
+                new_photo_path = destination_path
+
+        return new_photo_path
