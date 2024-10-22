@@ -8,8 +8,32 @@ class PrinterManager:
     def __init__(self, os_platform: Platform):
         self._platform = os_platform
 
+    def prepare(self):
+        if self._platform.is_linux():
+            # deve esserci cups e gutenprint
+            def is_installed(package_name):
+                try:
+                    subprocess.run(["dpkg-query", "-W", package_name], check=True, stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+                    return True
+                except subprocess.CalledProcessError:
+                    return False
+            def install_package(package_name):
+                try:
+                    subprocess.run(["sudo", "apt-get", "install", "-y", package_name], check=True)
+                except subprocess.CalledProcessError as e:
+                    print(f"Errore durante l'installazione di {package_name}: {e}")
+
+            if not is_installed("cups"):
+                install_package("cups")
+
+            if not is_installed("printer-driver-gutenprint"):
+                install_package("printer-driver-gutenprint")
+
     def print(self, file_path):
         if self._platform.is_linux():
+            # os.system(f"lp -o media=photo {file_path}")
+            os.system(f'lp -o media=Custom.150x100mm {file_path}')
             os.system(f"lp -o media=photo {file_path}")
         elif self._platform.is_wsl():
 
@@ -52,4 +76,6 @@ class PrinterManager:
 
 # DEBUG
 printer = PrinterManager(utils.detect_os())
-printer.print('/mnt/c/Users/gassi/Desktop/main/output/test.jpg')
+# printer.print('/mnt/c/Users/gassi/Desktop/main/output/test.jpg')
+# printer.print('/home/gape01/Desktop/main/output/test.jpg')
+printer.prepare()
