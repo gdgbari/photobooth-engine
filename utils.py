@@ -18,6 +18,9 @@ def get_the_file_in_dir(folder_path :str) :
 
     return files_path[0], files[0]
 
+def get_name_from_path(file_path :str) -> str:
+    return os.path.basename(file_path)
+
 class Platform:
     def __init__(self, platform_name):
         self._platform = platform_name
