@@ -3,6 +3,7 @@ from FolderManager import FolderManager
 from UserInteraction import UserInterface
 from CameraManager import PhotoManager
 from PhotoTailor import Tailor
+from QueueManager import QueueManager
 
 import utils
 
@@ -14,24 +15,36 @@ class Runner:
         self._ui = UserInterface()
         self._camera = PhotoManager()
         self._editor = Tailor()
+        self._queue = QueueManager()
         self._continue = True
 
     def prepare(self):
-        self._camera.start_camera()
+        # self._camera.start_camera()
+        self._queue.load_queue()
 
     def main_execution(self):
         while True:
-            self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._ui)
+            # self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._ui)
+            self._camera.get_fake_shoot(self._folders.get_current_path(), self._ui)
             photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
             if self._ui.confirm_shot(photo_path, utils.detect_os()):
                 # the photo is accepted, we can go on
                 break
-
         effect_name = self._ui.choose_polaroid_effect()
         effect_path = utils.get_asset_path_from_name(effect_name)
+
+        # the photo is added to the queue and the folder get cleared
+        self._queue.add_photo(self._folders.clean_current_path(photo_path))
+        self._queue.add_edit(effect_path)
+
+        while self._queue.queue_is_ready(): # if there are 2 or more photos in queue then start to edit
+            self.edit(photo_path, effect_path)
+
+
+    def edit(self, photo_path, effect_path):
         # let's edit it
         self._editor.set_infos(photo_path, effect_path, self._folders.get_output_folder_path())
-        self._editor.edit(photo_name, self._folders.get_originals_path())
+        self._editor.edit(utils.get_name_from_path(photo_path), self._folders.get_originals_path())
 
     def keep_going(self):
         # here in the future a more complex solution
@@ -39,3 +52,4 @@ class Runner:
 
     def final_cleaning(self):
         self._camera.stop_camera()
+        self._queue.dismiss()
