@@ -3,6 +3,7 @@
 from PIL import Image
 import os
 import shutil
+import utils
 
 class Tailor:
 
@@ -24,7 +25,22 @@ class Tailor:
         self._second_effect = second_effect
         self._output_folder_path = output_folder_path
 
-    def edit(self, edited_file_name: str)-> str:
+    def _build_output_path(self):
+        first_photo_name = utils.get_name_from_path(self._first_photo)[:-4]
+        second_photo_name = utils.get_name_from_path(self._second_photo)[:-4]
+        combined_name = first_photo_name + '_' + second_photo_name
+        if first_photo_name == second_photo_name:
+            combined_name = 'Double_' + first_photo_name
+        path = os.path.join(self._output_folder_path, combined_name + '.jpg')
+        i = 1
+        while os.path.exists(path):
+            path = os.path.join(self._output_folder_path, combined_name + '_' + str(i) + '.jpg')
+            i += 1
+        return path
+
+
+
+    def edit(self)-> str:
         """
         Edits the photos
         :param edited_file_name: the name of the file (with extension!), it is not the path,
@@ -44,7 +60,7 @@ class Tailor:
         # END OF DISCUSSION
 
 
-        edited_file_path = os.path.join(self._output_folder_path,edited_file_name)
+        edited_file_path = self._build_output_path()
         first_photo = self._prepare_single_photo(self._first_photo,self._first_effect)
         second_photo = self._prepare_single_photo(self._second_photo,self._second_effect)
         output_file = self._combine_two_photos(first_photo,second_photo)
@@ -112,10 +128,10 @@ class Tailor:
 # eff_path = "/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png"
 # output_f = "/home/gape01/Desktop"
 # tailor = Tailor(ph_path,eff_path,output_f)
-tailor = Tailor()
-tailor.set_infos('/mnt/c/Users/gassi/Desktop/main/test.jpg',
-                 '/mnt/c/Users/gassi/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
-                 '/mnt/c/Users/gassi/Desktop/main/test.jpg',
-                 '/mnt/c/Users/gassi/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
-                 '/mnt/c/Users/gassi/Desktop/main/output')
-tailor.edit("prova.jpg")
+#tailor = Tailor()
+#tailor.set_infos('/mnt/c/Users/gassi/Desktop/main/test.jpg',
+#                 '/mnt/c/Users/gassi/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
+#                 '/mnt/c/Users/gassi/Desktop/main/test.jpg',
+#                 '/mnt/c/Users/gassi/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
+#                 '/mnt/c/Users/gassi/Desktop/main/output')
+# tailor.edit("prova.jpg")
