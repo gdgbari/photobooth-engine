@@ -58,9 +58,11 @@ class Tailor:
         return edited_file_path
 
     def _combine_two_photos(self, first_photo: Image, second_photo: Image) -> Image:
-        output_image = Image.new('RGB', size=(2000,1500)) # right now the output is rotated
+        output_image = Image.new('RGB', size=(3000,2000)) # right now the output is rotated
         output_image.paste(first_photo, (0, 0))
-        output_image.paste(second_photo, (750, 0))
+        output_image.paste(second_photo, (1500, 0))
+        # rotate
+        output_image = output_image.rotate(90, expand=True)
         return output_image
 
     def _prepare_single_photo(self, photo, effect) -> Image:
@@ -90,8 +92,9 @@ class Tailor:
         # combine background and foreground
         background.paste(foreground, (0, 0), foreground)
 
-        # now we want it in half h:2000 w:1500 -> h:1000 w:750
-        output = background.resize((750,1000))
+        # now we want it in half h:2000 w:1500 -> h:1500 w:1000
+        # output = background.resize((1000,1500))
+        output = background
 
         return output
 
