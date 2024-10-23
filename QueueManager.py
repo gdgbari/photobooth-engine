@@ -5,7 +5,7 @@ import yaml
 class QueueManager:
 
     def __init__(self):
-        self._queue_path = 'queue.yaml'
+        self._queue_path = 'temp_data.yaml'
         self._dict = {'photos':[],'edits':[]}
 
     def queue_is_ready(self):
