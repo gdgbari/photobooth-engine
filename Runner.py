@@ -1,5 +1,5 @@
 from SettingsManager import Settings
-from FolderManager import FolderManager
+from FolderManager import FolderManager, FileNaming
 from UserInteraction import UserInterface
 from CameraManager import PhotoManager
 from PhotoTailor import Tailor
@@ -17,6 +17,7 @@ class Runner:
         self._editor = Tailor()
         self._queue = QueueManager()
         self._continue = True
+        self._file_naming = FileNaming()
 
     def prepare(self):
         # self._camera.start_camera()
@@ -24,8 +25,8 @@ class Runner:
 
     def main_execution(self):
         while True:
-            # self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._ui)
-            self._camera.get_fake_shoot(self._folders.get_current_path(), self._ui)
+            # self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._file_naming.get_photo_name(), self._ui)
+            self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
             photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
             if self._ui.confirm_shot(photo_path, utils.detect_os()):
                 # the photo is accepted, we can go on
@@ -49,7 +50,7 @@ class Runner:
         self._editor.set_infos(photo_list[0], edit_list[0], photo_list[1],edit_list[1],self._folders.get_output_folder_path())
         # get the name of the last file ... ( this will need an update )
         # edit the queue then clean the folder
-        joined_photo = self._folders.clean_current_path(self._editor.edit(utils.get_name_from_path(photo_path)))
+        joined_photo = self._folders.clean_current_path(self._editor.edit())
         print(joined_photo)
         return joined_photo
 
