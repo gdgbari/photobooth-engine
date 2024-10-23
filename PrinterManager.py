@@ -86,3 +86,4 @@ printer = PrinterManager(utils.detect_os())
 # printer.print('/home/gape01/Desktop/main/output/test.jpg')
 printer.prepare()
 printer.print('/mnt/c/Users/gassi/Desktop/main/output/test.jpg')
+# typo
