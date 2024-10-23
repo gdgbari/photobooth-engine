@@ -36,7 +36,7 @@ class PrinterManager:
             os.system(f'lp -o media=Custom.150x100mm {file_path}')
             os.system(f"lp -o media=photo {file_path}")
         elif self._platform.is_wsl():
-
+            # proviamo ad utilizzare il tool USBIPD-WIN
             def wsl_to_windows_path(wsl_path):
                 """
                 Converte un percorso WSL in un percorso Windows.
@@ -50,12 +50,18 @@ class PrinterManager:
                     return windows_path
 
             # windows_file_path = wsl_to_windows_path(file_path)
-            windows_file_path = 'C:\\Users\\gassi\\Desktop\\main\\output\\test.jpg'
+            windows_file_path = 'C:\\Users\\gassi\\Desktop\\main\\test.jpg'
+            linux_file_path = '/mnt/c/Users/gassi/Desktop/main/output/test.jpg'
             printer_name = 'EPSON Stylus DX7400 Series'
             command = [
                 'powershell.exe',
                 '-Command',
                 f'Start-Process -FilePath "{windows_file_path}" -Verb Print -ArgumentList "-PrinterName \'{printer_name}\'"'
+            ]
+            command1 = [
+                "powershell.exe",
+                "-Command",
+                f'lpr -S localhost -P "{printer_name}" "{windows_file_path}"'
             ]
             # Visualizza il comando per il debug
             print("Eseguendo il comando:", " ".join(command))
@@ -79,3 +85,4 @@ printer = PrinterManager(utils.detect_os())
 # printer.print('/mnt/c/Users/gassi/Desktop/main/output/test.jpg')
 # printer.print('/home/gape01/Desktop/main/output/test.jpg')
 printer.prepare()
+printer.print('/mnt/c/Users/gassi/Desktop/main/output/test.jpg')
