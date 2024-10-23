@@ -33,9 +33,10 @@ class Runner:
         effect_name = self._ui.choose_polaroid_effect()
         effect_path = utils.get_asset_path_from_name(effect_name)
 
+        times = self._ui.choose_times_to_print()
         # the photo is added to the queue and the folder get cleared
-        self._queue.add_photo(self._folders.clean_current_path(photo_path))
-        self._queue.add_edit(effect_path)
+        self._queue.add_photo(self._folders.clean_current_path(photo_path),times)
+        self._queue.add_edit(effect_path,times)
 
         while self._queue.queue_is_ready(): # if there are 2 or more photos in queue then start to edit
             self.edit(photo_path, effect_path)
@@ -43,8 +44,14 @@ class Runner:
 
     def edit(self, photo_path, effect_path):
         # let's edit it
-        self._editor.set_infos(photo_path, effect_path, self._folders.get_output_folder_path())
-        self._editor.edit(utils.get_name_from_path(photo_path), self._folders.get_originals_path())
+        photo_list = self._queue.get_two_photos()
+        edit_list = self._queue.get_two_edit()
+        self._editor.set_infos(photo_list[0], edit_list[0], photo_list[1],edit_list[1],self._folders.get_output_folder_path())
+        # get the name of the last file ... ( this will need an update )
+        # edit the queue then clean the folder
+        joined_photo = self._folders.clean_current_path(self._editor.edit(utils.get_name_from_path(photo_path)))
+        print(joined_photo)
+        return joined_photo
 
     def keep_going(self):
         # here in the future a more complex solution
