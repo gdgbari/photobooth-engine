@@ -59,6 +59,28 @@ class UserInterface:
 
             print('Some error occurred, please try again')
 
+    def choose_times_to_print(self) -> int:
+        """
+        Choose how many times a photo get printed
+        :return: the number of times the photo get printed
+        """
+        print('How many copies of the photo do you want to print?')
+        while True:
+            times = input('choose between 1 up to 99: ')
+            if times.isdigit():
+                times = int(times)
+                if 0 < times <= 99:
+                    while  True:
+                        print('you choose '+str(times)+' copies, is it correct?')
+                        ui_input = input('y/n: ')
+                        if ui_input.lower() == 'y':
+                            print('all right')
+                            return times
+                        elif ui_input.lower() == 'n':
+                            break
+            print('Some error occurred, please try again')
+
+
     def press_to_shot(self):
         input('press any key to shoot')
 
