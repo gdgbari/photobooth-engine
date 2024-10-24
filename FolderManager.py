@@ -82,7 +82,9 @@ class FileNaming:
         with open(self._temp_data_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
 
-        session_number = yaml_dict["session"]
+        yaml_dict["session"] = yaml_dict["session"] + 1
 
-        with open(self._temp_data_path, 'w') as yaml_file:
-            yaml_file.write(utils.get_string_from_session_number(int(session_number) + 1))
+        with open(self._temp_data_path, 'w') as f:
+            yaml.dump(yaml_dict, f, default_flow_style=False, allow_unicode=True)
+
+        return utils.get_string_from_session_number(int(yaml_dict["session"]))
