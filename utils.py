@@ -1,5 +1,6 @@
 import os
 import platform
+from PIL import Image
 
 def get_asset_path_from_name(asset_name : str) -> str:
     # WARNING: if this function is not in the main folder of the project,
@@ -77,3 +78,4 @@ def get_string_from_session_number(session_number):
         return f"0{session_number}"
 
     return session_number
+
