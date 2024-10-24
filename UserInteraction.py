@@ -48,6 +48,9 @@ class UserInterface:
             comando = ["sudo", "-u", user, "open", photo_path]
             # Esegui il comando
             subprocess.run(comando)
+        elif os_platform.is_wsl():
+            windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
+            subprocess.run(['powershell.exe', 'Start-Process', windows_path])
 
         while True:
             print('Do you like it? y/n')
