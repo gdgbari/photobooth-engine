@@ -46,7 +46,7 @@ class FolderManager:
 
     def clean_current_path(self, chosen_photo_path: str)->str:
         """
-        Move all the file from the current folder to the output folder but saves the new path of the chosen shoot
+        Move all the file from the current folder to the originals folder but saves the new path of the chosen shoot
         :param chosen_photo_path: it's the old path of the photo which we will hold
         :return: the new path of the pointed photo
         """
