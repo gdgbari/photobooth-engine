@@ -27,6 +27,7 @@ class Runner:
         while True:
             # self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._file_naming.get_photo_name(), self._ui)
             self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
+            self._file_naming.increment_session_number()
             photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
             if self._ui.confirm_shot(photo_path, utils.detect_os()):
                 # the photo is accepted, we can go on
