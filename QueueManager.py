@@ -52,6 +52,8 @@ class QueueManager:
             self._dict['photos'] = yaml_dict['photos']
             self._dict['edits'] = yaml_dict['edits']
 
+
+
     def dismiss(self):
         self._dict = {'photos': [], 'edits': []}
         self._update_yaml()
