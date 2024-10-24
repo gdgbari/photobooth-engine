@@ -71,10 +71,17 @@ class FileNaming:
         with open(self._temp_data_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
 
-        session_number = yaml_dict['session']
-        session_number = utils.get_string_from_session_number(session_number)
+        session_number = yaml_dict["session"]
 
         folder = FolderManager(self._settings.get_main_folder_path())
         photo_number = utils.get_string_from_photo_number(len(os.listdir(folder.get_current_path())) + 1)
 
-        return f"DEVFESTBA_{session_number}_{photo_number}.jpg"
+        return f"DEVFESTBA_{utils.get_string_from_session_number(int(session_number) + 1)}_{photo_number}.jpg"
+
+    def get_session_number(self) -> str:
+        with open(self._temp_data_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        session_number = yaml_dict["session"]
+
+        return utils.get_string_from_session_number(int(session_number) + 1)
