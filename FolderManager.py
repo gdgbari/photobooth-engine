@@ -1,4 +1,10 @@
 import os
+import shutil
+from logging import DEBUG
+
+import utils
+from SettingsManager import Settings
+import yaml
 # FOLDERS EXPLANATION
 #
 #    main_folder
@@ -37,3 +43,54 @@ class FolderManager:
 
     def get_output_folder_path(self) -> str:
         return self._output_folder_path
+
+    def clean_current_path(self, chosen_photo_path: str)->str:
+        """
+        Move all the file from the current folder to the originals folder but saves the new path of the chosen shoot
+        :param chosen_photo_path: it's the old path of the photo which we will hold
+        :return: the new path of the pointed photo
+        """
+        new_photo_path = ''
+
+        for filename in os.listdir(self._current_folder_path):
+
+            original_file_complete_path = os.path.join(self._current_folder_path, filename)
+            destination_path = os.path.join(self._originals_folder_path, filename)
+            shutil.move(original_file_complete_path, destination_path)
+
+            if original_file_complete_path == chosen_photo_path:
+                new_photo_path = destination_path
+
+        return new_photo_path
+
+class FileNaming:
+
+    def __init__(self):
+        self._temp_data_path = "temp_data.yaml"
+        self._settings = Settings()
+
+    def get_photo_name(self) -> str:
+        with open(self._temp_data_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        session_number = yaml_dict["session"]
+
+        folder = FolderManager(self._settings.get_main_folder_path())
+        photo_number = utils.get_string_from_photo_number(len(os.listdir(folder.get_current_path())) + 1)
+
+        return f"DEVFESTBA_{utils.get_string_from_session_number(int(session_number) + 1)}_{photo_number}.jpg"
+
+    def increment_session_number(self):
+        with open(self._temp_data_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        yaml_dict["session"] = utils.get_string_from_session_number(int(yaml_dict["session"]) + 1)
+
+        with open(self._temp_data_path, 'w') as f:
+            yaml.dump(yaml_dict, f, default_flow_style=False, allow_unicode=True)
+
+        return yaml_dict["session"]
+
+#DEBUG
+# file_naming = FileNaming()
+# print(file_naming.increment_session_number())

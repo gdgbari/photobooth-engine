@@ -1,5 +1,6 @@
 import os
 import platform
+from PIL import Image
 
 def get_asset_path_from_name(asset_name : str) -> str:
     # WARNING: if this function is not in the main folder of the project,
@@ -17,6 +18,9 @@ def get_the_file_in_dir(folder_path :str) :
         files_path.append(os.path.join(folder_path,file_name))
 
     return files_path[0], files[0]
+
+def get_name_from_path(file_path :str) -> str:
+    return os.path.basename(file_path)
 
 class Platform:
     def __init__(self, platform_name):
@@ -57,4 +61,21 @@ def detect_os():
 
     return output_obj
 
+def get_string_from_photo_number(photo_number):
+
+    if len(str(photo_number)) == 1:
+        return f"0{photo_number}"
+
+    return photo_number
+
+def get_string_from_session_number(session_number):
+
+    if len(str(session_number)) == 1:
+        return f"000{session_number}"
+    elif len(str(session_number)) == 2:
+        return f"00{session_number}"
+    elif len(str(session_number)) == 3:
+        return f"0{session_number}"
+
+    return session_number
 

@@ -1,5 +1,6 @@
 import gphoto2 as gp
 import os
+import shutil
 from SettingsManager import Settings
 from UserInteraction import UserInterface
 
@@ -47,12 +48,12 @@ class PhotoManager:
         finally:
             print('nothing detected')
 
-    def get_shoot_from_pc(self, path, user_interactor : UserInterface):
+    def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface):
         user_interactor.press_to_shot()
         # print('Capturing image')
         file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
         # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
-        target = os.path.join(path, file_path.name)
+        target = os.path.join(path, photo_name)
         # print('Copying image to', target)
         camera_file = self._camera.file_get(
             file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL)
@@ -62,6 +63,17 @@ class PhotoManager:
         user_interactor.notify_shot_taken()
         #subprocess.call(['xdg-open', target])
         return target
+
+    def get_fake_shoot(self, path, photo_name, user_interactor : UserInterface):
+        user_interactor.press_to_shot()
+        # file_path = '/mnt/c/Users/gassi/Desktop/main/test.jpg'
+        # file_path = '/mnt/d/project/main/test.jpg'
+        file_path = '/home/gape01/Desktop/test.jpg'
+        # file_name = input('input file name:')
+        target = os.path.join(path, photo_name)
+        shutil.copyfile(file_path, target)
+        return target
+
 
 # DEBUG
 #settings = Settings()
