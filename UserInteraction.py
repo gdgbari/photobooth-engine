@@ -32,8 +32,9 @@ class UserInterface:
 
     def confirm_shot(self, photo_path, os_platform: Platform) -> bool:
         if os_platform.is_linux():
-            image = Image.open(photo_path)
-            image.show()
+            # image = Image.open(photo_path)
+            # image.show()
+            subprocess.run(["xdg-open", photo_path])
         elif os_platform.is_wsl():
             windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
             subprocess.run(['powershell.exe', 'Start-Process', windows_path])
