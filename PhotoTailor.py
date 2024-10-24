@@ -28,13 +28,11 @@ class Tailor:
     def _build_output_path(self):
         first_photo_name = utils.get_name_from_path(self._first_photo)[:-4]
         second_photo_name = utils.get_name_from_path(self._second_photo)[:-4]
-        combined_name = first_photo_name + '_' + second_photo_name
-        if first_photo_name == second_photo_name:
-            combined_name = 'Double_' + first_photo_name
-        path = os.path.join(self._output_folder_path, combined_name + '.jpg')
+        combined_name = first_photo_name + '-' + second_photo_name
+        path = os.path.join(self._output_folder_path, combined_name + '_00.jpg')
         i = 1
         while os.path.exists(path):
-            path = os.path.join(self._output_folder_path, combined_name + '_' + str(i) + '.jpg')
+            path = os.path.join(self._output_folder_path, combined_name + '_0' + str(i) + '.jpg')
             i += 1
         return path
 
