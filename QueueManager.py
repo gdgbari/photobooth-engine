@@ -1,4 +1,4 @@
-from types import NoneType
+# from types import NoneType
 
 import yaml
 
