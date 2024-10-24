@@ -78,10 +78,11 @@ class FileNaming:
 
         return f"DEVFESTBA_{utils.get_string_from_session_number(int(session_number) + 1)}_{photo_number}.jpg"
 
-    def get_session_number(self) -> str:
+    def increment_session_number(self):
         with open(self._temp_data_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
 
         session_number = yaml_dict["session"]
 
-        return utils.get_string_from_session_number(int(session_number) + 1)
+        with open(self._temp_data_path, 'w') as yaml_file:
+            yaml_file.write(utils.get_string_from_session_number(int(session_number) + 1))
