@@ -59,8 +59,8 @@ class Tailor:
 
 
         edited_file_path = self._build_output_path()
-        first_photo = self._prepare_single_photo(self._first_photo,self._first_effect)
-        second_photo = self._prepare_single_photo(self._second_photo,self._second_effect)
+        first_photo = self.prepare_single_photo(self._first_photo, self._first_effect)
+        second_photo = self.prepare_single_photo(self._second_photo, self._second_effect)
         output_file = self._combine_two_photos(first_photo,second_photo)
 
         output_file.save(edited_file_path, "JPEG")
@@ -79,7 +79,7 @@ class Tailor:
         output_image = output_image.rotate(90, expand=True)
         return output_image
 
-    def _prepare_single_photo(self, photo, effect) -> Image:
+    def prepare_single_photo(self, photo, effect) -> Image:
         background = Image.open(photo)
         foreground = Image.open(effect)
 
