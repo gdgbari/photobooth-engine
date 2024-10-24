@@ -2,6 +2,7 @@ from PIL import Image
 from utils import Platform
 import subprocess
 import os
+
 # I choose to use this functions in a class because then transitioning to a GUI will be easier
 
 class UserInterface:
@@ -87,3 +88,18 @@ class UserInterface:
 
     def notify_shot_taken(self):
         print('shot taken')
+
+    def show_preview_image(self, previw_img: Image):
+        print('here the edit')
+        previw_img.show()
+        print('do you like it?')
+        while True:
+            choiche = input('y/n: ')
+            if choiche == 'y':
+                return True
+            elif choiche == 'n':
+                return False
+            else:
+                print('some error occured')
+
+
