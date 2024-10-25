@@ -35,6 +35,7 @@ class PrinterManager:
             # os.system(f"lp -o media=photo {file_path}")
             os.system(f'lp -o media=Custom.150x100mm {file_path}')
             os.system(f"lp -o media=photo {file_path}")
+            return 'all right'
         elif self._platform.is_wsl():
             # proviamo ad utilizzare il tool USBIPD-WIN
             def wsl_to_windows_path(wsl_path):
@@ -85,5 +86,5 @@ printer = PrinterManager(utils.detect_os())
 # printer.print('/mnt/c/Users/gassi/Desktop/main/output/test.jpg')
 # printer.print('/home/gape01/Desktop/main/output/test.jpg')
 printer.prepare()
-printer.print('/mnt/c/Users/gassi/Desktop/main/output/test.jpg')
+printer.print('/home/gape01/Desktop/main/output/DEVFESTBA_0003_01-DEVFESTBA_0003_01_00.jpg')
 # typo
