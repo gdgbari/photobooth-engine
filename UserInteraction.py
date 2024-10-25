@@ -105,4 +105,14 @@ class UserInterface:
             else:
                 print('some error occured')
 
+    def show_new_session_menu(self):
+        while True:
+            print(
+                "Hoy many photos do wou want to shoot? Please choose a number between 1 and 5 (Press 0 if you want to recover precedent photos)")
+            choice = int(input("Enter your choice: "))
+            if 0 <= choice <= 5:
+                return choice
+
+            print("Please enter a valid choice")
+
 
