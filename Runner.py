@@ -60,7 +60,7 @@ class Runner:
         self._editor.set_infos(photo_list[0], edit_list[0], photo_list[1],edit_list[1],self._folders.get_output_folder_path())
         # get the name of the last file ... ( this will need an update )
         # edit the queue then clean the folder
-        joined_photo = self._editor.edit() # there was a redundancy with the usage of "clean_current_path" method, given that at this point there won't be any image in "current" folder
+        joined_photo = self._editor.edit()
         print(joined_photo)
         return joined_photo
 
