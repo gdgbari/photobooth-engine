@@ -63,6 +63,9 @@ class Tailor:
         second_photo = self.prepare_single_photo(self._second_photo, self._second_effect)
         output_file = self._combine_two_photos(first_photo,second_photo)
 
+        #HERE PADDING
+        output_file = self.add_final_padding(output_file, 98)
+
         output_file.save(edited_file_path, "JPEG")
 
         # give 777 to edited file
@@ -112,6 +115,22 @@ class Tailor:
 
         return output
 
+    def add_final_padding(self, image: Image, percentage: int) -> Image:
+        # i build a background big as the image but of color: #f0f0f0
+        # resize the image with percentage
+        # put the image onto the background
+        img_w, img_h =  image.size
+        canvas = Image.new('RGB', (img_w, img_h), (240,240,240))
+        resized_w = int(img_w*(percentage/100))
+        resized_h = int(img_h*(percentage/100))
+        resized_image = image.resize((resized_w,resized_h))
+        w_padding = int((img_w - resized_w) /2)
+        h_padding = int((img_h - resized_h) /2)
+        canvas.paste(resized_image, (w_padding,h_padding))
+
+        return canvas
+
+
 
     # def _final_cleaning(self, originals_folder : str, file_name : str):
         # WARNING: this function is deprecated
@@ -126,10 +145,11 @@ class Tailor:
 # eff_path = "/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png"
 # output_f = "/home/gape01/Desktop"
 # tailor = Tailor(ph_path,eff_path,output_f)
-#tailor = Tailor()
-#tailor.set_infos('/mnt/c/Users/gassi/Desktop/main/test.jpg',
-#                 '/mnt/c/Users/gassi/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
-#                 '/mnt/c/Users/gassi/Desktop/main/test.jpg',
-#                 '/mnt/c/Users/gassi/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
-#                 '/mnt/c/Users/gassi/Desktop/main/output')
+# tailor = Tailor()
+# tailor.set_infos('/home/gape01/PycharmProjects/photobooth/Assets/test.jpg',
+#                 '/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
+#                 '/home/gape01/PycharmProjects/photobooth/Assets/test.jpg',
+#                 '/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
+#                 '/home/gape01/Desktop/main/output')
+#tailor.edit()
 # tailor.edit("prova.jpg")
