@@ -4,6 +4,7 @@ from UserInteraction import UserInterface
 from CameraManager import PhotoManager
 from PhotoTailor import Tailor
 from QueueManager import QueueManager
+from new_print import print_image
 
 import utils
 
@@ -25,14 +26,9 @@ class Runner:
 
 
     def main_execution(self):
-        while True:
-            self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._file_naming.get_photo_name(), self._ui)
-            # self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
-            self._file_naming.increment_session_number()
-            photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
-            if self._ui.confirm_shot(photo_path, utils.detect_os()):
-                # the photo is accepted, we can go on
-                break
+
+        [photo_path, photo_name] = self.choice_photo_with_preview()
+
         # effect_name = self._ui.choose_polaroid_effect()
         # effect_path = utils.get_asset_path_from_name(effect_name)
         effect_path = self.choice_edit_with_preview(photo_path)
@@ -43,7 +39,20 @@ class Runner:
         self._queue.add_edit(effect_path,times)
 
         while self._queue.queue_is_ready(): # if there are 2 or more photos in queue then start to edit
-            self.edit(photo_path, effect_path)
+            path_to_print=self.edit(photo_path, effect_path)
+            print_image(path_to_print)
+
+    def choice_photo_with_preview(self):
+        while True:
+            self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._file_naming.get_photo_name(), self._ui)
+            #self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
+
+            photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
+            if self._ui.confirm_shot(photo_path, utils.detect_os()):
+                # the photo is accepted, we can go on
+                # session has ended
+                self._file_naming.increment_session_number()
+                return [photo_path, photo_name]
 
     def choice_edit_with_preview(self, photo_path):
         while True:
