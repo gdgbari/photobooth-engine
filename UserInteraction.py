@@ -115,4 +115,25 @@ class UserInterface:
 
             print("Please enter a valid choice")
 
+    def visualize_current_photos(self, path):
+        photos_list = os.listdir(path)
+        photos_list.sort()
+
+        # subprocess.run(["nautilus", path]) #TODO make it cross platform
+
+        while True:
+            for i in range(0, len(photos_list)):
+                print(f"{i + 1}. Visualize {photos_list[i]}")
+            # print(f"{len(photos_list) + 1}. Make another burst")
+            # print(f"{len(photos_list) + 2}. Go back")
+            choice = int(input("Enter your choice: "))
+
+            if 1 <= choice <= (len(photos_list)):
+                """op_sys = detect_os()
+                result = self.confirm_shot(os.path.join(path, photos_list[choice - 1]), op_sys)
+                if result is True:"""
+                return os.path.join(path, photos_list[choice - 1])
+
+            print("Please enter a valid choice")
+
 
