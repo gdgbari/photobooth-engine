@@ -6,7 +6,11 @@ from PhotoTailor import Tailor
 from QueueManager import QueueManager
 from new_print import print_image
 
+from DESASTER_RECOVERY import resume_old_session
+
 import utils
+import os
+import shutil
 
 class Runner:
 
@@ -26,8 +30,12 @@ class Runner:
 
 
     def main_execution(self):
-
-        [photo_path, photo_name] = self.choice_photo_with_preview()
+        disaster_has_happened = resume_old_session(self._folders.get_current_path())
+        photo_path = ''
+        if isinstance(disaster_has_happened, str):
+            photo_path = disaster_has_happened
+        else:
+            [photo_path, photo_name] = self.choice_photo_with_preview()
 
         # effect_name = self._ui.choose_polaroid_effect()
         # effect_path = utils.get_asset_path_from_name(effect_name)
@@ -44,15 +52,20 @@ class Runner:
 
     def choice_photo_with_preview(self):
         while True:
-            self._camera.get_shoot_from_pc(self._folders.get_current_path(), self._file_naming.get_photo_name(), self._ui)
-            #self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
+            file_name = self._file_naming.get_photo_name()
+            photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
+            # self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
-            photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
+            # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
             if self._ui.confirm_shot(photo_path, utils.detect_os()):
                 # the photo is accepted, we can go on
                 # session has ended
                 self._file_naming.increment_session_number()
-                return [photo_path, photo_name]
+                return [photo_path, '']
+            else:
+                shutil.move(os.path.join(self._folders.get_current_path(), file_name), os.path.join(self._folders.get_originals_path(), file_name))
+
+
 
     def choice_edit_with_preview(self, photo_path):
         while True:
