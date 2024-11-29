@@ -5,6 +5,7 @@ from UserInteraction import UserInterface
 from PhotoTailor import Tailor
 
 import utils
+import os
 
 from Runner import Runner
 
