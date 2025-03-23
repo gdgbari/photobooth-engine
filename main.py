@@ -1,13 +1,11 @@
-from SettingsManager import Settings
-from FolderManager import FolderManager
 from CameraManager import PhotoManager
-from UserInteraction import UserInterface
+from FolderManager import FolderManager
 from PhotoTailor import Tailor
-
-import utils
-import os
-
 from Runner import Runner
+from SettingsManager import Settings
+from UserInteraction import UserInterface
+import utils
+
 
 def main():
     print('hello world')
@@ -38,7 +36,5 @@ def new_main():
     while runner.keep_going():
         runner.main_execution()
 
-
 if __name__ == '__main__':
     new_main()
-

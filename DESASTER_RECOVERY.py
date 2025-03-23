@@ -1,7 +1,7 @@
-import os
-from UserInteraction import UserInterface
 from FolderManager import FolderManager
 from SettingsManager import Settings
+from UserInteraction import UserInterface
+import os
 
 
 def resume_old_session(current_path):

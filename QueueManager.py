@@ -1,7 +1,5 @@
 # from types import NoneType
-
 import yaml
-
 
 
 class QueueManager:
@@ -51,8 +49,6 @@ class QueueManager:
         if yaml_dict is not None:
             self._dict['photos'] = yaml_dict['photos']
             self._dict['edits'] = yaml_dict['edits']
-
-
 
     def dismiss(self):
         self._dict = {'photos': [], 'edits': []}

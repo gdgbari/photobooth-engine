@@ -1,7 +1,8 @@
+from utils import Platform
 import os
 import subprocess
 import utils
-from utils import Platform
+
 
 class PrinterManager:
 

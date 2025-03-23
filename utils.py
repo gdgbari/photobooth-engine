@@ -1,12 +1,13 @@
+from PIL import Image
 import os
 import platform
-from PIL import Image
+
 
 def get_asset_path_from_name(asset_name : str) -> str:
     # WARNING: if this function is not in the main folder of the project,
     # it will not work properly
     current_working_dir = os.getcwd()
-    output_path = os.path.join(current_working_dir,'Assets')
+    output_path = os.path.join(current_working_dir, 'Assets')
     output_path = os.path.join(output_path, asset_name)
     return output_path
 
@@ -22,7 +23,9 @@ def get_the_file_in_dir(folder_path :str) :
 def get_name_from_path(file_path :str) -> str:
     return os.path.basename(file_path)
 
+
 class Platform:
+
     def __init__(self, platform_name):
         self._platform = platform_name
 
@@ -78,4 +81,3 @@ def get_string_from_session_number(session_number):
         return f"0{session_number}"
 
     return session_number
-

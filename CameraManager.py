@@ -1,8 +1,11 @@
+from SettingsManager import Settings
+from UserInteraction import UserInterface
+from gphoto2 import GPhoto2Error
 import gphoto2 as gp
 import os
 import shutil
-from SettingsManager import Settings
-from UserInteraction import UserInterface
+import subprocess
+import time
 
 
 # let's be honest, the library chosen is a complete mess, the author himself said that:
@@ -13,6 +16,7 @@ from UserInteraction import UserInterface
 
 
 class PhotoManager:
+
     def __init__(self):
         creation_error, camera = gp.gp_camera_new()
         self._camera = camera
@@ -48,11 +52,27 @@ class PhotoManager:
         finally:
             print('nothing detected')
 
-    def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface):
+    def get_shoot_from_pc(self, path, photo_name, settings_manager: Settings, user_interactor : UserInterface):
         user_interactor.press_to_shot()
-        # print('Capturing image')
-        file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
-        # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
+        try:
+            # print('Capturing image')
+            file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
+            # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
+        except GPhoto2Error:
+            print('camera got detached. trying to reconnect...')
+
+            while True:
+                output = subprocess.run(['sudo', 'gphoto2', '--auto-detect'], capture_output=True, text=True)
+                for line in output.stdout.split('\n'):
+                    if settings_manager.get_cam_producer() in line:
+                        break
+                    else:
+                        time.sleep(1)
+
+            self.start_camera()
+            user_interactor.press_to_shot()
+            file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
+
         target = os.path.join(path, photo_name)
         # print('Copying image to', target)
         camera_file = self._camera.file_get(
