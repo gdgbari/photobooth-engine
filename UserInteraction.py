@@ -7,15 +7,18 @@ import os
 
 class UserInterface:
 
+    def __init__(self, polaroid_effect_list : list):
+        self.effect_list = polaroid_effect_list
+
     def choose_polaroid_effect(self) -> str:
-        effect_list = ['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular',
-                       'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore']
+        # effect_list = ['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular',
+        #               'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore']
 
         print('Choose which effect to apply')
 
         while True:
             index = 1
-            for effect_name in effect_list:
+            for effect_name in self.effect_list:
                 print(f'[{index}]: {effect_name}')
                 index = index + 1
 
@@ -137,3 +140,6 @@ class UserInterface:
             print("Please enter a valid choice")
 
 
+# DEBUG SECTION
+# ui = UserInterface(['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular', 'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore'])
+# print(ui.choose_polaroid_effect())

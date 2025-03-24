@@ -13,7 +13,16 @@ class Settings:
             yaml_dict = yaml.safe_load(yaml_file)
 
         return yaml_dict['main_folder_path']
+    
+    def get_polaroid_effects(self) -> list:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict['effects_name_list']
 
 # DEBUG SECTION
 # settings = Settings()
 # print(settings.get_main_folder_path())
+# print(settings.get_polaroid_effects())
+# effect_dict = settings.get_polaroid_effects()
+# print(type(effect_dict))

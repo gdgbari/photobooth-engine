@@ -17,16 +17,22 @@ class Runner:
     def __init__(self):
         self._settings = Settings()
         self._folders = FolderManager(self._settings.get_main_folder_path())
-        self._ui = UserInterface()
+        self._ui = UserInterface(self._settings.get_polaroid_effects)
         self._camera = PhotoManager()
         self._editor = Tailor()
         self._queue = QueueManager()
         self._continue = True
         self._file_naming = FileNaming()
+        # if in asset only one corner is present,
+        # there is no need to ask the user every time which one apply
+        self._SINGLE_CORNER = False
 
     def prepare(self):
         self._camera.start_camera()
         self._queue.load_queue()
+
+        # now check how many corners are present in the assets
+
 
 
     def main_execution(self):
@@ -47,7 +53,7 @@ class Runner:
         self._queue.add_edit(effect_path,times)
 
         while self._queue.queue_is_ready(): # if there are 2 or more photos in queue then start to edit
-            path_to_print=self.edit(photo_path, effect_path)
+            path_to_print=self.edit(photo_path, effect_path) # actually there is no more the need to declare here this paths
             print_image(path_to_print)
 
     def choice_photo_with_preview(self):
