@@ -15,11 +15,11 @@ class Settings:
 
         return yaml_dict['main_folder_path']
 
-    def get_cam_producer(self) -> str:
+    def get_cam_name(self) -> str:
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
 
-        return yaml_dict['cam_producer']
+        return yaml_dict['cam_name']
 
 
 # DEBUG SECTION

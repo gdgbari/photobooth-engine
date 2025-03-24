@@ -7,8 +7,8 @@ import os
 def resume_old_session(current_path):
     if len(os.listdir(current_path)) != 0:
         print('maybe some error occured in the last session')
-        choihce = input('do you want to resume it?')
-        if choihce == 'y':
+        choice = input('do you want to resume it?')
+        if choice == 'y':
             ui = UserInterface()
             return ui.visualize_current_photos(current_path)
         else:

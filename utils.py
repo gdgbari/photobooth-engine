@@ -1,6 +1,7 @@
-from PIL import Image
+from SettingsManager import Settings
 import os
 import platform
+import subprocess
 
 
 def get_asset_path_from_name(asset_name : str) -> str:
@@ -12,7 +13,6 @@ def get_asset_path_from_name(asset_name : str) -> str:
     return output_path
 
 def get_the_file_in_dir(folder_path :str) :
-
     files = os.listdir(folder_path)
     files_path = []
     for file_name in files:
@@ -65,14 +65,12 @@ def detect_os():
     return output_obj
 
 def get_string_from_photo_number(photo_number):
-
     if len(str(photo_number)) == 1:
         return f"0{photo_number}"
 
     return photo_number
 
 def get_string_from_session_number(session_number):
-
     if len(str(session_number)) == 1:
         return f"000{session_number}"
     elif len(str(session_number)) == 2:
@@ -81,3 +79,17 @@ def get_string_from_session_number(session_number):
         return f"0{session_number}"
 
     return session_number
+
+def get_bus_and_id(settings_manager: Settings):
+    output = subprocess.run(['sudo', 'gphoto2', '--auto-detect'], capture_output=True, text=True)
+    for line in output.stdout.split('\n'):
+        if settings_manager.get_cam_name() in line:
+            bus = line.split(',')[0].split(':')[1]
+            id = line.split(',')[1].split(' ')[0]
+            return [bus, id]
+
+def kill_process(bus, id):
+    output = subprocess.run(['fuser', '-v', '/dev/bus/usb/' + bus + '/' + id], capture_output=True, text=True)
+    if len(output.stdout) > 0:
+        id = output.stdout[2:]
+        subprocess.run(['sudo', 'kill', '-9', id])

@@ -80,8 +80,6 @@ class PrinterManager:
                 print(f"Un errore inaspettato è avvenuto: {e}")
 
 
-
-
 # DEBUG
 printer = PrinterManager(utils.detect_os())
 # printer.print('/mnt/c/Users/gassi/Desktop/main/output/test.jpg')

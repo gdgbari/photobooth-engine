@@ -1,6 +1,7 @@
 from SettingsManager import Settings
 from UserInteraction import UserInterface
 from gphoto2 import GPhoto2Error
+from utils import get_bus_and_id, kill_process
 import gphoto2 as gp
 import os
 import shutil
@@ -20,9 +21,12 @@ class PhotoManager:
     def __init__(self):
         creation_error, camera = gp.gp_camera_new()
         self._camera = camera
+        self._settings_manager = Settings()
 
     def start_camera(self):
         # maybe later here could be added a loop in case the usb cave got detached
+        bus, id = get_bus_and_id(self._settings_manager)
+        kill_process(bus, id)
         self._camera.init()
 
     def stop_camera(self):
@@ -64,10 +68,15 @@ class PhotoManager:
             while True:
                 output = subprocess.run(['sudo', 'gphoto2', '--auto-detect'], capture_output=True, text=True)
                 for line in output.stdout.split('\n'):
-                    if settings_manager.get_cam_producer() in line:
+                    if settings_manager.get_cam_name() in line:
+                        creation_error, camera = gp.gp_camera_new()
+                        self._camera = camera
                         break
-                    else:
-                        time.sleep(1)
+
+                if self._camera:
+                    break
+
+                time.sleep(1)
 
             self.start_camera()
             user_interactor.press_to_shot()
