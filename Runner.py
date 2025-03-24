@@ -17,7 +17,7 @@ class Runner:
     def __init__(self):
         self._settings = Settings()
         self._folders = FolderManager(self._settings.get_main_folder_path())
-        self._ui = UserInterface(self._settings.get_polaroid_effects)
+        self._ui = UserInterface(self._settings.get_polaroid_effects())
         self._camera = PhotoManager()
         self._editor = Tailor()
         self._queue = QueueManager()
@@ -25,14 +25,17 @@ class Runner:
         self._file_naming = FileNaming()
         # if in asset only one corner is present,
         # there is no need to ask the user every time which one apply
-        self._SINGLE_CORNER = False
+        self._SINGLE_FRAME = False
 
     def prepare(self):
         self._camera.start_camera()
         self._queue.load_queue()
 
         # now check how many corners are present in the assets
-
+        if len(os.listdir("Assets")) > 1:
+            self._SINGLE_FRAME = False
+        else:
+            self._SINGLE_FRAME = True
 
 
     def main_execution(self):
@@ -45,7 +48,10 @@ class Runner:
 
         # effect_name = self._ui.choose_polaroid_effect()
         # effect_path = utils.get_asset_path_from_name(effect_name)
-        effect_path = self.choice_edit_with_preview(photo_path)
+        if self._SINGLE_FRAME:
+            effect_path = self.show_single_edit(photo_path)
+        else:
+            effect_path = self.choice_edit_with_preview(photo_path)
 
         times = self._ui.choose_times_to_print()
         # the photo is added to the queue and the folder get cleared
@@ -60,7 +66,7 @@ class Runner:
         while True:
             file_name = self._file_naming.get_photo_name()
             photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
-            # self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
+            # photo_path = self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
             if self._ui.confirm_shot(photo_path, utils.detect_os()):
@@ -72,6 +78,14 @@ class Runner:
                 shutil.move(os.path.join(self._folders.get_current_path(), file_name), os.path.join(self._folders.get_originals_path(), file_name))
 
 
+    def show_single_edit(self, photo_path):
+        """
+        In case a single effect is proposed, there is no need to let thte user choice
+        """
+        effect_name = os.listdir("Assets")[0]
+        effect_path = utils.get_asset_path_from_name(effect_name)
+        self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
+        return effect_path
 
     def choice_edit_with_preview(self, photo_path):
         while True:

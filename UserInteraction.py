@@ -95,7 +95,14 @@ class UserInterface:
     def notify_shot_taken(self):
         print('shot taken')
 
-    def show_preview_image(self, previw_img: Image):
+    def show_preview_without_response(self, previw_img: Image):
+        """
+        Used in case there is only a single corner possible, thwere is no need to get the user response
+        """
+        print('here the edit')
+        previw_img.show()
+
+    def show_preview_image(self, previw_img: Image) -> bool:
         print('here the edit')
         previw_img.show()
         print('do you like it?')
