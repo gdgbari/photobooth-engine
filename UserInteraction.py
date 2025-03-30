@@ -31,7 +31,7 @@ class UserInterface:
 
             print('Some error occurred, please try again')
 
-        file_name = 'Polaroid - ' + str(chosen_edit) + '.png'
+        file_name = self.effect_list[chosen_edit-1] + '.png'
         return file_name
 
     def confirm_shot(self, photo_path, os_platform: Platform) -> bool:
