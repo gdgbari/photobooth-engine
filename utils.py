@@ -93,3 +93,11 @@ def kill_process(bus, id):
     output = subprocess.run(['fuser', '-v', '/dev/bus/usb/' + bus + '/' + id], capture_output=True, text=True)
     if len(output.stdout) > 0:
         subprocess.run(['sudo', 'kill', '-9', output.stdout])
+
+def camera_is_connected(settings_manager: Settings) -> bool:
+    output = subprocess.run(['gphoto2', '--auto-detect'], capture_output=True, text=True)
+    for line in output.stdout.split('\n'):
+        if settings_manager.get_cam_name() in line:
+            return True
+
+    return False
