@@ -1,5 +1,5 @@
 from SettingsManager import Settings
-from FolderManager import FolderManager, FileNaming
+from FolderManager import FolderManager, FileNaming, AssetManager
 from UserInteraction import UserInterface
 from CameraManager import PhotoManager
 from PhotoTailor import Tailor
@@ -17,12 +17,13 @@ class Runner:
     def __init__(self):
         self._settings = Settings()
         self._folders = FolderManager(self._settings.get_main_folder_path())
-        self._ui = UserInterface(self._settings.get_polaroid_effects())
         self._camera = PhotoManager()
         self._editor = Tailor()
         self._queue = QueueManager()
         self._continue = True
         self._file_naming = FileNaming()
+        self._assets = AssetManager()
+        self._ui = UserInterface(self._assets.get_corners_names())
         # if in asset only one corner is present,
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
@@ -32,10 +33,7 @@ class Runner:
         self._queue.load_queue()
 
         # now check how many corners are present in the assets
-        if len(os.listdir("Assets")) > 1:
-            self._SINGLE_FRAME = False
-        else:
-            self._SINGLE_FRAME = True
+        self._SINGLE_FRAME = self._assets.is_frame_single()
 
 
     def main_execution(self):
@@ -82,7 +80,7 @@ class Runner:
         """
         In case a single effect is proposed, there is no need to let thte user choice
         """
-        effect_name = os.listdir("Assets")[0]
+        effect_name = self._assets.get_corners_names[0]+".png"
         effect_path = utils.get_asset_path_from_name(effect_name)
         self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
         return effect_path
