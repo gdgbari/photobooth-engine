@@ -4,7 +4,7 @@ from UserInteraction import UserInterface
 from CameraManager import PhotoManager
 from PhotoTailor import Tailor
 from QueueManager import QueueManager
-from new_print import print_image
+from Printer import Printer
 
 from DESASTER_RECOVERY import resume_old_session
 
@@ -23,10 +23,12 @@ class Runner:
         self._queue = QueueManager()
         self._continue = True
         self._file_naming = FileNaming()
+        self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options())
 
     def prepare(self):
         self._camera.start_camera()
         self._queue.load_queue()
+        self._printer.prepare()
 
 
     def main_execution(self):
@@ -48,13 +50,13 @@ class Runner:
 
         while self._queue.queue_is_ready(): # if there are 2 or more photos in queue then start to edit
             path_to_print=self.edit(photo_path, effect_path)
-            print_image(path_to_print)
+            self._printer.print_image(path_to_print)
 
     def choice_photo_with_preview(self):
         while True:
             file_name = self._file_naming.get_photo_name()
             photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
-            # self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
+            # photo_path = self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
             if self._ui.confirm_shot(photo_path, utils.detect_os()):
