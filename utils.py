@@ -80,20 +80,6 @@ def get_string_from_session_number(session_number):
 
     return session_number
 
-def get_bus_and_id(settings_manager: Settings):
-    output = subprocess.run(['sudo', 'gphoto2', '--auto-detect'], capture_output=True, text=True)
-    for line in output.stdout.split('\n'):
-        line = line.upper()
-        if settings_manager.get_cam_name().upper() in line:
-            bus = line.split(',')[0].split(':')[1]
-            id = line.split(',')[1].split(' ')[0]
-            return [bus, id]
-
-def kill_process(bus, id):
-    output = subprocess.run(['fuser', '-v', '/dev/bus/usb/' + bus + '/' + id], capture_output=True, text=True)
-    if len(output.stdout) > 0:
-        subprocess.run(['sudo', 'kill', '-9', output.stdout])
-
 def camera_is_connected(settings_manager: Settings) -> bool:
     output = subprocess.run(['gphoto2', '--auto-detect'], capture_output=True, text=True)
     for line in output.stdout.split('\n'):
