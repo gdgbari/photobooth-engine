@@ -80,7 +80,7 @@ class Runner:
         """
         In case a single effect is proposed, there is no need to let thte user choice
         """
-        effect_name = self._assets.get_corners_names[0]+".png"
+        effect_name = self._assets.get_corners_names()[0]+".png"
         effect_path = utils.get_asset_path_from_name(effect_name)
         self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
         return effect_path
