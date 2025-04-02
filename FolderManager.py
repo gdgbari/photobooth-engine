@@ -1,10 +1,11 @@
+from SettingsManager import Settings
+from logging import DEBUG
 import os
 import shutil
-from logging import DEBUG
-
 import utils
-from SettingsManager import Settings
 import yaml
+
+
 # FOLDERS EXPLANATION
 #
 #    main_folder
@@ -12,6 +13,7 @@ import yaml
 #       |___________> originals     [ all the originals chosen shots                                              ]
 #       |___________> output        [ all the outputs: cropped and cornered                                       ]
 #
+
 
 class FolderManager:
 
@@ -91,7 +93,6 @@ class FileNaming:
 
         return yaml_dict["session"]
 
-
 class AssetManager:
 
     def __init__(self):
@@ -113,7 +114,6 @@ class AssetManager:
                 filename = filename.replace(".png", "")
                 corner_list.append(filename)
         return corner_list
-    
 
 #DEBUG
 # file_naming = FileNaming()

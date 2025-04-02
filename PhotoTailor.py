@@ -5,6 +5,7 @@ import os
 import shutil
 import utils
 
+
 class Tailor:
 
     def __init__(self):
@@ -39,8 +40,6 @@ class Tailor:
             i += 1
         return path
 
-
-
     def edit(self)-> str:
         """
         Edits the photos
@@ -59,7 +58,6 @@ class Tailor:
         #   it seems that the correct h of the input image is 1528 px or 76,4 %
         #   it seam that the correct upper margin is 83 px or 4,15 %
         # END OF DISCUSSION
-
 
         edited_file_path = self._build_output_path()
         first_photo = self.prepare_single_photo(self._first_photo, self._first_effect)
@@ -132,8 +130,6 @@ class Tailor:
         canvas.paste(resized_image, (w_padding,h_padding))
 
         return canvas
-
-
 
     # def _final_cleaning(self, originals_folder : str, file_name : str):
         # WARNING: this function is deprecated

@@ -1,5 +1,6 @@
 import subprocess
 
+
 def print_image(file_path):
     printer_name = 'Dai-Nippon-Printing-DS40'
     # printer_name = 'OLIVETTI_d_COPIA_6000MF'
@@ -21,6 +22,7 @@ def print_image(file_path):
         print(f"An error occurred while printing: {e}")
     except FileNotFoundError:
         print("The 'lp' command was not found. Ensure CUPS is installed.")
+
 
 # Esempio di utilizzo
 
