@@ -8,11 +8,11 @@ from PhotoTailor import Tailor
 from QueueManager import QueueManager
 from SettingsManager import Settings
 from UserInteraction import UserInterface
-from new_print import print_image
+from Printer import Printer
+
 import os
 import utils
 import shutil
-
 
 class Runner:
 
@@ -29,10 +29,12 @@ class Runner:
         # if in asset only one corner is present,
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
+        self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options())
 
     def prepare(self):
         self._camera.start_camera()
         self._queue.load_queue()
+        self._printer.prepare()
 
         # now check how many corners are present in the assets
         self._SINGLE_FRAME = self._assets.is_frame_single()
@@ -59,7 +61,7 @@ class Runner:
 
         while self._queue.queue_is_ready(): # if there are 2 or more photos in queue then start to edit
             path_to_print=self.edit(photo_path, effect_path) # actually there is no more the need to declare here this paths
-            print_image(path_to_print)
+            self._printer.print_image(path_to_print)
 
     def choice_photo_with_preview(self):
         while True:
@@ -91,6 +93,7 @@ class Runner:
             effect_path = utils.get_asset_path_from_name(effect_name)
             if self._ui.show_preview_image(self._editor.prepare_single_photo(photo_path, effect_path)):
                 return effect_path
+
 
     def edit(self, photo_path, effect_path):
         # let's edit it
