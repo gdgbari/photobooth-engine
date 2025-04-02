@@ -89,7 +89,7 @@ class Tailor:
 
         # transform the background in order to have a height of 1528 px, width of same ratio
         background_width, background_height = background.size
-        new_background_height = 1528
+        new_background_height = 1437
         new_background_width = int((new_background_height / background_height) * background_width)
         background = background.resize((new_background_width, new_background_height), Image.Resampling.LANCZOS)
         background_width = new_background_width
@@ -102,7 +102,7 @@ class Tailor:
             (lateral_margin_to_cut, 0, lateral_margin_to_cut + foreground_width, background_height))
 
         # add padding space on the top and the bottom of the background image, to have the same height of foreground
-        margin_space = 82
+        margin_space = 183
         new_background = Image.new('RGB', (foreground_width, foreground_height), 'black')
         new_background.paste(background, (0, margin_space))
         background = new_background
