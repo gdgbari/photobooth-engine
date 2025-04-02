@@ -8,15 +8,18 @@ import subprocess
 
 class UserInterface:
 
+    def __init__(self, polaroid_effect_list : list):
+        self.effect_list = polaroid_effect_list
+
     def choose_polaroid_effect(self) -> str:
-        effect_list = ['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular',
-                       'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore']
+        # effect_list = ['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular',
+        #               'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore']
 
         print('Choose which effect to apply')
 
         while True:
             index = 1
-            for effect_name in effect_list:
+            for effect_name in self.effect_list:
                 print(f'[{index}]: {effect_name}')
                 index = index + 1
 
@@ -29,7 +32,7 @@ class UserInterface:
 
             print('Some error occurred, please try again')
 
-        file_name = 'Polaroid - ' + str(chosen_edit) + '.png'
+        file_name = self.effect_list[chosen_edit-1] + '.png'
         return file_name
 
     def confirm_shot(self, photo_path, os_platform: Platform) -> bool:
@@ -89,7 +92,14 @@ class UserInterface:
     def notify_shot_taken(self):
         print('shot taken')
 
-    def show_preview_image(self, previw_img: Image):
+    def show_preview_without_response(self, previw_img: Image):
+        """
+        Used in case there is only a single corner possible, thwere is no need to get the user response
+        """
+        print('here the edit')
+        previw_img.show()
+
+    def show_preview_image(self, previw_img: Image) -> bool:
         print('here the edit')
         previw_img.show()
         print('do you like it?')
@@ -132,3 +142,7 @@ class UserInterface:
                 return os.path.join(path, photos_list[choice - 1])
 
             print("Please enter a valid choice")
+
+# DEBUG SECTION
+# ui = UserInterface(['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular', 'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore'])
+# print(ui.choose_polaroid_effect())

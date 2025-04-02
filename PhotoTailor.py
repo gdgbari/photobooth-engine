@@ -15,10 +15,13 @@ class Tailor:
 
     def set_infos(self, first_photo: str, first_effect: str,second_photo: str, second_effect: str, output_folder_path: str):
         """
+        Information to edit two photos toghether in a single file
         Preliminary information for processing the single photo (it must be called before the editing of every photo).
         :param first_photo: the path as string of the chosen photo
         :param first_effect: the path as string of the chosen effect ( the polaroid file in /assets )
         :param output_folder_path: the path as string of the edited file
+
+        Future implementation: maybe it will be more elegant to create a class that just edits the photos and another one that marges them togheter
         """
         self._first_photo = first_photo
         self._first_effect = first_effect

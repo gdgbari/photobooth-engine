@@ -93,7 +93,30 @@ class FileNaming:
 
         return yaml_dict["session"]
 
+class AssetManager:
+
+    def __init__(self):
+        self.assets_path = str(os.path.join(os.getcwd(), "Assets"))
+
+    def is_frame_single(self) -> bool:
+        # check if the assets folder contains only one frame
+        # if so, then we can skip the user choice
+        if len(os.listdir(self.assets_path)) == 1:
+            return True
+        else:
+            return False    
+        
+    def get_corners_names(self) -> list:
+        # get the names of the corners
+        corner_list = []
+        for filename in os.listdir(self.assets_path):
+            if filename.endswith(".png"):
+                filename = filename.replace(".png", "")
+                corner_list.append(filename)
+        return corner_list
 
 #DEBUG
 # file_naming = FileNaming()
 # print(file_naming.increment_session_number())
+# asset_manager = AssetManager()
+# print(asset_manager.get_corners_names())

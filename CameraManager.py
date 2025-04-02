@@ -94,7 +94,7 @@ class PhotoManager:
         user_interactor.press_to_shot()
         # file_path = '/mnt/c/Users/gassi/Desktop/main/test.jpg'
         # file_path = '/mnt/d/project/main/test.jpg'
-        file_path = '/home/gape01/Desktop/test.jpg'
+        file_path = '/home/gape01/Desktop/PROGETTI/photobooth/Assets/test.jpg'
         # file_name = input('input file name:')
         target = os.path.join(path, photo_name)
         shutil.copyfile(file_path, target)

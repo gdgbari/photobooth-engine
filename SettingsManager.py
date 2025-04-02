@@ -25,3 +25,6 @@ class Settings:
 # DEBUG SECTION
 # settings = Settings()
 # print(settings.get_main_folder_path())
+# print(settings.get_polaroid_effects())
+# effect_dict = settings.get_polaroid_effects()
+# print(type(effect_dict))
