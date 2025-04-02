@@ -1,9 +1,10 @@
 from PIL import Image
 from utils import Platform
-import subprocess
 import os
+import subprocess
 
 # I choose to use this functions in a class because then transitioning to a GUI will be easier
+
 
 class UserInterface:
 
@@ -48,9 +49,6 @@ class UserInterface:
             comando = ["sudo", "-u", user, "open", photo_path]
             # Esegui il comando
             subprocess.run(comando)
-        elif os_platform.is_wsl():
-            windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
-            subprocess.run(['powershell.exe', 'Start-Process', windows_path])
 
         while True:
             print('Do you like it? y/n')
@@ -84,7 +82,6 @@ class UserInterface:
                         elif ui_input.lower() == 'n':
                             break
             print('Some error occurred, please try again')
-
 
     def press_to_shot(self):
         input('press any key to shoot')
@@ -135,5 +132,3 @@ class UserInterface:
                 return os.path.join(path, photos_list[choice - 1])
 
             print("Please enter a valid choice")
-
-

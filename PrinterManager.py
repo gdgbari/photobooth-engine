@@ -1,7 +1,8 @@
+from utils import Platform
 import os
 import subprocess
 import utils
-from utils import Platform
+
 
 class PrinterManager:
 
@@ -77,8 +78,6 @@ class PrinterManager:
                     print(f"Errore durante la stampa: {result.stderr}")
             except Exception as e:
                 print(f"Un errore inaspettato è avvenuto: {e}")
-
-
 
 
 # DEBUG

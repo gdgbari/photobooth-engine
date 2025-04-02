@@ -1,10 +1,11 @@
+from SettingsManager import Settings
+from logging import DEBUG
 import os
 import shutil
-from logging import DEBUG
-
 import utils
-from SettingsManager import Settings
 import yaml
+
+
 # FOLDERS EXPLANATION
 #
 #    main_folder
@@ -12,6 +13,7 @@ import yaml
 #       |___________> originals     [ all the originals chosen shots                                              ]
 #       |___________> output        [ all the outputs: cropped and cornered                                       ]
 #
+
 
 class FolderManager:
 
@@ -90,6 +92,7 @@ class FileNaming:
             yaml.dump(yaml_dict, f, default_flow_style=False, allow_unicode=True)
 
         return yaml_dict["session"]
+
 
 #DEBUG
 # file_naming = FileNaming()
