@@ -91,8 +91,12 @@ class Runner:
         """
         effect_name = self._assets.get_corners_names()[0]+".png"
         effect_path = utils.get_asset_path_from_name(effect_name)
-        self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
-        return effect_path
+        # ugly application to get faster
+        # self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
+        if self._ui.show_preview_image(self._editor.prepare_single_photo(photo_path, effect_path)):
+            return effect_path
+        else:
+            return False
 
     def choice_edit_with_preview(self, photo_path):
         while True:
