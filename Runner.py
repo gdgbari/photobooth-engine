@@ -54,6 +54,11 @@ class Runner:
         else:
             effect_path = self.choice_edit_with_preview(photo_path)
 
+        # ugly implementation of a faster pipeline
+        if isinstance(effect_path, bool):
+            if not effect_path:
+                return
+
         times = self._ui.choose_times_to_print()
         # the photo is added to the queue and the folder get cleared
         self._queue.add_photo(self._folders.clean_current_path(photo_path), times)
@@ -70,13 +75,15 @@ class Runner:
             # photo_path = self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
-            if self._ui.confirm_shot(photo_path, utils.detect_os()):
+            # if self._ui.confirm_shot(photo_path, utils.detect_os()):
+            if True:
                 # the photo is accepted, we can go on
                 # session has ended
                 self._file_naming.increment_session_number()
                 return [photo_path, '']
             else:
                 shutil.move(os.path.join(self._folders.get_current_path(), file_name), os.path.join(self._folders.get_originals_path(), file_name))
+                return False
 
     def show_single_edit(self, photo_path):
         """
@@ -84,8 +91,12 @@ class Runner:
         """
         effect_name = self._assets.get_corners_names()[0]+".png"
         effect_path = utils.get_asset_path_from_name(effect_name)
-        self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
-        return effect_path
+        # ugly application to get faster
+        # self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
+        if self._ui.show_preview_image(self._editor.prepare_single_photo(photo_path, effect_path)):
+            return effect_path
+        else:
+            return False
 
     def choice_edit_with_preview(self, photo_path):
         while True:
