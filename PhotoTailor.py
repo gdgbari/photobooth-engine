@@ -5,6 +5,7 @@ import os
 import shutil
 import utils
 
+
 class Tailor:
 
     def __init__(self):
@@ -14,10 +15,13 @@ class Tailor:
 
     def set_infos(self, first_photo: str, first_effect: str,second_photo: str, second_effect: str, output_folder_path: str):
         """
+        Information to edit two photos toghether in a single file
         Preliminary information for processing the single photo (it must be called before the editing of every photo).
         :param first_photo: the path as string of the chosen photo
         :param first_effect: the path as string of the chosen effect ( the polaroid file in /assets )
         :param output_folder_path: the path as string of the edited file
+
+        Future implementation: maybe it will be more elegant to create a class that just edits the photos and another one that marges them togheter
         """
         self._first_photo = first_photo
         self._first_effect = first_effect
@@ -35,8 +39,6 @@ class Tailor:
             path = os.path.join(self._output_folder_path, combined_name + '_0' + str(i) + '.jpg')
             i += 1
         return path
-
-
 
     def edit(self)-> str:
         """
@@ -56,7 +58,6 @@ class Tailor:
         #   it seems that the correct h of the input image is 1528 px or 76,4 %
         #   it seam that the correct upper margin is 83 px or 4,15 %
         # END OF DISCUSSION
-
 
         edited_file_path = self._build_output_path()
         first_photo = self.prepare_single_photo(self._first_photo, self._first_effect)
@@ -88,7 +89,7 @@ class Tailor:
 
         # transform the background in order to have a height of 1528 px, width of same ratio
         background_width, background_height = background.size
-        new_background_height = 1528
+        new_background_height = 1437
         new_background_width = int((new_background_height / background_height) * background_width)
         background = background.resize((new_background_width, new_background_height), Image.Resampling.LANCZOS)
         background_width = new_background_width
@@ -101,7 +102,7 @@ class Tailor:
             (lateral_margin_to_cut, 0, lateral_margin_to_cut + foreground_width, background_height))
 
         # add padding space on the top and the bottom of the background image, to have the same height of foreground
-        margin_space = 82
+        margin_space = 183
         new_background = Image.new('RGB', (foreground_width, foreground_height), 'black')
         new_background.paste(background, (0, margin_space))
         background = new_background
@@ -129,8 +130,6 @@ class Tailor:
         canvas.paste(resized_image, (w_padding,h_padding))
 
         return canvas
-
-
 
     # def _final_cleaning(self, originals_folder : str, file_name : str):
         # WARNING: this function is deprecated

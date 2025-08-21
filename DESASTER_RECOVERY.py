@@ -1,15 +1,16 @@
-import os
-from UserInteraction import UserInterface
-from FolderManager import FolderManager
+from FolderManager import FolderManager, AssetManager
 from SettingsManager import Settings
+from UserInteraction import UserInterface
+import os
 
 
 def resume_old_session(current_path):
     if len(os.listdir(current_path)) != 0:
         print('maybe some error occured in the last session')
-        choihce = input('do you want to resume it?')
-        if choihce == 'y':
-            ui = UserInterface()
+        choice = input('do you want to resume it?')
+        if choice == 'y':
+            assets = AssetManager()
+            ui = UserInterface(assets.get_corners_names())
             return ui.visualize_current_photos(current_path)
         else:
             settings = Settings()
