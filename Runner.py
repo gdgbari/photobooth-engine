@@ -32,7 +32,7 @@ class Runner:
         self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options())
 
     def prepare(self):
-        self._camera.start_camera()
+        self._camera.init_camera()
         self._queue.load_queue()
         self._printer.prepare()
 
