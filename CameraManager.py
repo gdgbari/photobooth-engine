@@ -65,7 +65,8 @@ class PhotoManager:
             # subprocess.call(['xdg-open', target])
             return target
             # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
-        except GPhoto2Error:
+        except GPhoto2Error as e:
+            print(e)
             print('camera got detached')
             self.init_camera()
             self.get_shoot_from_pc(path, photo_name, user_interactor)
@@ -81,7 +82,8 @@ class PhotoManager:
             creation_error, camera = gp.gp_camera_new()
             self._camera = camera
             self._camera.init()
-        except GPhoto2Error:
+        except GPhoto2Error as e:
+            print(e)
             self.init_camera()
 
     def get_fake_shoot(self, path, photo_name, user_interactor : UserInterface):
