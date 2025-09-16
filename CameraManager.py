@@ -69,7 +69,7 @@ class PhotoManager:
             print(e)
             print('camera got detached')
             self.init_camera()
-            self.get_shoot_from_pc(path, photo_name, user_interactor)
+            return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
     def init_camera(self):
         while not camera_is_connected(self._settings_manager):
