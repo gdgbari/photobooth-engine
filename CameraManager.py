@@ -67,7 +67,7 @@ class PhotoManager:
             # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
         except GPhoto2Error as e:
             print(e)
-            print('something got wrong')
+            print('something went wrong')
             self.init_camera()
             return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
