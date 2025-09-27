@@ -1,5 +1,5 @@
 from PIL import Image
-from utils import Platform
+from src.utils.utils import Platform
 import os
 import subprocess
 
