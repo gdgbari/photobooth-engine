@@ -19,6 +19,6 @@ def starter():
 ##########################
 
 src.core.CameraManager.PhotoManager.start_camera = src.test.test_functions.fake_start_camera
-src.core.CameraManager.PhotoManager.get_shoot = src.test.test_functions.get_fake_shoot
+src.core.CameraManager.PhotoManager.get_shoot_from_pc = src.test.test_functions.get_fake_shoot
 
 starter()
