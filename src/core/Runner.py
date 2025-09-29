@@ -55,8 +55,11 @@ class Runner:
             effect_path = self.choice_edit_with_preview(photo_path)
 
         # ugly implementation of a faster pipeline
+        # TODO: make effect_path be path or None Instead of path or False
         if isinstance(effect_path, bool):
             if not effect_path:
+                # clean the folder
+                self._folders.clean_current_path(photo_path)
                 return
 
         times = self._ui.choose_times_to_print()
