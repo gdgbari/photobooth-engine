@@ -3,7 +3,6 @@
 
 
 import os
-print(os.getcwd())
 from src.core.Runner import Runner
 import src.core.CameraManager
 import src.test.test_functions
