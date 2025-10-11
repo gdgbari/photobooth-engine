@@ -29,14 +29,19 @@ class Settings:
 
         return yaml_dict['cam_name']
 
+    def get_event_name(self) -> str:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
 
-        if 'printer_settings' in yaml_dict:
+        return yaml_dict['event_name']
+
+        '''if 'printer_settings' in yaml_dict:
             settings = yaml_dict['printer_settings']
             if list(settings.keys()) == ['']:
                 return None
             return settings
 
-        return None
+        return None'''
 
 # DEBUG SECTION
 # settings = Settings()
