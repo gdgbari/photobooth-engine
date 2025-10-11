@@ -1,0 +1,24 @@
+{
+  // Always treat the project root as the working dir for Jupyter
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+
+  // When you click "Run Python File in Terminal", DON'T cd into the file's folder
+  "python.terminal.executeInFileDir": false,
+
+  // Start new integrated terminals at the project root
+  "terminal.integrated.cwd": "${workspaceFolder}",
+
+  // Ensure Python can import from the project root no matter which file you run
+  // (so `src/` is on sys.path). Linux shown here; add osx/windows if needed.
+  "terminal.integrated.env.linux": {
+    "PYTHONPATH": "${workspaceFolder}"
+  },
+
+  // Make pytest run from the root without needing a pytest.ini
+  "python.testing.pytestEnabled": true,
+  "python.testing.cwd": "${workspaceFolder}",
+  "python.testing.pytestArgs": ["src/test"],
+
+  // Help Pylance resolve imports like `from src...` without red squiggles
+  "python.analysis.extraPaths": ["${workspaceFolder}"]
+}

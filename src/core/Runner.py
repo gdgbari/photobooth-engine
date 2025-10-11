@@ -1,17 +1,17 @@
-from SettingsManager import Settings
-from FolderManager import FolderManager, FileNaming, AssetManager
-from UserInteraction import UserInterface
-from CameraManager import PhotoManager
-from DESASTER_RECOVERY import resume_old_session
-from FolderManager import FolderManager, FileNaming
-from PhotoTailor import Tailor
-from QueueManager import QueueManager
-from SettingsManager import Settings
-from UserInteraction import UserInterface
-from Printer import Printer
+from src.settings.SettingsManager import Settings
+from src.core.FolderManager import FolderManager, FileNaming, AssetManager
+from src.ui.UserInteraction import UserInterface
+from src.core.CameraManager import PhotoManager
+from src.core.disaster_recovery import resume_old_session
+from src.core.FolderManager import FolderManager, FileNaming
+from src.core.PhotoCompManager import Tailor
+from src.core.QueueManager import QueueManager
+from src.settings.SettingsManager import Settings
+from src.ui.UserInteraction import UserInterface
+from src.core.PrinterManager import Printer
 
 import os
-import utils
+import src.utils.utils as utils
 import shutil
 
 class Runner:
@@ -55,8 +55,11 @@ class Runner:
             effect_path = self.choice_edit_with_preview(photo_path)
 
         # ugly implementation of a faster pipeline
+        # TODO: make effect_path be path or None Instead of path or False
         if isinstance(effect_path, bool):
             if not effect_path:
+                # clean the folder
+                self._folders.clean_current_path(photo_path)
                 return
 
         times = self._ui.choose_times_to_print()
@@ -65,7 +68,7 @@ class Runner:
         self._queue.add_edit(effect_path, times)
 
         while self._queue.queue_is_ready(): # if there are 2 or more photos in queue then start to edit
-            path_to_print=self.edit(photo_path, effect_path) # actually there is no more the need to declare here this paths
+            path_to_print=self.edit() # actually there is no more the need to declare here this paths
             self._printer.print_image(path_to_print)
 
     def choice_photo_with_preview(self):
@@ -106,7 +109,7 @@ class Runner:
                 return effect_path
 
 
-    def edit(self, photo_path, effect_path):
+    def edit(self):
         # let's edit it
         photo_list = self._queue.get_two_photos()
         edit_list = self._queue.get_two_edit()

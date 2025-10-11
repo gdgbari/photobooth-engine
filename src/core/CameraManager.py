@@ -1,7 +1,7 @@
-from SettingsManager import Settings
-from UserInteraction import UserInterface
+from src.settings.SettingsManager import Settings
+from src.ui.UserInteraction import UserInterface
 from gphoto2 import GPhoto2Error
-from utils import camera_is_connected
+from src.utils.utils import camera_is_connected
 import gphoto2 as gp
 import os
 import shutil
@@ -23,6 +23,9 @@ class PhotoManager:
         self._settings_manager = Settings()
 
     def stop_camera(self):
+        """
+        blablabla
+        """
         self._camera.exit()
 
     def get_shoot(self, download_path):
@@ -86,15 +89,8 @@ class PhotoManager:
             print(e)
             self.init_camera()
 
-    def get_fake_shoot(self, path, photo_name, user_interactor : UserInterface):
-        user_interactor.press_to_shot()
-        # file_path = '/mnt/c/Users/gassi/Desktop/main/test.jpg'
-        # file_path = '/mnt/d/project/main/test.jpg'
-        file_path = '/home/gape01/Desktop/PROGETTI/photobooth/Assets/test.jpg'
-        # file_name = input('input file name:')
-        target = os.path.join(path, photo_name)
-        shutil.copyfile(file_path, target)
-        return target
+
+
 
 
 # DEBUG
