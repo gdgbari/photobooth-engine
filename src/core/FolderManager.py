@@ -1,8 +1,8 @@
-from SettingsManager import Settings
+from src.settings.SettingsManager import Settings
 from logging import DEBUG
 import os
 import shutil
-import utils
+import src.utils.utils as utils
 import yaml
 
 
@@ -80,7 +80,7 @@ class FileNaming:
         folder = FolderManager(self._settings.get_main_folder_path())
         photo_number = utils.get_string_from_photo_number(len(os.listdir(folder.get_current_path())) + 1)
 
-        return f"DEVFESTBA_{utils.get_string_from_session_number(int(session_number) + 1)}_{photo_number}.jpg"
+        return f"{self._settings.get_event_name()}_{utils.get_string_from_session_number(int(session_number) + 1)}_{photo_number}.jpg"
 
     def increment_session_number(self):
         with open(self._temp_data_path, 'r') as yaml_file:

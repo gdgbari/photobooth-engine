@@ -1,7 +1,7 @@
-from SettingsManager import Settings
-from UserInteraction import UserInterface
+from src.settings.SettingsManager import Settings
+from src.ui.UserInteraction import UserInterface
 from gphoto2 import GPhoto2Error
-from utils import camera_is_connected
+from src.utils.utils import camera_is_connected
 import gphoto2 as gp
 import os
 import shutil
@@ -22,11 +22,10 @@ class PhotoManager:
         self._camera = None
         self._settings_manager = Settings()
 
-    def start_camera(self):
-        # maybe later here could be added a loop in case the usb cave got detached
-        self.init_camera()
-
     def stop_camera(self):
+        """
+        blablabla
+        """
         self._camera.exit()
 
     def get_shoot(self, download_path):
@@ -54,51 +53,44 @@ class PhotoManager:
             print('nothing detected')
 
     def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface):
-        user_interactor.press_to_shot()
         try:
             # print('Capturing image')
-            file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
-            # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
-        except GPhoto2Error:
-            print('camera got detached')
-            time.sleep(2)
-            self.start_camera()
             user_interactor.press_to_shot()
             file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
+            target = os.path.join(path, photo_name)
+            # print('Copying image to', target)
+            camera_file = self._camera.file_get(
+                file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL)
+            camera_file.save(target)
+            os.chmod(target, 0o777)
 
-        target = os.path.join(path, photo_name)
-        # print('Copying image to', target)
-        camera_file = self._camera.file_get(
-            file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL)
-        camera_file.save(target)
-        os.chmod(target, 0o777)
-
-        user_interactor.notify_shot_taken()
-        #subprocess.call(['xdg-open', target])
-        return target
+            user_interactor.notify_shot_taken()
+            # subprocess.call(['xdg-open', target])
+            return target
+            # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
+        except GPhoto2Error as e:
+            print(e)
+            print('something went wrong')
+            self.init_camera()
+            return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
     def init_camera(self):
-        flag = camera_is_connected(self._settings_manager)
-
-        while (flag is False):
-            print('camera not found. check if it''s connected and try again')
-            flag = camera_is_connected(self._settings_manager)
+        while not camera_is_connected(self._settings_manager):
+            print('camera not found. check if it\'s connected and try again')
             time.sleep(2)
 
         print('camera found')
-        creation_error, camera = gp.gp_camera_new()
-        self._camera = camera
-        self._camera.init()
 
-    def get_fake_shoot(self, path, photo_name, user_interactor : UserInterface):
-        user_interactor.press_to_shot()
-        # file_path = '/mnt/c/Users/gassi/Desktop/main/test.jpg'
-        # file_path = '/mnt/d/project/main/test.jpg'
-        file_path = '/home/gape01/Desktop/PROGETTI/photobooth/Assets/test.jpg'
-        # file_name = input('input file name:')
-        target = os.path.join(path, photo_name)
-        shutil.copyfile(file_path, target)
-        return target
+        try:
+            creation_error, camera = gp.gp_camera_new()
+            self._camera = camera
+            self._camera.init()
+        except GPhoto2Error as e:
+            print(e)
+            self.init_camera()
+
+
+
 
 
 # DEBUG
