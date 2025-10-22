@@ -1,5 +1,5 @@
-from src.settings.SettingsManager import Settings
-from src.ui.UserInteraction import UserInterface
+from src.settings.settings_manager import Settings
+from src.ui.userInteraction import UserInterface
 from gphoto2 import GPhoto2Error
 from src.utils.utils import camera_is_connected
 import gphoto2 as gp

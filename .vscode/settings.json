@@ -8,17 +8,20 @@
   // Start new integrated terminals at the project root
   "terminal.integrated.cwd": "${workspaceFolder}",
 
-  // Ensure Python can import from the project root no matter which file you run
-  // (so `src/` is on sys.path). Linux shown here; add osx/windows if needed.
+  // Ensure Python can import from src no matter which file you run
+  // (so `from core ...` works). Add osx/windows blocks as needed.
   "terminal.integrated.env.linux": {
-    "PYTHONPATH": "${workspaceFolder}"
+    "PYTHONPATH": "${workspaceFolder}/src"
   },
 
-  // Make pytest run from the root without needing a pytest.ini
+  // Make pytest run from the root without a pytest.ini
   "python.testing.pytestEnabled": true,
   "python.testing.cwd": "${workspaceFolder}",
-  "python.testing.pytestArgs": ["src/test"],
+  "python.testing.pytestArgs": ["test"],
 
-  // Help Pylance resolve imports like `from src...` without red squiggles
-  "python.analysis.extraPaths": ["${workspaceFolder}"]
+  // Help Pylance resolve imports like `from core...` and `from ui...`
+  "python.analysis.extraPaths": ["${workspaceFolder}/src"],
+
+  // (Optional) if you like using a .env file instead of inline envs
+  // "python.envFile": "${workspaceFolder}/.env"
 }

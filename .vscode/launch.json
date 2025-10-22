@@ -2,7 +2,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      // Run the current Python file with CWD fixed to the project root
       "name": "Python: Current File (root cwd)",
       "type": "python",
       "request": "launch",
@@ -11,7 +10,6 @@
       "cwd": "${workspaceFolder}"
     },
     {
-      // Run pytest from the project root (F5)
       "name": "Pytest (root cwd)",
       "type": "python",
       "request": "launch",

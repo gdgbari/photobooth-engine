@@ -1,14 +1,13 @@
-from src.settings.SettingsManager import Settings
-from src.core.FolderManager import FolderManager, FileNaming, AssetManager
-from src.ui.UserInteraction import UserInterface
-from src.core.CameraManager import PhotoManager
+from src.settings.settings_manager import Settings
+from src.core.folder_manager import FolderManager, FileNaming, AssetManager
+from src.ui.userInteraction import UserInterface
+from src.core.camera_manager import PhotoManager
 from src.core.disaster_recovery import resume_old_session
-from src.core.FolderManager import FolderManager, FileNaming
-from src.core.PhotoCompManager import Tailor
-from src.core.QueueManager import QueueManager
-from src.settings.SettingsManager import Settings
-from src.ui.UserInteraction import UserInterface
-from src.core.PrinterManager import Printer
+from src.core.photo_edit_manager import Tailor
+from src.core.queue_manager import QueueManager
+from src.settings.settings_manager import Settings
+from src.ui.userInteraction import UserInterface
+from src.core.printer_manager import Printer
 
 import os
 import src.utils.utils as utils

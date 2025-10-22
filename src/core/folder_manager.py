@@ -1,4 +1,4 @@
-from src.settings.SettingsManager import Settings
+from src.settings.settings_manager import Settings
 from logging import DEBUG
 import os
 import shutil

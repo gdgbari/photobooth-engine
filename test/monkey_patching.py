@@ -3,9 +3,10 @@
 
 
 import os
-from src.core.Runner import Runner
-import src.core.CameraManager
-import src.test.test_functions
+from src.core.runner import Runner
+from src.core.runner import Runner
+import src.core.camera_manager
+import test_functions
 
 def starter():
     runner = Runner()
@@ -17,7 +18,7 @@ def starter():
 # SUBSTITUTING FUNCTIONS # 
 ##########################
 
-src.core.CameraManager.PhotoManager.init_camera = src.test.test_functions.fake_start_camera
-src.core.CameraManager.PhotoManager.get_shoot_from_pc = src.test.test_functions.get_fake_shoot
+src.core.camera_manager.PhotoManager.init_camera = test_functions.fake_start_camera
+src.core.camera_manager.PhotoManager.get_shoot_from_pc = test_functions.get_fake_shoot
 
 starter()
