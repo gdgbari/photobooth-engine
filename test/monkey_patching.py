@@ -3,10 +3,10 @@
 
 
 import os
-from src.core.runner import Runner
-from src.core.runner import Runner
-import src.core.camera_manager
-import test_functions
+from core.runner import Runner
+from core.runner import Runner
+import core.camera_manager
+import fake_functions as fake_functions
 
 def starter():
     runner = Runner()
@@ -18,7 +18,7 @@ def starter():
 # SUBSTITUTING FUNCTIONS # 
 ##########################
 
-src.core.camera_manager.PhotoManager.init_camera = test_functions.fake_start_camera
-src.core.camera_manager.PhotoManager.get_shoot_from_pc = test_functions.get_fake_shoot
+core.camera_manager.PhotoManager.init_camera = fake_functions.fake_start_camera
+core.camera_manager.PhotoManager.get_shoot_from_pc = fake_functions.get_fake_shoot
 
 starter()
