@@ -1,16 +1,16 @@
-from src.settings.settings_manager import Settings
-from src.core.folder_manager import FolderManager, FileNaming, AssetManager
-from src.ui.userInteraction import UserInterface
-from src.core.camera_manager import PhotoManager
-from src.core.disaster_recovery import resume_old_session
-from src.core.photo_edit_manager import Tailor
-from src.core.queue_manager import QueueManager
-from src.settings.settings_manager import Settings
-from src.ui.userInteraction import UserInterface
-from src.core.printer_manager import Printer
+from settings.settings_manager import Settings
+from core.folder_manager import FolderManager, FileNaming, AssetManager
+from ui.userInteraction import UserInterface
+from core.camera_manager import PhotoManager
+from core.disaster_recovery import resume_old_session
+from core.photo_edit_manager import Tailor
+from core.queue_manager import QueueManager
+from settings.settings_manager import Settings
+from ui.userInteraction import UserInterface
+from core.printer_manager import Printer
 
 import os
-import src.utils.utils as utils
+import utils.utils as utils
 import shutil
 
 class Runner:

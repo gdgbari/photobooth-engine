@@ -1,4 +1,4 @@
-from src.settings.settings_manager import Settings
+from settings.settings_manager import Settings
 import os
 import platform
 import subprocess

@@ -3,7 +3,7 @@
 from PIL import Image
 import os
 import shutil
-import src.utils.utils as utils
+import utils.utils as utils
 
 
 class Tailor:

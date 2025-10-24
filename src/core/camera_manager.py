@@ -1,7 +1,7 @@
-from src.settings.settings_manager import Settings
-from src.ui.userInteraction import UserInterface
+from settings.settings_manager import Settings
+from ui.userInteraction import UserInterface
 from gphoto2 import GPhoto2Error
-from src.utils.utils import camera_is_connected
+from utils.utils import camera_is_connected
 import gphoto2 as gp
 import os
 import shutil

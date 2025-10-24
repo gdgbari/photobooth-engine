@@ -1,8 +1,8 @@
-from src.settings.settings_manager import Settings
+from settings.settings_manager import Settings
 from logging import DEBUG
 import os
 import shutil
-import src.utils.utils as utils
+import utils.utils as utils
 import yaml
 
 
