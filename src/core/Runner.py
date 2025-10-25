@@ -27,6 +27,7 @@ class Runner:
         '''
         Constructor method.
         '''
+
         self._settings = Settings()
         self._folders = FolderManager(self._settings.get_main_folder_path())
         self._camera = PhotoManager()
@@ -45,6 +46,7 @@ class Runner:
         '''
         Method which allows to prepare camera, initzialize printing and editing queue and prepare the printer.
         '''
+
         self._camera.init_camera()
         self._queue.load_queue()
         self._printer.prepare()
@@ -60,6 +62,7 @@ class Runner:
         Then the user is asked how many copies of the photo he wants to print.
         At the end if there are 2 or more photos in the printing queue the printing process starts.
         '''
+
         disaster_has_happened = resume_old_session(self._folders.get_current_path())
         photo_path = ''
         if isinstance(disaster_has_happened, str):
@@ -96,6 +99,7 @@ class Runner:
         Method which allows the user to take a photo.
         :return: shooted photo path
         '''
+
         while True:
             file_name = self._file_naming.get_photo_name()
             photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
@@ -118,6 +122,7 @@ class Runner:
         :param photo_path: photo path to edit
         :return: path of the effect or False
         """
+
         effect_name = self._assets.get_corners_names()[0]+".png"
         effect_path = utils.get_asset_path_from_name(effect_name)
         # ugly application to get faster
@@ -134,6 +139,7 @@ class Runner:
         :param photo_path: photo path to edit
         :return: path of the effect
         '''
+
         while True:
             effect_name = self._ui.choose_polaroid_effect()
             effect_path = utils.get_asset_path_from_name(effect_name)
