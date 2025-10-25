@@ -82,7 +82,7 @@ class PhotoManager:
     def init_camera(self):
         '''
         Method which initializes the camera.
-        If something goes wrong, it retries until the camera is connected by recursion.
+        If something goes wrong, it retries by recursion until the camera is connected.
         '''
 
         while not camera_is_connected(self._settings_manager):
