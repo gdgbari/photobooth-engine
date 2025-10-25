@@ -1,14 +1,21 @@
-# this class get the chosen photo and applies the wanted corner
-
 from PIL import Image
+
 import os
-import shutil
 import src.utils.utils as utils
 
+
+'''
+Tailor class gets the chosen photo and applies the wanted effect.
+It provides methods to edit photos with the selected effects, add padding, combine paires of photos and edits to have one total photo with 2 polaroids inside.
+'''
 
 class Tailor:
 
     def __init__(self):
+        '''
+        Constructor method.
+        '''
+
         self._photo_path = ''
         self._effect_path = ''
         self._output_folder_path = ''
@@ -17,12 +24,13 @@ class Tailor:
         """
         Information to edit *TWO* photos toghether in a single file
         Preliminary information for processing the single photo (it must be called before the editing of every photo).
-        :param first_photo: the path as string of the chosen photo
-        :param first_effect: the path as string of the chosen effect ( the polaroid file in /assets )
-        :param output_folder_path: the path as string of the edited file
+        :param first_photo: chosen photo path
+        :param first_effect: chosen effect path ( the polaroid file in /assets )
+        :param output_folder_path: edited file path
 
         Future implementation: maybe it will be more elegant to create a class that just edits the photos and another one that marges them togheter
         """
+
         self._first_photo = first_photo
         self._first_effect = first_effect
         self._second_photo = second_photo
@@ -43,10 +51,11 @@ class Tailor:
     def edit(self)-> str:
         """
         Edits the photos
-        :param edited_file_name: the name of the file (with extension!), it is not the path,
+        :param edited_file_name: file name (with extension!), it is not the path,
                it will be the name of the final file
-        :return: the path, as string, of the edited file
+        :return: edited file path, as string
         """
+
         # DISCUSSION ABOUT THE DIMENSION AND RATIO OF THE IMAGE
         #   analysis on the true height of the polaroid 41+760+10 = 810 -> the height of the background (760) is 93%
         #   true height of the polaroid is 2000 -> the height wanted of the background is 1860
@@ -76,6 +85,13 @@ class Tailor:
         return edited_file_path
 
     def _combine_two_photos(self, first_photo: Image, second_photo: Image) -> Image:
+        '''
+        Method which combines two edited photos into a single one.
+        :param first_photo: first edited photo
+        :param second_photo: second edited photo
+        :return: combined photo
+        '''
+
         output_image = Image.new('RGB', size=(3000,2000)) # right now the output is rotated
         output_image.paste(first_photo, (0, 0))
         output_image.paste(second_photo, (1500, 0))
@@ -84,6 +100,13 @@ class Tailor:
         return output_image
 
     def prepare_single_photo(self, photo, effect) -> Image:
+        '''
+        Method which edits a single photo with the chosen effect.
+        :param photo: chosen photo path
+        :param effect: chosen effect path
+        :return: edited photo
+        '''
+
         background = Image.open(photo)
         foreground = Image.open(effect)
 
@@ -117,6 +140,13 @@ class Tailor:
         return output
 
     def add_final_padding(self, image: Image, percentage: int) -> Image:
+        '''
+        Method which adds a padding to the combined photo.
+        :param image: combined photo
+        :param percentage: percentage of resizing of the image
+        :return: padded photo
+        '''
+
         # i build a background big as the image but of color: #f0f0f0
         # resize the image with percentage
         # put the image onto the background
