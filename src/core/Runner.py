@@ -143,7 +143,9 @@ class Runner:
 
     def edit(self):
         '''
-        Method which manages photo .'''
+        Mehod wich gets two photos and their effects from the queues and sends to the editor manager to edit them.
+        :return: the path of the edited photo
+        '''
         # let's edit it
         photo_list = self._queue.get_two_photos()
         edit_list = self._queue.get_two_edit()
