@@ -1,11 +1,12 @@
-# The integration test are executed by monkey patching, 
+# The integration test are executed by monkey patching,
 # we are substituting at runtime some methods with fakes one
 
-
-import os
 from src.core.Runner import Runner
 import src.core.CameraManager
 import src.test.test_functions
+
+import os
+
 
 def starter():
     runner = Runner()
@@ -13,8 +14,9 @@ def starter():
     while runner.keep_going():
         runner.main_execution()
 
+
 ##########################
-# SUBSTITUTING FUNCTIONS # 
+# SUBSTITUTING FUNCTIONS #
 ##########################
 
 src.core.CameraManager.PhotoManager.init_camera = src.test.test_functions.fake_start_camera
