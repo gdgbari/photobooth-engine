@@ -18,7 +18,7 @@ import shutil
 '''
 Runner is the principal class that coordinates all the components of the application.
 Here all the managers are instantiated and the main execution loop is implemented.
-There are also methods to manage the life cycle of camera, editing and printing.
+It provides methods to manage the life cycle of camera, editing and printing.
 '''
 
 class Runner:
