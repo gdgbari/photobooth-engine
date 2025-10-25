@@ -2,30 +2,27 @@ from src.settings.SettingsManager import Settings
 from src.ui.UserInteraction import UserInterface
 from gphoto2 import GPhoto2Error
 from src.utils.utils import camera_is_connected
+
 import gphoto2 as gp
 import os
-import shutil
-import subprocess
 import time
 
 
-# let's be honest, the library chosen is a complete mess, the author himself said that:
-# " it should not be used in a pythonic way "
-
-# even if the following class may appear as a mere wrapper,
-# it is suggested its use since it permit a later tuning
-
+'''
+PhotoManager is the class which manages the camera operations, such as initialization and photo capturing.
+'''
 
 class PhotoManager:
 
     def __init__(self):
+        '''
+        Constructor method.
+        '''
+
         self._camera = None
         self._settings_manager = Settings()
 
     def stop_camera(self):
-        """
-        blablabla
-        """
         self._camera.exit()
 
     def get_shoot(self, download_path):
@@ -47,12 +44,20 @@ class PhotoManager:
                     camera_file = self._camera.file_get(folder, file_name, gp.GP_FILE_TYPE_NORMAL)
                     camera_file.save(file_path)
 
-
                     return file_path
         finally:
             print('nothing detected')
 
     def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface):
+        '''
+        Method which allows to take a photo from the connected camera and save it in the given path with the given name.
+        If something goes wrong, the camera is re-initialized and the user is asked to take the photo again by recursion.
+        :param path: the path where the photo has to be saved
+        :param photo_name: the name of the photo to be saved
+        :param user_interactor: the user interactor instance to manage user interactions
+        :return: shooted photo path
+        '''
+
         try:
             # print('Capturing image')
             user_interactor.press_to_shot()
@@ -75,6 +80,11 @@ class PhotoManager:
             return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
     def init_camera(self):
+        '''
+        Method which initializes the camera.
+        If something goes wrong, it retries until the camera is connected by recursion.
+        '''
+
         while not camera_is_connected(self._settings_manager):
             print('camera not found. check if it\'s connected and try again')
             time.sleep(2)
@@ -82,15 +92,12 @@ class PhotoManager:
         print('camera found')
 
         try:
-            creation_error, camera = gp.gp_camera_new()
+            _, camera = gp.gp_camera_new()
             self._camera = camera
             self._camera.init()
         except GPhoto2Error as e:
             print(e)
             self.init_camera()
-
-
-
 
 
 # DEBUG
