@@ -120,7 +120,7 @@ class Runner:
         """
         Method which shows the preview of the edited photo with the single effect and returns the effect path if accepted or False if not.
         :param photo_path: photo path to edit
-        :return: path of the effect or False
+        :return: effect path or False
         """
 
         effect_name = self._assets.get_corners_names()[0]+".png"
@@ -137,7 +137,7 @@ class Runner:
         Method which allows the user to choose the effect to apply to the shooted photo with a preview.
         Returns the effect path when the edited photo is accepted.
         :param photo_path: photo path to edit
-        :return: path of the effect
+        :return: effect path
         '''
 
         while True:
@@ -150,7 +150,7 @@ class Runner:
     def edit(self):
         '''
         Mehod wich gets two photos and their effects from the queues and sends to the editor manager to edit them.
-        :return: the path of the edited photo
+        :return: edited photo path
         '''
         # let's edit it
         photo_list = self._queue.get_two_photos()
