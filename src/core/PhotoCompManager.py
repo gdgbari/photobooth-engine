@@ -6,16 +6,12 @@ import src.utils.utils as utils
 
 '''
 Tailor class gets the chosen photo and applies the wanted effect.
-It provides methods to edit photos with the selected effects, add padding, combine paires of photos and edits to have one total photo with 2 polaroids inside.
+It provides methods to edit photos with the selected effects, add padding, combine paires of photos and edit to have one total photo with 2 polaroids inside.
 '''
 
 class Tailor:
 
     def __init__(self):
-        '''
-        Constructor method.
-        '''
-
         self._photo_path = ''
         self._effect_path = ''
         self._output_folder_path = ''
@@ -38,6 +34,13 @@ class Tailor:
         self._output_folder_path = output_folder_path
 
     def _build_output_path(self):
+        '''
+        Method which build the final path of the combined photo.
+        It combines the name of the two photos stored in class parameters.
+        Checks the output folder in order to verify if there are other combined photos.
+        :return: combined photo path
+        '''
+
         first_photo_name = utils.get_name_from_path(self._first_photo)[:-4]
         second_photo_name = utils.get_name_from_path(self._second_photo)[:-4]
         combined_name = first_photo_name + '-' + second_photo_name

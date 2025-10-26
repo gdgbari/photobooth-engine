@@ -12,10 +12,6 @@ UserInterface class offers methods to manage user interaction through choices ab
 class UserInterface:
 
     def __init__(self, polaroid_effect_list : list):
-        '''
-        Constructor method.
-        '''
-
         self.effect_list = polaroid_effect_list
 
     def choose_polaroid_effect(self) -> str:

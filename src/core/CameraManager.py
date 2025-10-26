@@ -9,16 +9,12 @@ import time
 
 
 '''
-PhotoManager is the class which manages the camera operations, such as initialization and photo capturing.
+PhotoManager class manages the camera operations, such as initialization and photo capturing.
 '''
 
 class PhotoManager:
 
     def __init__(self):
-        '''
-        Constructor method.
-        '''
-
         self._camera = None
         self._settings_manager = Settings()
 

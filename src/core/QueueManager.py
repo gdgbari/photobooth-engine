@@ -9,10 +9,6 @@ It provides methods to add photos and edits to the queues, check if the photo qu
 class QueueManager:
 
     def __init__(self):
-        '''
-        Constructor method.
-        '''
-
         self._queue_path = 'temp_data.yaml'
         self._dict = {'photos':[],'edits':[]}
 

@@ -8,10 +8,6 @@ Settings is the class which manages the settings.yaml file.
 class Settings:
 
     def __init__(self):
-        '''
-        Constructor method.
-        '''
-
         self._settings_path = "./settings.yaml"
 
     def get_main_folder_path(self) -> str:

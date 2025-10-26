@@ -18,17 +18,12 @@ import yaml
 
 '''
 FolderManager class manages the folders where photos are stored.
-It ensures the consistency of the folders and provides methods to get the paths of the sub-folders
+It ensures the consistency of the folders and provides methods to get the paths of the sub-folders.
 '''
 
 class FolderManager:
 
     def __init__(self, main_folder_path: str):
-        '''
-        Constructor method.
-        :param main_folder_path: the main folder path where all the sub-folders for storing photos are located
-        '''
-
         self._main_folder_path = main_folder_path
         # now the paths of all the sub-folders
         self._current_folder_path = os.path.join(main_folder_path,'current')
@@ -95,17 +90,13 @@ class FolderManager:
 
 
 '''
-FileNaming is the class which manages the photo naming convention.
+FileNaming class manages the photo naming convention.
 It provides methods to get the photo name according to the convention and to increment the session number.
 '''
 
 class FileNaming:
 
     def __init__(self):
-        '''
-        Constructor method.
-        '''
-
         self._temp_data_path = "temp_data.yaml"
         self._settings = Settings()
 
@@ -145,17 +136,13 @@ class FileNaming:
 
 
 '''
-AssetManager is the class which manages the assets used in the photobooth, such as corners.
-It provides methods to get the names of the available corners and to check if there is only one effect available.
+AssetManager class manages the assets used in the photobooth, such as corners.
+It provides methods to get the names of the available corners and to check if there is only one available.
 '''
 
 class AssetManager:
 
     def __init__(self):
-        '''
-        Constructor method.
-        '''
-
         self.assets_path = str(os.path.join(os.getcwd(), "Assets"))
 
     def is_frame_single(self) -> bool:
