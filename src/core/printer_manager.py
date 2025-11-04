@@ -8,26 +8,27 @@
 # then we use the flag StpiShrinkOutput=Shrink to make the image use all the paper
 # *Shrink Crop Expand
 # the precedent flag is present in the gutenprint set (gutenprint is not installed in minimal distro), otherwise similar ones are:
-# fit-to-page / scaling=X / fitplot 
+# fit-to-page / scaling=X / fitplot
 # it is possible to check if the printer is supported by gutenprint here: https://gimp-print.sourceforge.io/p_Supported_Printers.php
 # warning: if the printer is supported by gutenprint it does not mean that has the flag StpiShrinkOutput=Shrink
 import subprocess
 
+
 class Printer:
+
     def __init__(self, printer_name, user_options=None):
-        
+
         self.printer_name = printer_name
         if user_options is None:
             self._filling_command = ""
         else:
             self._filling_command += " ".join(f"-o {key}={value}" for key, value in user_options.items()) + " "
 
-
     def prepare(self)-> None:
 
         if self._filling_command == "":
             # here we check which command execute to fill the corner
-            # check for 
+            # check for
             possible_printer_options = {
                 "StpiShrinkOutput": ["Shrink", "Crop", "Expand"],  # Opzione Gutenprint (se disponibile)
                 "fit-to-page": [True, False],  # Opzione CUPS standard
@@ -68,7 +69,6 @@ class Printer:
             return result.stdout
         except subprocess.CalledProcessError as e:
             return f"Errore: {e}"
-        
 
     def print_image(self, file_path):
         """
@@ -97,9 +97,6 @@ class Printer:
             print(f"An error occurred while printing: {e}")
         except FileNotFoundError:
             print("The 'lp' command was not found. Ensure CUPS is installed.")
-
-
-        
 
 
 # DEBUG SECTION

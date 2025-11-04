@@ -13,9 +13,20 @@ import os
 import utils.utils as utils
 import shutil
 
+
+'''
+Runner is the principal class that coordinates all the components of the application.
+Here all the managers are instantiated and the main execution loop is implemented.
+It provides methods to manage the life cycle of camera, editing and printing.
+'''
+
 class Runner:
 
     def __init__(self):
+        '''
+        Constructor method.
+        '''
+
         self._settings = Settings()
         self._folders = FolderManager(self._settings.get_main_folder_path())
         self._camera = PhotoManager()
@@ -31,6 +42,10 @@ class Runner:
         self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options())
 
     def prepare(self):
+        '''
+        Method which allows to prepare camera, initzialize printing and editing queue and prepare the printer.
+        '''
+
         self._camera.init_camera()
         self._queue.load_queue()
         self._printer.prepare()
@@ -39,6 +54,14 @@ class Runner:
         self._SINGLE_FRAME = self._assets.is_frame_single()
 
     def main_execution(self):
+        '''
+        Method where disasteer recovery is applied something strange happened in the last session, allowing to resume it.
+        If there are many effects in the Assets folder, the user is allowed to choose which one to apply.
+        Then the edited photo is shown to the user for confirmation.
+        Then the user is asked how many copies of the photo he wants to print.
+        At the end if there are 2 or more photos in the printing queue the printing process starts.
+        '''
+
         disaster_has_happened = resume_old_session(self._folders.get_current_path())
         photo_path = ''
         if isinstance(disaster_has_happened, str):
@@ -71,6 +94,11 @@ class Runner:
             self._printer.print_image(path_to_print)
 
     def choice_photo_with_preview(self):
+        '''
+        Method which allows the user to take a photo.
+        :return: shooted photo path
+        '''
+
         while True:
             file_name = self._file_naming.get_photo_name()
             photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
@@ -89,8 +117,11 @@ class Runner:
 
     def show_single_edit(self, photo_path):
         """
-        In case a single effect is proposed, there is no need to let thte user choice
+        Method which shows the preview of the edited photo with the single effect and returns the effect path if accepted or False if not.
+        :param photo_path: photo path to edit
+        :return: effect path or False
         """
+
         effect_name = self._assets.get_corners_names()[0]+".png"
         effect_path = utils.get_asset_path_from_name(effect_name)
         # ugly application to get faster
@@ -101,6 +132,13 @@ class Runner:
             return False
 
     def choice_edit_with_preview(self, photo_path):
+        '''
+        Method which allows the user to choose the effect to apply to the shooted photo with a preview.
+        Returns the effect path when the edited photo is accepted.
+        :param photo_path: photo path to edit
+        :return: effect path
+        '''
+
         while True:
             effect_name = self._ui.choose_polaroid_effect()
             effect_path = utils.get_asset_path_from_name(effect_name)
@@ -109,6 +147,10 @@ class Runner:
 
 
     def edit(self):
+        '''
+        Mehod wich gets two photos and their effects from the queues and sends to the editor manager to edit them.
+        :return: edited photo path
+        '''
         # let's edit it
         photo_list = self._queue.get_two_photos()
         edit_list = self._queue.get_two_edit()

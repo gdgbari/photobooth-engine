@@ -3,8 +3,10 @@ from utils.utils import Platform
 import os
 import subprocess
 
-# I choose to use this functions in a class because then transitioning to a GUI will be easier
 
+'''
+UserInterface class offers methods to manage user interaction through choices about photo goodness, effects to apply and so on.
+'''
 
 class UserInterface:
 
@@ -12,6 +14,11 @@ class UserInterface:
         self.effect_list = polaroid_effect_list
 
     def choose_polaroid_effect(self) -> str:
+        '''
+        Method which shows a menu in order to allow the user to choose the wanted effect (if there are more then one in the asset folder).
+        :return: effect path
+        '''
+
         # effect_list = ['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular',
         #               'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore']
 
@@ -36,6 +43,13 @@ class UserInterface:
         return file_name
 
     def confirm_shot(self, photo_path, os_platform: Platform) -> bool:
+        '''
+        Method wich shows the preview of the shooted photo in order to allow the user to choose if it's goot or not.
+        :param photo_path: photo path
+        :param os_platform: os where photobooth is running
+        :return: True if the photo is good, False if not
+        '''
+
         if os_platform.is_linux():
             # image = Image.open(photo_path)
             # image.show()
@@ -67,9 +81,10 @@ class UserInterface:
 
     def choose_times_to_print(self) -> int:
         """
-        Choose how many times a photo get printed
-        :return: the number of times the photo get printed
+        Method which shows a menu in order to allow the user to insert the number of photos to print.
+        :return: times number to print the photo
         """
+
         print('How many copies of the photo do you want to print?')
         while True:
             times = input('choose between 1 up to 99: ')
@@ -87,19 +102,35 @@ class UserInterface:
             print('Some error occurred, please try again')
 
     def press_to_shot(self):
+        '''
+        Method which allows the user to press a key on the keyboard in order to take a photo.
+        '''
+
         input('press any key to shoot')
 
     def notify_shot_taken(self):
+        '''
+        Method which print a message to notify the user that a shoot happened.
+        '''
+
         print('shot taken')
 
     def show_preview_without_response(self, previw_img: Image):
         """
-        Used in case there is only a single corner possible, thwere is no need to get the user response
+        Used in case there is only a single corner possible, there is no need to get the user response.
         """
+
         print('here the edit')
         previw_img.show()
 
     def show_preview_image(self, previw_img: Image) -> bool:
+        '''
+        Method wich shows the preview of the shooted photo in order to allow the user to choose if it's goot or not.
+        :param photo_path: photo path
+        :param os_platform: os where photobooth is running
+        :return: True if the photo is good, False if not
+        '''
+
         print('here the edit')
         previw_img.show()
         print('do you like it?')
@@ -123,6 +154,12 @@ class UserInterface:
             print("Please enter a valid choice")
 
     def visualize_current_photos(self, path):
+        '''
+        Method used in case of disastery recovery procedure execution.
+        Shows a menu in order to allow the user to choose the photo which wants to recover.
+        :param path: current folder path
+        '''
+
         photos_list = os.listdir(path)
         photos_list.sort()
 
@@ -142,6 +179,7 @@ class UserInterface:
                 return os.path.join(path, photos_list[choice - 1])
 
             print("Please enter a valid choice")
+
 
 # DEBUG SECTION
 # ui = UserInterface(['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular', 'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore'])
