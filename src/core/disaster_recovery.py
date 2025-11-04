@@ -1,7 +1,6 @@
-from src.core.FolderManager import FolderManager, AssetManager
-from src.settings.SettingsManager import Settings
-from src.ui.UserInteraction import UserInterface
-
+from core.folder_manager import FolderManager, AssetManager
+from settings.settings_manager import Settings
+from ui.userInteraction import UserInterface
 import os
 
 

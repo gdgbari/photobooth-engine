@@ -1,7 +1,8 @@
 from PIL import Image
 
 import os
-import src.utils.utils as utils
+import shutil
+import utils.utils as utils
 
 
 '''

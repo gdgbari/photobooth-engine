@@ -1,4 +1,4 @@
-from core.Runner import Runner
+from core.runner import Runner
 
 
 '''
