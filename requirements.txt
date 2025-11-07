@@ -3,3 +3,5 @@ pillow==10.4.0
 pkgconfig==1.5.5
 PyYAML==6.0.2
 pytest
+requests
+httpx
