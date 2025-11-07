@@ -8,6 +8,7 @@ from core.queue_manager import QueueManager
 from settings.settings_manager import Settings
 from ui.userInteraction import UserInterface
 from core.printer_manager import Printer
+from core.frame_chooser import FrameChooser
 
 import os
 import utils.utils as utils
@@ -36,6 +37,7 @@ class Runner:
         self._file_naming = FileNaming()
         self._assets = AssetManager()
         self._ui = UserInterface(self._assets.get_corners_names())
+        self._frame_choser = FrameChooser()
         # if in asset only one corner is present,
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
@@ -69,20 +71,11 @@ class Runner:
         else:
             [photo_path, _] = self.choice_photo_with_preview()
 
-        # effect_name = self._ui.choose_polaroid_effect()
-        # effect_path = utils.get_asset_path_from_name(effect_name)
-        if self._SINGLE_FRAME:
-            effect_path = self.show_single_edit(photo_path)
-        else:
-            effect_path = self.choice_edit_with_preview(photo_path)
 
-        # ugly implementation of a faster pipeline
-        # TODO: make effect_path be path or None Instead of path or False
-        if isinstance(effect_path, bool):
-            if not effect_path:
-                # clean the folder
-                self._folders.clean_current_path(photo_path)
-                return
+        [effect_path, photo_accepted] = self._frame_choser.choose_frame(photo_path)
+        if not photo_accepted:
+            self._folders.clean_current_path(photo_path)
+            return
 
         times = self._ui.choose_times_to_print()
         # the photo is added to the queue and the folder get cleared
@@ -105,6 +98,9 @@ class Runner:
             # photo_path = self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
+            # ATTENTION
+            # up to now to make the pipeline faster, the user will not confirm the shoot here but only after the polaroid edit
+            # in the future will added granurality
             # if self._ui.confirm_shot(photo_path, utils.detect_os()):
             if True:
                 # the photo is accepted, we can go on
