@@ -13,10 +13,13 @@ class FrameChooser():
         self._settings = Settings()
         self._folders = FolderManager(self._settings.get_main_folder_path())
         self._assets = AssetManager()
-        self._ui = UserInterface(self._assets.get_corners_names())
+        self._frame_list = self._assets.get_corners_names()
+        self._ui = UserInterface(self._frame_list)
         self._editor = Tailor()
+        # 
         self._SINGLE_FRAME = False
         self._RANDOM_FRAME = True
+        self._random_frame_index = 0
 
 
     def choose_frame(self, photo_path):
@@ -33,8 +36,15 @@ class FrameChooser():
             
 
     def show_random_edit(self, photo_path):
-        frames = self._assets.get_corners_names()
-        random_frame = random.choice(frames)
+
+        # TRUE RANDOM
+        # frames = self._assets.get_corners_names()
+        # random_frame = random.choice(frames)
+
+        # CONSECUTIVE R
+        random_frame = self._frame_list[self._random_frame_index]
+        self._random_frame_index = (self._random_frame_index + 1) % len(self._frame_list)
+
         effect_name = random_frame + ".png"
         effect_path = utils.get_asset_path_from_name(effect_name)
         # ugly application to get faster
