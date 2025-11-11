@@ -8,6 +8,7 @@ from core.queue_manager import QueueManager
 from settings.settings_manager import Settings
 from ui.userInteraction import UserInterface
 from core.printer_manager import Printer
+from backend.backend_manager import BackendMananger
 
 import os
 import utils.utils as utils
@@ -40,6 +41,7 @@ class Runner:
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
         self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options())
+        self._backend = BackendMananger()
 
     def prepare(self):
         '''
@@ -83,6 +85,10 @@ class Runner:
                 # clean the folder
                 self._folders.clean_current_path(photo_path)
                 return
+
+        #----   send to the server  ----
+        self._backend.send_photo_and_edit(photo_path,effect_path)
+        #-------------------------------
 
         times = self._ui.choose_times_to_print()
         # the photo is added to the queue and the folder get cleared
