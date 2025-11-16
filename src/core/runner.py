@@ -9,6 +9,7 @@ from settings.settings_manager import Settings
 from ui.userInteraction import UserInterface
 from core.printer_manager import Printer
 from backend.backend_manager import BackendMananger
+from backend.logger import setup_logging
 
 import os
 import utils.utils as utils
@@ -54,6 +55,9 @@ class Runner:
 
         # now check how many corners are present in the assets
         self._SINGLE_FRAME = self._assets.is_frame_single()
+
+        # initialize logger file
+        setup_logging()
 
     def main_execution(self):
         '''
