@@ -8,6 +8,7 @@ from core.queue_manager import QueueManager
 from settings.settings_manager import Settings
 from ui.userInteraction import UserInterface
 from core.printer_manager import Printer
+from core.frame_chooser import FrameChooser
 from backend.backend_manager import BackendMananger
 from backend.logger import setup_logging
 
@@ -38,6 +39,7 @@ class Runner:
         self._file_naming = FileNaming()
         self._assets = AssetManager()
         self._ui = UserInterface(self._assets.get_corners_names())
+        self._frame_choser = FrameChooser()
         # if in asset only one corner is present,
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
@@ -75,20 +77,11 @@ class Runner:
         else:
             [photo_path, _] = self.choice_photo_with_preview()
 
-        # effect_name = self._ui.choose_polaroid_effect()
-        # effect_path = utils.get_asset_path_from_name(effect_name)
-        if self._SINGLE_FRAME:
-            effect_path = self.show_single_edit(photo_path)
-        else:
-            effect_path = self.choice_edit_with_preview(photo_path)
 
-        # ugly implementation of a faster pipeline
-        # TODO: make effect_path be path or None Instead of path or False
-        if isinstance(effect_path, bool):
-            if not effect_path:
-                # clean the folder
-                self._folders.clean_current_path(photo_path)
-                return
+        [effect_path, photo_accepted] = self._frame_choser.choose_frame(photo_path)
+        if not photo_accepted:
+            self._folders.clean_current_path(photo_path)
+            return
 
         #----   send to the server  ----
         self._backend.send_photo_and_edit(photo_path,effect_path)
@@ -115,6 +108,9 @@ class Runner:
             # photo_path = self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
+            # ATTENTION
+            # up to now to make the pipeline faster, the user will not confirm the shoot here but only after the polaroid edit
+            # in the future will added granurality
             # if self._ui.confirm_shot(photo_path, utils.detect_os()):
             if True:
                 # the photo is accepted, we can go on
@@ -124,36 +120,6 @@ class Runner:
             else:
                 shutil.move(os.path.join(self._folders.get_current_path(), file_name), os.path.join(self._folders.get_originals_path(), file_name))
                 return False
-
-    def show_single_edit(self, photo_path):
-        """
-        Method which shows the preview of the edited photo with the single effect and returns the effect path if accepted or False if not.
-        :param photo_path: photo path to edit
-        :return: effect path or False
-        """
-
-        effect_name = self._assets.get_corners_names()[0]+".png"
-        effect_path = utils.get_asset_path_from_name(effect_name)
-        # ugly application to get faster
-        # self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
-        if self._ui.show_preview_image(self._editor.prepare_single_photo(photo_path, effect_path)):
-            return effect_path
-        else:
-            return False
-
-    def choice_edit_with_preview(self, photo_path):
-        '''
-        Method which allows the user to choose the effect to apply to the shooted photo with a preview.
-        Returns the effect path when the edited photo is accepted.
-        :param photo_path: photo path to edit
-        :return: effect path
-        '''
-
-        while True:
-            effect_name = self._ui.choose_polaroid_effect()
-            effect_path = utils.get_asset_path_from_name(effect_name)
-            if self._ui.show_preview_image(self._editor.prepare_single_photo(photo_path, effect_path)):
-                return effect_path
 
 
     def edit(self):
