@@ -21,3 +21,4 @@ def setup_logging() -> None:
     logger.addHandler(handler)
     logger.propagate = False
 
+# tail -f photobooth-upload.log
