@@ -42,7 +42,7 @@ class PhotoAPIClient:
             logger.info("Async upload successful, photo_id=%s", photo_id)
             return photo_id
 
-    def upload_pil_background(self, img: Image.Image) -> None:
+    def upload_pil_background(self, img: Image.Image, photo_name:str) -> None:
         """Fire-and-forget upload that never blocks the caller."""
         def _worker():
             try:
