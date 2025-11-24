@@ -44,7 +44,7 @@ class Runner:
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
         self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options())
-        self._backend = BackendMananger()
+        self._backend = BackendMananger(self._settings.get_backend_url())
 
     def prepare(self):
         '''
