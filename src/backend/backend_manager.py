@@ -5,9 +5,9 @@ from pathlib import Path
 
 class BackendMananger():
 
-    def __init__(self) -> None:
+    def __init__(self, backend_url : str) -> None:
         
-        self._backend = PhotoAPIClient()
+        self._backend = PhotoAPIClient(base_url=backend_url)
         self._editor = Tailor()
 
     
