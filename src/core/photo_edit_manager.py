@@ -1,9 +1,8 @@
 from PIL import Image
 
 import os
-import shutil
-import utils.utils as utils
 
+import utils
 
 '''
 Tailor class gets the chosen photo and applies the wanted effect.
@@ -103,45 +102,69 @@ class Tailor:
         output_image = output_image.rotate(90, expand=True)
         return output_image
 
-    def prepare_single_photo(self, photo, effect) -> Image:
+    def prepare_single_photo(self, photo, effect, horizontal_offset=0) -> Image:
         '''
         Method which edits a single photo with the chosen effect.
+        The photo is automatically centered and resized to fit the effect's transparent area.
         :param photo: chosen photo path
-        :param effect: chosen effect path
+        :param effect: chosen effect path (frame with a transparent hole)
+        :param horizontal_offset: offset to shift the photo horizontally (positive = right, negative = left)
         :return: edited photo
         '''
 
         background = Image.open(photo)
         foreground = Image.open(effect)
 
-        # transform the background in order to have a height of 1528 px, width of same ratio
-        background_width, background_height = background.size
-        new_background_height = 1437
-        new_background_width = int((new_background_height / background_height) * background_width)
-        background = background.resize((new_background_width, new_background_height), Image.Resampling.LANCZOS)
-        background_width = new_background_width
-        background_height = new_background_height
+        # Ensure frame has an alpha channel for transparency
+        if foreground.mode != 'RGBA':
+            foreground = foreground.convert('RGBA')
 
-        # align the background width to the foreground width ( cutting the excess margin )
-        foreground_width, foreground_height = foreground.size
-        lateral_margin_to_cut = (background_width - foreground_width) // 2
-        background = background.crop(
-            (lateral_margin_to_cut, 0, lateral_margin_to_cut + foreground_width, background_height))
+        # Find the transparent hole in the frame.
+        # We create a mask from the alpha channel where transparent pixels are white.
+        alpha = foreground.getchannel('A')
+        mask = Image.eval(alpha, lambda a: 255 if a < 128 else 0)
+        hole_bbox = mask.getbbox()
 
-        # add padding space on the top and the bottom of the background image, to have the same height of foreground
-        margin_space = 183
-        new_background = Image.new('RGB', (foreground_width, foreground_height), 'black')
-        new_background.paste(background, (0, margin_space))
-        background = new_background
+        if not hole_bbox:
+            raise ValueError("Could not find a transparent hole in the effect frame. The frame must be a PNG with a transparent area for the photo.")
 
-        # combine background and foreground
-        background.paste(foreground, (0, 0), foreground)
+        hole_left, hole_top, hole_right, hole_bottom = hole_bbox
+        hole_width = hole_right - hole_left
+        hole_height = hole_bottom - hole_top
 
-        # now we want it in half h:2000 w:1500 -> h:1500 w:1000
-        # output = background.resize((1000,1500))
-        output = background
+        # Ensure photo is in a compatible mode
+        background = background.convert("RGB")
 
-        return output
+        # Resize and crop the photo to fill the hole, preserving aspect ratio.
+        photo_width, photo_height = background.size
+
+        # Calculate scale factor to "cover" the hole
+        scale = max(hole_width / photo_width, hole_height / photo_height)
+        new_photo_width = int(photo_width * scale)
+        new_photo_height = int(photo_height * scale)
+        resized_photo = background.resize((new_photo_width, new_photo_height), Image.Resampling.LANCZOS)
+
+        # Crop the resized photo from the center to match the hole size
+        # Apply horizontal offset here
+        crop_x = (new_photo_width - hole_width) / 2 - horizontal_offset
+        crop_y = (new_photo_height - hole_height) / 2
+        
+        # Ensure crop coordinates are within bounds (optional, but good practice)
+        # If we shift too much, we might go out of bounds. For now, let's just crop.
+        # PIL handles out-of-bounds crop by padding with black if I recall correctly, 
+        # but usually crop() expects coordinates within the image. 
+        # However, since we are resizing to cover, we usually have some slack.
+        # Let's just apply the offset.
+        
+        cropped_photo = resized_photo.crop((crop_x, crop_y, crop_x + hole_width, crop_y + hole_height))
+
+        # Composite the images.
+        # Create a new image, paste the cropped photo into the hole, then paste the frame over it.
+        output_image = Image.new('RGB', foreground.size)
+        output_image.paste(cropped_photo, (hole_left, hole_top))
+        output_image.paste(foreground, (0, 0), foreground)
+
+        return output_image
 
     def add_final_padding(self, image: Image, percentage: int) -> Image:
         '''
