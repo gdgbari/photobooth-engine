@@ -44,6 +44,13 @@ class Settings:
             yaml_dict = yaml.safe_load(yaml_file)
 
         return yaml_dict['cam_name']
+    
+
+    def get_backend_url(self) -> str:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict['backend']
 
     def get_event_name(self) -> str:
         '''
