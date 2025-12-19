@@ -1,6 +1,4 @@
-from settings.settings_manager import Settings
 from core.folder_manager import FolderManager, FileNaming, AssetManager
-from ui.userInteraction import UserInterface
 from core.camera_manager import PhotoManager
 from core.disaster_recovery import resume_old_session
 from core.photo_edit_manager import Tailor
@@ -13,7 +11,6 @@ from backend.backend_manager import BackendMananger
 from backend.logger import setup_logging
 
 import os
-import utils.utils as utils
 import shutil
 
 
@@ -39,7 +36,7 @@ class Runner:
         self._file_naming = FileNaming()
         self._assets = AssetManager()
         self._ui = UserInterface(self._assets.get_corners_names())
-        self._frame_choser = FrameChooser()
+        self._frame_chooser = FrameChooser()
         # if in asset only one corner is present,
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
@@ -63,7 +60,7 @@ class Runner:
 
     def main_execution(self):
         '''
-        Method where disasteer recovery is applied something strange happened in the last session, allowing to resume it.
+        Method where disaster recovery is applied something strange happened in the last session, allowing to resume it.
         If there are many effects in the Assets folder, the user is allowed to choose which one to apply.
         Then the edited photo is shown to the user for confirmation.
         Then the user is asked how many copies of the photo he wants to print.
@@ -78,7 +75,7 @@ class Runner:
             [photo_path, _] = self.choice_photo_with_preview()
 
 
-        [effect_path, photo_accepted] = self._frame_choser.choose_frame(photo_path)
+        [effect_path, photo_accepted] = self._frame_chooser.choose_frame(photo_path)
         if not photo_accepted:
             self._folders.clean_current_path(photo_path)
             return
@@ -99,7 +96,7 @@ class Runner:
     def choice_photo_with_preview(self):
         '''
         Method which allows the user to take a photo.
-        :return: shooted photo path
+        :return: shot photo path
         '''
 
         while True:
@@ -124,7 +121,7 @@ class Runner:
 
     def edit(self):
         '''
-        Mehod wich gets two photos and their effects from the queues and sends to the editor manager to edit them.
+        Method which gets two photos and their effects from the queues and sends to the editor manager to edit them.
         :return: edited photo path
         '''
         # let's edit it

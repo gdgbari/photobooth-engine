@@ -1,5 +1,5 @@
 import yaml
-
+import os
 
 '''
 Settings is the class which manages the settings.yaml file.
@@ -62,6 +62,13 @@ class Settings:
             yaml_dict = yaml.safe_load(yaml_file)
 
         return yaml_dict['event_name']
+    
+    def get_assets_path(self) -> str:
+        '''
+        Method which returns the path to the assets folder.
+        :return: assets folder path
+        '''
+        return os.path.join(self._project_root, "assets")
 
         '''if 'printer_settings' in yaml_dict:
             settings = yaml_dict['printer_settings']

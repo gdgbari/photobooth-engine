@@ -3,7 +3,7 @@ from settings.settings_manager import Settings
 from ui.userInteraction import UserInterface
 from core.photo_edit_manager import Tailor
 
-import utils.utils as utils
+import utils
 import random
 
 

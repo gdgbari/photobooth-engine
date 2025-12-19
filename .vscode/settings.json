@@ -8,7 +8,7 @@
   // Start new integrated terminals at the project root
   "terminal.integrated.cwd": "${workspaceFolder}",
 
-  // Ensure Python can import from src no matter which file you run
+  // Ensure Python can import from photobooth no matter which file you run
   // (so `from core ...` works). Add osx/windows blocks as needed.
   "terminal.integrated.env.linux": {
     "PYTHONPATH": "${workspaceFolder}/src"

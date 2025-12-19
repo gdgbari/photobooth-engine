@@ -1,11 +1,9 @@
-from settings.settings_manager import Settings
-from logging import DEBUG
-
 import os
 import shutil
-import utils.utils as utils
 import yaml
 
+from settings.settings_manager import Settings
+import utils
 
 # FOLDERS EXPLANATION
 #
@@ -21,14 +19,15 @@ FolderManager class manages the folders where photos are stored.
 It ensures the consistency of the folders and provides methods to get the paths of the sub-folders.
 '''
 
+
 class FolderManager:
 
     def __init__(self, main_folder_path: str):
         self._main_folder_path = main_folder_path
         # now the paths of all the sub-folders
-        self._current_folder_path = os.path.join(main_folder_path,'current')
-        self._originals_folder_path = os.path.join(main_folder_path,'originals')
-        self._output_folder_path = os.path.join(main_folder_path,'output')
+        self._current_folder_path = os.path.join(main_folder_path, 'current')
+        self._originals_folder_path = os.path.join(main_folder_path, 'originals')
+        self._output_folder_path = os.path.join(main_folder_path, 'output')
 
         # then we check the folders consistency
         self._folder_consistency_assurance()
@@ -68,7 +67,7 @@ class FolderManager:
 
         return self._output_folder_path
 
-    def clean_current_path(self, chosen_photo_path: str)->str:
+    def clean_current_path(self, chosen_photo_path: str) -> str:
         """
         Move all the file from the current folder to the originals folder but saves the new path of the chosen shoot
         :param chosen_photo_path: old path of the photo which we will hold
@@ -93,6 +92,7 @@ class FolderManager:
 FileNaming class manages the photo naming convention.
 It provides methods to get the photo name according to the convention and to increment the session number.
 '''
+
 
 class FileNaming:
 
@@ -140,6 +140,7 @@ AssetManager class manages the assets used in the photobooth, such as corners.
 It provides methods to get the names of the available corners and to check if there is only one available.
 '''
 
+
 class AssetManager:
 
     def __init__(self):
@@ -172,8 +173,7 @@ class AssetManager:
                 corner_list.append(filename)
         return corner_list
 
-
-#DEBUG
+# DEBUG
 # file_naming = FileNaming()
 # print(file_naming.increment_session_number())
 # asset_manager = AssetManager()

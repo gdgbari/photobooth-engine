@@ -3,7 +3,7 @@ from core.runner import Runner
 
 '''
 This is the main entry point of the application.
-It initializes the Runner class and consequently the necessaries management istances.
+It initializes the Runner class and consequently the necessaries management instances.
 At the end starts the main execution loop.
 '''
 
