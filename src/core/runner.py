@@ -9,6 +9,8 @@ from settings.settings_manager import Settings
 from ui.userInteraction import UserInterface
 from core.printer_manager import Printer
 from core.frame_chooser import FrameChooser
+from backend.backend_manager import BackendMananger
+from backend.logger import setup_logging
 
 import os
 import utils.utils as utils
@@ -42,6 +44,7 @@ class Runner:
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
         self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options())
+        self._backend = BackendMananger(self._settings.get_backend_url())
 
     def prepare(self):
         '''
@@ -54,6 +57,9 @@ class Runner:
 
         # now check how many corners are present in the assets
         self._SINGLE_FRAME = self._assets.is_frame_single()
+
+        # initialize logger file
+        setup_logging()
 
     def main_execution(self):
         '''
@@ -76,6 +82,10 @@ class Runner:
         if not photo_accepted:
             self._folders.clean_current_path(photo_path)
             return
+
+        #----   send to the server  ----
+        self._backend.send_photo_and_edit(photo_path,effect_path)
+        #-------------------------------
 
         times = self._ui.choose_times_to_print()
         # the photo is added to the queue and the folder get cleared
