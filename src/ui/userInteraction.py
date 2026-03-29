@@ -1,5 +1,5 @@
 from PIL import Image
-from utils import Platform
+from utils import Platform, detect_os
 import os
 import subprocess
 
@@ -58,14 +58,19 @@ class UserInterface:
             windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
             subprocess.run(['powershell.exe', 'Start-Process', windows_path])
         elif os_platform.is_macos():
-            # maybe in the future this will change
-            # image = Image.open(photo_path)
-            # image.show()
-            user = os.getlogin()
-            # Comando per aprire l'immagine come utente normale
-            comando = ["sudo", "-u", user, "open", photo_path]
-            # Esegui il comando
-            subprocess.run(comando)
+            # On macOS, the best way to open a file is using the 'open' command.
+            # If running as root (via sudo), we try to open it in the context of the original user
+            # to ensure it appears in their GUI session.
+            abs_photo_path = os.path.abspath(photo_path)
+            try:
+                # SUDO_USER gives the name of the user who invoked sudo.
+                # os.getlogin() might return root or raise an error in non-TTY contexts.
+                user = os.environ.get('SUDO_USER') or os.getlogin()
+                subprocess.run(["sudo", "-u", user, "open", abs_photo_path])
+            except Exception:
+                # Graceful fallback: just try 'open' directly if user detection fails.
+                subprocess.run(["open", abs_photo_path])
+
 
         while True:
             print('Do you like it? y/n')
@@ -121,7 +126,7 @@ class UserInterface:
         """
 
         print('here the edit')
-        previw_img.show()
+        self._show_image(previw_img)
 
     def show_preview_image(self, previw_img: Image) -> bool:
         '''
@@ -132,7 +137,7 @@ class UserInterface:
         '''
 
         print('here the edit')
-        previw_img.show()
+        self._show_image(previw_img)
         print('do you like it?')
         while True:
             choiche = input('y/n: ')
@@ -168,17 +173,38 @@ class UserInterface:
         while True:
             for i in range(0, len(photos_list)):
                 print(f"{i + 1}. Visualize {photos_list[i]}")
-            # print(f"{len(photos_list) + 1}. Make another burst")
-            # print(f"{len(photos_list) + 2}. Go back")
             choice = int(input("Enter your choice: "))
-
             if 1 <= choice <= (len(photos_list)):
-                """op_sys = detect_os()
+                op_sys = detect_os()
                 result = self.confirm_shot(os.path.join(path, photos_list[choice - 1]), op_sys)
-                if result is True:"""
-                return os.path.join(path, photos_list[choice - 1])
+                if result is True:
+                    return os.path.join(path, photos_list[choice - 1])
 
             print("Please enter a valid choice")
+
+    def _show_image(self, img: Image):
+        """
+        Helper method to show an image in a native viewer.
+        On macOS, if running as root, it ensures the temporary file has correct permissions for the logged-in user.
+        """
+        import tempfile
+        os_platform = detect_os()
+
+        if os_platform.is_macos() and os.geteuid() == 0:
+            # On macOS as root, PIL .show() creates a file that the user GUI cannot read.
+            # We manually save to a world-readable temp file and use native 'open'.
+            fd, temp_path = tempfile.mkstemp(suffix='.png')
+            os.close(fd)
+            img.save(temp_path)
+            os.chmod(temp_path, 0o777)
+
+            user = os.environ.get('SUDO_USER') or os.getlogin()
+            try:
+                subprocess.run(["sudo", "-u", user, "open", temp_path])
+            except Exception:
+                subprocess.run(["open", temp_path])
+        else:
+            img.show()
 
 
 # DEBUG SECTION
