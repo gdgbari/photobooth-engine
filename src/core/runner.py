@@ -12,6 +12,7 @@ from backend.logger import setup_logging
 
 import os
 import shutil
+import utils
 
 
 '''
@@ -108,15 +109,15 @@ class Runner:
             # ATTENTION
             # up to now to make the pipeline faster, the user will not confirm the shoot here but only after the polaroid edit
             # in the future will added granurality
-            # if self._ui.confirm_shot(photo_path, utils.detect_os()):
-            if True:
+            if self._ui.confirm_shot(photo_path, utils.detect_os()):
                 # the photo is accepted, we can go on
                 # session has ended
                 self._file_naming.increment_session_number()
                 return [photo_path, '']
             else:
+                # the photo is not accepted, move it and try again
                 shutil.move(os.path.join(self._folders.get_current_path(), file_name), os.path.join(self._folders.get_originals_path(), file_name))
-                return False
+                print('Photo rejected, retrying...')
 
 
     def edit(self):
