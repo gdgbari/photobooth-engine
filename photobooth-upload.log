@@ -274,3 +274,34 @@
 2026-03-29 23:21:52,733 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
 2026-03-29 23:21:53,147 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
 2026-03-29 23:21:53,148 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:34:48,122 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:34:48,496 [INFO] [Thread-1 (_worker)] Attempting login to backend...
+2026-03-29 23:34:49,147 [ERROR] [Thread-1 (_worker)] Login failed: Client error '404 Not Found' for url 'https://api.photobooth.vitodibari.dev/auth/token'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2026-03-29 23:34:49,148 [ERROR] [Thread-1 (_worker)] [PhotoAPIClient] Background upload failed for 'codemotion-rome-2026_0002_01.jpg'
+Traceback (most recent call last):
+  File "/Users/vitodibari/Projects/GDGProjects/photobooth/src/backend/new_backend_endpoint.py", line 120, in _worker
+    asyncio.run(self.upload_pil(img, photo_name))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/vitodibari/Projects/GDGProjects/photobooth/src/backend/new_backend_endpoint.py", line 67, in upload_pil
+    await self.login()
+  File "/Users/vitodibari/Projects/GDGProjects/photobooth/src/backend/new_backend_endpoint.py", line 43, in login
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/vitodibari/Projects/GDGProjects/photobooth/.venv/lib/python3.14/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '404 Not Found' for url 'https://api.photobooth.vitodibari.dev/auth/token'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2026-03-29 23:35:23,582 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0003_01.jpg' started
+2026-03-29 23:35:23,956 [INFO] [Thread-1 (_worker)] Attempting login to backend...
+2026-03-29 23:35:24,656 [INFO] [Thread-1 (_worker)] Login successful
+2026-03-29 23:35:35,648 [INFO] [Thread-1 (_worker)] Upload OK 'codemotion-rome-2026_0003_01.jpg' -> f9f11358-c514-47a8-b2b1-14b3c991a6cd

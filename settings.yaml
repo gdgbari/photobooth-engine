@@ -3,6 +3,7 @@ cam_name: 'USB PTP Class Camera'
 printer_name: 'Dai_Nippon_Printing_DP_QW410'
 print_size: '4x3' # 4x6 or 4x3
 event_name: 'codemotion-rome-2026'
-backend: "http://localhost:8000"
+backend: "https://api.photobooth.vitodibari.dev"
 printer_options:
   PageSize: "dnp4x3"
+client_secret: "SECRET_HERE"
