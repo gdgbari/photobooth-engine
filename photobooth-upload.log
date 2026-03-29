@@ -220,3 +220,57 @@
 2026-03-29 23:06:47,293 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0010_01.jpg' started
 2026-03-29 23:06:47,720 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0010_01.jpg'. Connection Error
 2026-03-29 23:06:47,720 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0010_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:20,649 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:21,079 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:21,079 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:26,081 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:26,494 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:26,494 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:31,498 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:31,908 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:31,909 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:36,914 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:37,328 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:37,329 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:42,335 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:42,747 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:42,747 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:47,750 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:48,210 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:48,210 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:53,216 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:53,622 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:53,623 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:58,627 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:59,022 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:59,023 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:04,029 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:04,427 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:04,427 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:09,429 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:09,847 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:09,847 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:14,848 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:15,246 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:15,246 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:20,249 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:20,641 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:20,641 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:25,647 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:26,060 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:26,079 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:31,084 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:31,477 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:31,478 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:36,482 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:36,897 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:36,897 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:41,899 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:42,309 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:42,309 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:47,315 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:47,728 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:47,729 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:52,733 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:53,147 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:53,148 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds

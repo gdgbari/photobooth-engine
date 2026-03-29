@@ -29,10 +29,11 @@ class Runner:
         '''
 
         self._settings = Settings()
+        self._print_size = self._settings.get_print_size()
         self._folders = FolderManager(self._settings.get_main_folder_path())
         self._camera = PhotoManager()
-        self._editor = Tailor()
-        self._queue = QueueManager()
+        self._editor = Tailor(self._print_size)
+        self._queue = QueueManager(self._print_size)
         self._continue = True
         self._file_naming = FileNaming()
         self._assets = AssetManager()
@@ -122,15 +123,14 @@ class Runner:
 
     def edit(self):
         '''
-        Method which gets two photos and their effects from the queues and sends to the editor manager to edit them.
+        Method which gets photos and their effects from the queues and sends to the editor manager to edit them.
         :return: edited photo path
         '''
-        # let's edit it
-        photo_list = self._queue.get_two_photos()
-        edit_list = self._queue.get_two_edit()
-        self._editor.set_infos(photo_list[0], edit_list[0], photo_list[1],edit_list[1],self._folders.get_output_folder_path())
-        # get the name of the last file ... ( this will need an update )
-        # edit the queue then clean the folder
+
+        photo_list = self._queue.get_photos()
+        edit_list = self._queue.get_edits()
+        self._editor.set_infos(photo_list, edit_list, self._folders.get_output_folder_path())
+
         joined_photo = self._editor.edit()
         print(joined_photo)
         return joined_photo
