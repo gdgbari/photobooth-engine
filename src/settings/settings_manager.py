@@ -33,6 +33,7 @@ class Settings:
     def get_printer_options(self) -> dict:
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('printer_options', {})
 
     def get_cam_name(self) -> str:
         '''

@@ -54,7 +54,11 @@ class Tailor:
         edited_file_path = self._build_output_path()
 
         if self._print_size == '4x3':
-            output_file = self.prepare_single_photo(self._photo_list[0], self._effect_list[0])
+            first_photo = self.prepare_single_photo(self._photo_list[0], self._effect_list[0])
+            # For 4x3 prints, we want to maximize the area by rotating and resizing
+            # the portrait oriented polaroid into a landscape 4:3 canvas (2000x1500).
+            output_file = first_photo.rotate(90, expand=True)
+            output_file = output_file.resize((2000, 1500), Image.Resampling.LANCZOS)
         else:
             first_photo = self.prepare_single_photo(self._photo_list[0], self._effect_list[0])
             second_photo = self.prepare_single_photo(self._photo_list[1], self._effect_list[1])
