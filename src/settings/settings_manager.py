@@ -63,6 +63,17 @@ class Settings:
 
         return yaml_dict['event_name']
     
+    def get_print_size(self) -> str:
+        '''
+        Method which returns the print size setted in settings.yaml file.
+        :return: print size
+        '''
+
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict.get('print_size', '4x6') # Defaults to 4x6 if not specified
+    
     def get_assets_path(self) -> str:
         '''
         Method which returns the path to the assets folder.
