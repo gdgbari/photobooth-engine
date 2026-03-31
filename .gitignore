@@ -8,4 +8,4 @@ settings.yaml
 out
 photobooth-upload.log
 .pytest_cache/
-
+settings-prod.yaml
