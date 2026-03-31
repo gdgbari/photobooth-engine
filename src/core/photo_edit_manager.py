@@ -11,72 +11,60 @@ It provides methods to edit photos with the selected effects, add padding, combi
 
 class Tailor:
 
-    def __init__(self):
+    def __init__(self, print_size='4x6'):
+        self._print_size = print_size
         self._photo_path = ''
         self._effect_path = ''
         self._output_folder_path = ''
 
-    def set_infos(self, first_photo: str, first_effect: str,second_photo: str, second_effect: str, output_folder_path: str):
+    def set_infos(self, photo_list: list[str], effect_list: list[str], output_folder_path: str):
         """
-        Information to edit *TWO* photos toghether in a single file
-        Preliminary information for processing the single photo (it must be called before the editing of every photo).
-        :param first_photo: chosen photo path
-        :param first_effect: chosen effect path ( the polaroid file in /assets )
-        :param output_folder_path: edited file path
-
-        Future implementation: maybe it will be more elegant to create a class that just edits the photos and another one that marges them togheter
+        Information to edit photos together or individually.
         """
 
-        self._first_photo = first_photo
-        self._first_effect = first_effect
-        self._second_photo = second_photo
-        self._second_effect = second_effect
+        self._photo_list = photo_list
+        self._effect_list = effect_list
         self._output_folder_path = output_folder_path
 
     def _build_output_path(self):
         '''
-        Method which build the final path of the combined photo.
-        It combines the name of the two photos stored in class parameters.
-        Checks the output folder in order to verify if there are other combined photos.
-        :return: combined photo path
+        Method which build the final path of the combined/single photo.
         '''
 
-        first_photo_name = utils.get_name_from_path(self._first_photo)[:-4]
-        second_photo_name = utils.get_name_from_path(self._second_photo)[:-4]
-        combined_name = first_photo_name + '-' + second_photo_name
-        path = os.path.join(self._output_folder_path, combined_name + '_00.jpg')
+        if self._print_size == '4x3':
+            base_name = utils.get_name_from_path(self._photo_list[0])[:-4]
+        else:
+            first_photo_name = utils.get_name_from_path(self._photo_list[0])[:-4]
+            second_photo_name = utils.get_name_from_path(self._photo_list[1])[:-4]
+            base_name = first_photo_name + '-' + second_photo_name
+            
+        path = os.path.join(self._output_folder_path, base_name + '_00.jpg')
         i = 1
         while os.path.exists(path):
-            path = os.path.join(self._output_folder_path, combined_name + '_0' + str(i) + '.jpg')
+            path = os.path.join(self._output_folder_path, base_name + '_0' + str(i) + '.jpg')
             i += 1
         return path
 
     def edit(self)-> str:
         """
         Edits the photos
-        :param edited_file_name: file name (with extension!), it is not the path,
-               it will be the name of the final file
         :return: edited file path, as string
         """
 
-        # DISCUSSION ABOUT THE DIMENSION AND RATIO OF THE IMAGE
-        #   analysis on the true height of the polaroid 41+760+10 = 810 -> the height of the background (760) is 93%
-        #   true height of the polaroid is 2000 -> the height wanted of the background is 1860
-
-        #   what about the margin? the left and right margin are of 41 px as the upper margin, 41 px is 5% of height
-        #   which with our dimension translate to 100 px
-
-        #   the data extrapolated before are from wrong measure
-        #   it seems that the correct h of the input image is 1528 px or 76,4 %
-        #   it seam that the correct upper margin is 83 px or 4,15 %
-        # END OF DISCUSSION
-
         edited_file_path = self._build_output_path()
-        first_photo = self.prepare_single_photo(self._first_photo, self._first_effect)
-        second_photo = self.prepare_single_photo(self._second_photo, self._second_effect)
-        output_file = self._combine_two_photos(first_photo,second_photo)
 
-        #HERE PADDING
+        if self._print_size == '4x3':
+            first_photo = self.prepare_single_photo(self._photo_list[0], self._effect_list[0])
+            # For 4x3 prints, we want to maximize the area by rotating and resizing
+            # the portrait oriented polaroid into a landscape 4:3 canvas (2000x1500).
+            output_file = first_photo.rotate(90, expand=True)
+            output_file = output_file.resize((2000, 1500), Image.Resampling.LANCZOS)
+        else:
+            first_photo = self.prepare_single_photo(self._photo_list[0], self._effect_list[0])
+            second_photo = self.prepare_single_photo(self._photo_list[1], self._effect_list[1])
+            output_file = self._combine_two_photos(first_photo, second_photo)
+
+        # HERE PADDING
         output_file = self.add_final_padding(output_file, 98)
 
         output_file.save(edited_file_path, "JPEG")
@@ -84,7 +72,6 @@ class Tailor:
         # give 777 to edited file
         os.chmod(edited_file_path, 0o777)
 
-        # self._final_cleaning(originals_folder,edited_file_name)
         return edited_file_path
 
     def _combine_two_photos(self, first_photo: Image, second_photo: Image) -> Image:

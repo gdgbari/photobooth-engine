@@ -1,13 +1,12 @@
 from backend.new_backend_endpoint import PhotoAPIClient
 from core.photo_edit_manager import Tailor
-import PIL
 from pathlib import Path
 
 class BackendMananger():
 
-    def __init__(self, backend_url : str) -> None:
+    def __init__(self, backend_url : str, client_secret: str = None) -> None:
         
-        self._backend = PhotoAPIClient(base_url=backend_url)
+        self._backend = PhotoAPIClient(base_url=backend_url, client_secret=client_secret)
         self._editor = Tailor()
 
     

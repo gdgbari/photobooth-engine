@@ -36,6 +36,7 @@ class Settings:
     def get_printer_options(self) -> dict:
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('printer_options', {})
 
     def get_cam_name(self) -> str:
         '''
@@ -65,6 +66,28 @@ class Settings:
             yaml_dict = yaml.safe_load(yaml_file)
 
         return yaml_dict['event_name']
+    
+    def get_print_size(self) -> str:
+        '''
+        Method which returns the print size setted in settings.yaml file.
+        :return: print size
+        '''
+
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict.get('print_size', '4x6') # Defaults to 4x6 if not specified
+    
+    def get_client_secret(self) -> str:
+        '''
+        Method which returns the client secret setted in settings.yaml file.
+        :return: client secret
+        '''
+
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict.get('client_secret', '')
     
     def get_assets_path(self) -> str:
         '''
