@@ -305,3 +305,150 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-03-29 23:35:23,956 [INFO] [Thread-1 (_worker)] Attempting login to backend...
 2026-03-29 23:35:24,656 [INFO] [Thread-1 (_worker)] Login successful
 2026-03-29 23:35:35,648 [INFO] [Thread-1 (_worker)] Upload OK 'codemotion-rome-2026_0003_01.jpg' -> f9f11358-c514-47a8-b2b1-14b3c991a6cd
+2026-03-31 09:55:38,534 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-31 09:55:38,969 [INFO] [Thread-1 (_worker)] Attempting login to backend (async)...
+2026-03-31 09:55:39,662 [INFO] [Thread-1 (_worker)] Login successful (async)
+2026-03-31 09:55:42,852 [INFO] [Thread-1 (_worker)] Upload OK 'codemotion-rome-2026_0002_01.jpg' -> 5466a0e5-eb2e-45ae-823d-3a179609c490
+2026-03-31 09:56:43,311 [INFO] [Thread-3 (_worker)] Uploading 'codemotion-rome-2026_0003_01.jpg' started
+2026-03-31 09:56:47,705 [INFO] [Thread-3 (_worker)] Upload OK 'codemotion-rome-2026_0003_01.jpg' -> fc1860d4-aaea-4d6e-aae0-36ef95ed0669
+2026-03-31 10:29:54,467 [INFO] [Thread-5 (_worker)] Uploading 'codemotion-rome-2026_0004_01.jpg' started
+2026-03-31 10:30:09,001 [INFO] [Thread-5 (_worker)] Upload OK 'codemotion-rome-2026_0004_01.jpg' -> 120b4b28-d7d8-4383-a73e-875600b6d306
+2026-03-31 10:35:39,969 [INFO] [Thread-7 (_worker)] Uploading 'codemotion-rome-2026_0005_01.jpg' started
+2026-03-31 10:35:53,693 [INFO] [Thread-7 (_worker)] Upload OK 'codemotion-rome-2026_0005_01.jpg' -> 21ea9273-8758-4a15-8db2-37fcd1042933
+2026-03-31 10:42:03,996 [INFO] [Thread-9 (_worker)] Uploading 'codemotion-rome-2026_0006_01.jpg' started
+2026-03-31 10:42:17,782 [INFO] [Thread-9 (_worker)] Upload OK 'codemotion-rome-2026_0006_01.jpg' -> 0a968930-5e2b-4a8f-b772-5945c1d3930a
+2026-03-31 11:04:18,630 [INFO] [Thread-11 (_worker)] Uploading 'codemotion-rome-2026_0007_01.jpg' started
+2026-03-31 11:04:21,780 [WARNING] [Thread-11 (_worker)] 401 Unauthorized for 'codemotion-rome-2026_0007_01.jpg', retrying login
+2026-03-31 11:04:21,781 [INFO] [Thread-11 (_worker)] Attempting login to backend (async)...
+2026-03-31 11:04:22,603 [INFO] [Thread-11 (_worker)] Login successful (async)
+2026-03-31 11:04:27,868 [INFO] [Thread-11 (_worker)] Upload OK 'codemotion-rome-2026_0007_01.jpg' -> e0719859-d66e-406b-b88e-8369f83bf1fc
+2026-03-31 11:07:35,158 [INFO] [Thread-13 (_worker)] Uploading 'codemotion-rome-2026_0008_01.jpg' started
+2026-03-31 11:07:42,963 [INFO] [Thread-13 (_worker)] Upload OK 'codemotion-rome-2026_0008_01.jpg' -> 840d6b97-4938-4bca-af9b-e34a0bc846c1
+2026-03-31 11:09:02,307 [INFO] [Thread-15 (_worker)] Uploading 'codemotion-rome-2026_0009_01.jpg' started
+2026-03-31 11:09:06,744 [INFO] [Thread-15 (_worker)] Upload OK 'codemotion-rome-2026_0009_01.jpg' -> 5808baaa-7b4c-481d-b475-2210950f4506
+2026-03-31 11:13:13,590 [INFO] [Thread-17 (_worker)] Uploading 'codemotion-rome-2026_0010_01.jpg' started
+2026-03-31 11:13:29,295 [INFO] [Thread-17 (_worker)] Upload OK 'codemotion-rome-2026_0010_01.jpg' -> 593d588c-136f-4f64-8ee7-4386531f83f7
+2026-03-31 11:14:27,685 [INFO] [Thread-19 (_worker)] Uploading 'codemotion-rome-2026_0011_01.jpg' started
+2026-03-31 11:14:32,673 [INFO] [Thread-19 (_worker)] Upload OK 'codemotion-rome-2026_0011_01.jpg' -> 96c0012d-6fff-4496-b59e-f3808347d500
+2026-03-31 11:27:35,566 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0012_01.jpg' started
+2026-03-31 11:27:36,063 [INFO] [Thread-1 (_worker)] Attempting login to backend (async)...
+2026-03-31 11:27:37,740 [INFO] [Thread-1 (_worker)] Login successful (async)
+2026-03-31 11:27:41,765 [INFO] [Thread-1 (_worker)] Upload OK 'codemotion-rome-2026_0012_01.jpg' -> 53afdda9-2446-49b9-a39a-db31070f247d
+2026-03-31 11:29:05,710 [INFO] [Thread-3 (_worker)] Uploading 'codemotion-rome-2026_0013_01.jpg' started
+2026-03-31 11:29:10,020 [INFO] [Thread-3 (_worker)] Upload OK 'codemotion-rome-2026_0013_01.jpg' -> e5e403c0-1818-44ea-bcbd-af28c6e9d6c4
+2026-03-31 11:38:47,477 [INFO] [Thread-5 (_worker)] Uploading 'codemotion-rome-2026_0014_01.jpg' started
+2026-03-31 11:39:01,752 [INFO] [Thread-5 (_worker)] Upload OK 'codemotion-rome-2026_0014_01.jpg' -> 300f5f2e-d4cc-4397-91e1-edc2f822af2b
+2026-03-31 11:39:34,208 [INFO] [Thread-7 (_worker)] Uploading 'codemotion-rome-2026_0015_01.jpg' started
+2026-03-31 11:39:42,836 [INFO] [Thread-7 (_worker)] Upload OK 'codemotion-rome-2026_0015_01.jpg' -> f5b5f35c-8f6b-4db5-a85e-5d946433e570
+2026-03-31 11:41:17,125 [INFO] [Thread-9 (_worker)] Uploading 'codemotion-rome-2026_0016_01.jpg' started
+2026-03-31 11:41:20,438 [INFO] [Thread-9 (_worker)] Upload OK 'codemotion-rome-2026_0016_01.jpg' -> 499043e0-927a-4316-b7e7-cfebbc2e38a0
+2026-03-31 11:42:22,330 [INFO] [Thread-11 (_worker)] Uploading 'codemotion-rome-2026_0017_01.jpg' started
+2026-03-31 11:42:26,941 [INFO] [Thread-11 (_worker)] Upload OK 'codemotion-rome-2026_0017_01.jpg' -> da961239-58ba-4d1a-a18d-1363f03125fe
+2026-03-31 11:43:00,045 [INFO] [Thread-13 (_worker)] Uploading 'codemotion-rome-2026_0018_01.jpg' started
+2026-03-31 11:43:06,002 [INFO] [Thread-13 (_worker)] Upload OK 'codemotion-rome-2026_0018_01.jpg' -> 996577af-6a35-4a77-ab38-ab3c38e85021
+2026-03-31 11:44:38,264 [INFO] [Thread-15 (_worker)] Uploading 'codemotion-rome-2026_0019_01.jpg' started
+2026-03-31 11:44:45,879 [INFO] [Thread-15 (_worker)] Upload OK 'codemotion-rome-2026_0019_01.jpg' -> 01b46316-1310-4ab3-8ef5-3db288441154
+2026-03-31 11:55:30,766 [INFO] [Thread-17 (_worker)] Uploading 'codemotion-rome-2026_0020_01.jpg' started
+2026-03-31 11:55:35,450 [INFO] [Thread-17 (_worker)] Upload OK 'codemotion-rome-2026_0020_01.jpg' -> 603daf6d-c59f-4f64-a432-78baebf4afc5
+2026-03-31 11:56:36,024 [INFO] [Thread-19 (_worker)] Uploading 'codemotion-rome-2026_0021_01.jpg' started
+2026-03-31 11:56:44,340 [INFO] [Thread-19 (_worker)] Upload OK 'codemotion-rome-2026_0021_01.jpg' -> 053b9dea-795c-412f-8477-e31c4ee46a74
+2026-03-31 11:57:49,830 [INFO] [Thread-21 (_worker)] Uploading 'codemotion-rome-2026_0022_01.jpg' started
+2026-03-31 11:57:53,192 [INFO] [Thread-21 (_worker)] Upload OK 'codemotion-rome-2026_0022_01.jpg' -> e92e6ca6-4b0a-40fa-9fa7-cd4abd9420b5
+2026-03-31 11:58:20,909 [INFO] [Thread-23 (_worker)] Uploading 'codemotion-rome-2026_0023_01.jpg' started
+2026-03-31 11:58:26,289 [INFO] [Thread-23 (_worker)] Upload OK 'codemotion-rome-2026_0023_01.jpg' -> 8883c7d0-ba86-400b-96d8-af9080816702
+2026-03-31 12:00:15,152 [INFO] [Thread-25 (_worker)] Uploading 'codemotion-rome-2026_0024_01.jpg' started
+2026-03-31 12:00:19,796 [INFO] [Thread-25 (_worker)] Upload OK 'codemotion-rome-2026_0024_01.jpg' -> 1ab8e771-5bfd-4a51-9440-206f2971b37c
+2026-03-31 12:00:35,255 [INFO] [Thread-27 (_worker)] Uploading 'codemotion-rome-2026_0025_01.jpg' started
+2026-03-31 12:00:42,564 [INFO] [Thread-27 (_worker)] Upload OK 'codemotion-rome-2026_0025_01.jpg' -> 2ff68c1f-4c15-46c7-9b60-5628a10f894d
+2026-03-31 12:01:20,855 [INFO] [Thread-29 (_worker)] Uploading 'codemotion-rome-2026_0026_01.jpg' started
+2026-03-31 12:01:25,897 [INFO] [Thread-29 (_worker)] Upload OK 'codemotion-rome-2026_0026_01.jpg' -> 954423f9-1e5b-4822-97fd-fd7c4c651ceb
+2026-03-31 12:02:35,660 [INFO] [Thread-31 (_worker)] Uploading 'codemotion-rome-2026_0027_01.jpg' started
+2026-03-31 12:02:41,550 [INFO] [Thread-31 (_worker)] Upload OK 'codemotion-rome-2026_0027_01.jpg' -> a89a311a-5669-49d1-8458-3f024f2a77c4
+2026-03-31 12:14:47,529 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0028_01.jpg' started
+2026-03-31 12:14:48,020 [INFO] [Thread-1 (_worker)] Attempting login to backend (async)...
+2026-03-31 12:14:48,619 [INFO] [Thread-1 (_worker)] Login successful (async)
+2026-03-31 12:14:52,334 [INFO] [Thread-1 (_worker)] Upload OK 'codemotion-rome-2026_0028_01.jpg' -> 0cb34d69-3094-492a-a8d3-0e9684d96934
+2026-03-31 12:16:03,997 [INFO] [Thread-3 (_worker)] Uploading 'codemotion-rome-2026_0029_01.jpg' started
+2026-03-31 12:16:08,692 [INFO] [Thread-3 (_worker)] Upload OK 'codemotion-rome-2026_0029_01.jpg' -> f1b6ffc3-630c-4c58-89f6-9f3c15a2b0f4
+2026-03-31 12:16:47,486 [INFO] [Thread-5 (_worker)] Uploading 'codemotion-rome-2026_0030_01.jpg' started
+2026-03-31 12:16:52,508 [INFO] [Thread-5 (_worker)] Upload OK 'codemotion-rome-2026_0030_01.jpg' -> e21f9590-21e8-4de9-a73a-6bfdfb046dd6
+2026-03-31 12:29:30,334 [INFO] [Thread-7 (_worker)] Uploading 'codemotion-rome-2026_0031_01.jpg' started
+2026-03-31 12:29:44,807 [INFO] [Thread-7 (_worker)] Upload OK 'codemotion-rome-2026_0031_01.jpg' -> 8d9d2bf9-bed5-4841-a312-ac32be8c538b
+2026-03-31 12:30:44,535 [INFO] [Thread-9 (_worker)] Uploading 'codemotion-rome-2026_0032_01.jpg' started
+2026-03-31 12:30:48,832 [INFO] [Thread-9 (_worker)] Upload OK 'codemotion-rome-2026_0032_01.jpg' -> 51c49434-c696-4717-b01b-79601736bab2
+2026-03-31 12:33:09,256 [INFO] [Thread-11 (_worker)] Uploading 'codemotion-rome-2026_0033_01.jpg' started
+2026-03-31 12:33:13,876 [INFO] [Thread-11 (_worker)] Upload OK 'codemotion-rome-2026_0033_01.jpg' -> fca22855-ae27-41df-ab69-74659b442db4
+2026-03-31 12:34:45,376 [INFO] [Thread-13 (_worker)] Uploading 'codemotion-rome-2026_0034_01.jpg' started
+2026-03-31 12:34:49,870 [INFO] [Thread-13 (_worker)] Upload OK 'codemotion-rome-2026_0034_01.jpg' -> 32fa68f3-c3ed-478e-bf9b-9a162d8c57cb
+2026-03-31 13:01:24,482 [INFO] [Thread-15 (_worker)] Uploading 'codemotion-rome-2026_0035_01.jpg' started
+2026-03-31 13:01:29,985 [INFO] [Thread-15 (_worker)] Upload OK 'codemotion-rome-2026_0035_01.jpg' -> 3a7556f0-bcc7-49bb-bd94-85368ce3cfd8
+2026-03-31 13:03:05,513 [INFO] [Thread-17 (_worker)] Uploading 'codemotion-rome-2026_0036_01.jpg' started
+2026-03-31 13:03:10,316 [INFO] [Thread-17 (_worker)] Upload OK 'codemotion-rome-2026_0036_01.jpg' -> 869e0af3-172e-4aee-86d8-b240b02b7ee7
+2026-03-31 13:11:37,128 [INFO] [Thread-19 (_worker)] Uploading 'codemotion-rome-2026_0037_01.jpg' started
+2026-03-31 13:11:51,339 [INFO] [Thread-19 (_worker)] Upload OK 'codemotion-rome-2026_0037_01.jpg' -> 95ef0acd-df8c-4c1a-ac63-8287def15b7f
+2026-03-31 13:15:07,666 [INFO] [Thread-21 (_worker)] Uploading 'codemotion-rome-2026_0038_01.jpg' started
+2026-03-31 13:15:10,289 [WARNING] [Thread-21 (_worker)] 401 Unauthorized for 'codemotion-rome-2026_0038_01.jpg', retrying login
+2026-03-31 13:15:10,289 [INFO] [Thread-21 (_worker)] Attempting login to backend (async)...
+2026-03-31 13:15:10,853 [INFO] [Thread-21 (_worker)] Login successful (async)
+2026-03-31 13:15:17,917 [INFO] [Thread-21 (_worker)] Upload OK 'codemotion-rome-2026_0038_01.jpg' -> ef684ecc-c5a1-4498-b73b-66ec68cde887
+2026-03-31 13:16:07,334 [INFO] [Thread-23 (_worker)] Uploading 'codemotion-rome-2026_0039_01.jpg' started
+2026-03-31 13:16:12,006 [INFO] [Thread-23 (_worker)] Upload OK 'codemotion-rome-2026_0039_01.jpg' -> 9dfb26e0-705c-4c62-b2bb-fea879bb6620
+2026-03-31 13:17:02,862 [INFO] [Thread-25 (_worker)] Uploading 'codemotion-rome-2026_0040_01.jpg' started
+2026-03-31 13:17:06,136 [INFO] [Thread-25 (_worker)] Upload OK 'codemotion-rome-2026_0040_01.jpg' -> a0847659-4601-414e-b016-63e1b0414fb0
+2026-03-31 13:19:45,863 [INFO] [Thread-27 (_worker)] Uploading 'codemotion-rome-2026_0041_01.jpg' started
+2026-03-31 13:19:50,848 [INFO] [Thread-27 (_worker)] Upload OK 'codemotion-rome-2026_0041_01.jpg' -> 9370a02d-de04-43cc-bbad-eea3e1776b41
+2026-03-31 13:33:42,205 [INFO] [Thread-29 (_worker)] Uploading 'codemotion-rome-2026_0042_01.jpg' started
+2026-03-31 13:33:47,858 [INFO] [Thread-29 (_worker)] Upload OK 'codemotion-rome-2026_0042_01.jpg' -> 62e189cf-f223-4f7d-97af-b8ca8b9d5add
+2026-03-31 13:39:06,305 [INFO] [Thread-31 (_worker)] Uploading 'codemotion-rome-2026_0043_01.jpg' started
+2026-03-31 13:39:10,831 [INFO] [Thread-31 (_worker)] Upload OK 'codemotion-rome-2026_0043_01.jpg' -> 623eb8ae-b955-4766-a513-7d766709e05b
+2026-03-31 13:49:26,255 [INFO] [Thread-33 (_worker)] Uploading 'codemotion-rome-2026_0044_01.jpg' started
+2026-03-31 13:49:40,534 [INFO] [Thread-33 (_worker)] Upload OK 'codemotion-rome-2026_0044_01.jpg' -> bc279f46-8a2e-4c2e-aeb0-9a006006664c
+2026-03-31 13:50:03,511 [INFO] [Thread-35 (_worker)] Uploading 'codemotion-rome-2026_0045_01.jpg' started
+2026-03-31 13:50:06,628 [INFO] [Thread-35 (_worker)] Upload OK 'codemotion-rome-2026_0045_01.jpg' -> ea153121-d959-40ff-b2fe-bcd53d3c166b
+2026-03-31 13:55:09,740 [INFO] [Thread-37 (_worker)] Uploading 'codemotion-rome-2026_0046_01.jpg' started
+2026-03-31 13:55:24,163 [INFO] [Thread-37 (_worker)] Upload OK 'codemotion-rome-2026_0046_01.jpg' -> dd9750db-32e8-4625-9742-cb095946bccc
+2026-03-31 13:58:14,606 [INFO] [Thread-39 (_worker)] Uploading 'codemotion-rome-2026_0047_01.jpg' started
+2026-03-31 13:58:19,545 [INFO] [Thread-39 (_worker)] Upload OK 'codemotion-rome-2026_0047_01.jpg' -> f29b5c12-9c6a-4269-967f-856db1dca0e6
+2026-03-31 13:59:43,966 [INFO] [Thread-41 (_worker)] Uploading 'codemotion-rome-2026_0048_01.jpg' started
+2026-03-31 13:59:50,299 [INFO] [Thread-41 (_worker)] Upload OK 'codemotion-rome-2026_0048_01.jpg' -> b8ea2178-3096-4e0a-a621-caca59ada02f
+2026-03-31 14:00:27,562 [INFO] [Thread-43 (_worker)] Uploading 'codemotion-rome-2026_0049_01.jpg' started
+2026-03-31 14:00:31,083 [INFO] [Thread-43 (_worker)] Upload OK 'codemotion-rome-2026_0049_01.jpg' -> 3d29f722-3097-46e0-afa9-58451de65305
+2026-03-31 14:02:37,821 [INFO] [Thread-45 (_worker)] Uploading 'codemotion-rome-2026_0050_01.jpg' started
+2026-03-31 14:02:42,347 [INFO] [Thread-45 (_worker)] Upload OK 'codemotion-rome-2026_0050_01.jpg' -> e7fabf25-0391-4976-90cb-871af8994bd3
+2026-03-31 14:03:44,137 [INFO] [Thread-47 (_worker)] Uploading 'codemotion-rome-2026_0051_01.jpg' started
+2026-03-31 14:03:50,445 [INFO] [Thread-47 (_worker)] Upload OK 'codemotion-rome-2026_0051_01.jpg' -> dd90507c-0ab1-40bb-a832-003cb5cc92e0
+2026-03-31 14:05:34,349 [INFO] [Thread-49 (_worker)] Uploading 'codemotion-rome-2026_0052_01.jpg' started
+2026-03-31 14:05:38,887 [INFO] [Thread-49 (_worker)] Upload OK 'codemotion-rome-2026_0052_01.jpg' -> 384748ac-6441-4db6-bbd6-6f0128fd38c7
+2026-03-31 14:07:56,872 [INFO] [Thread-51 (_worker)] Uploading 'codemotion-rome-2026_0053_01.jpg' started
+2026-03-31 14:08:02,654 [INFO] [Thread-51 (_worker)] Upload OK 'codemotion-rome-2026_0053_01.jpg' -> 1d611ad5-ba60-479f-9569-d62b770d864b
+2026-03-31 14:10:28,900 [INFO] [Thread-53 (_worker)] Uploading 'codemotion-rome-2026_0054_01.jpg' started
+2026-03-31 14:10:33,957 [INFO] [Thread-53 (_worker)] Upload OK 'codemotion-rome-2026_0054_01.jpg' -> fa325041-251f-4137-bb3e-e54c0b73bcae
+2026-03-31 14:11:14,394 [INFO] [Thread-55 (_worker)] Uploading 'codemotion-rome-2026_0055_01.jpg' started
+2026-03-31 14:11:18,755 [INFO] [Thread-55 (_worker)] Upload OK 'codemotion-rome-2026_0055_01.jpg' -> c2f77e74-2b1a-4387-9ef5-a848a30ce158
+2026-03-31 14:11:37,227 [INFO] [Thread-57 (_worker)] Uploading 'codemotion-rome-2026_0056_01.jpg' started
+2026-03-31 14:11:42,024 [INFO] [Thread-57 (_worker)] Upload OK 'codemotion-rome-2026_0056_01.jpg' -> 1d614132-eae7-4716-bb07-1d96f36886f9
+2026-03-31 14:13:01,666 [INFO] [Thread-59 (_worker)] Uploading 'codemotion-rome-2026_0057_01.jpg' started
+2026-03-31 14:13:06,837 [INFO] [Thread-59 (_worker)] Upload OK 'codemotion-rome-2026_0057_01.jpg' -> 8c41f9ae-c031-4859-a654-f25adabb7840
+2026-03-31 14:15:10,539 [INFO] [Thread-61 (_worker)] Uploading 'codemotion-rome-2026_0058_01.jpg' started
+2026-03-31 14:15:15,281 [WARNING] [Thread-61 (_worker)] 401 Unauthorized for 'codemotion-rome-2026_0058_01.jpg', retrying login
+2026-03-31 14:15:15,282 [INFO] [Thread-61 (_worker)] Attempting login to backend (async)...
+2026-03-31 14:15:15,845 [INFO] [Thread-61 (_worker)] Login successful (async)
+2026-03-31 14:15:20,018 [INFO] [Thread-61 (_worker)] Upload OK 'codemotion-rome-2026_0058_01.jpg' -> 0ee6afb8-9396-4b03-a22d-bdcadb288580
+2026-03-31 14:18:29,957 [INFO] [Thread-63 (_worker)] Uploading 'codemotion-rome-2026_0059_01.jpg' started
+2026-03-31 14:18:33,673 [INFO] [Thread-63 (_worker)] Upload OK 'codemotion-rome-2026_0059_01.jpg' -> b0f4c35f-299f-405e-9e2b-fb3702acf447
+2026-03-31 14:18:47,865 [INFO] [Thread-65 (_worker)] Uploading 'codemotion-rome-2026_0060_01.jpg' started
+2026-03-31 14:18:58,311 [INFO] [Thread-65 (_worker)] Upload OK 'codemotion-rome-2026_0060_01.jpg' -> c294ac11-7e7f-4c5e-a023-c780534ac5ef
+2026-03-31 14:23:40,589 [INFO] [Thread-67 (_worker)] Uploading 'codemotion-rome-2026_0061_01.jpg' started
+2026-03-31 14:23:54,193 [INFO] [Thread-67 (_worker)] Upload OK 'codemotion-rome-2026_0061_01.jpg' -> 4e9a8e23-7527-4aa9-a022-c71ddda2eca7
+2026-03-31 14:26:55,616 [INFO] [Thread-69 (_worker)] Uploading 'codemotion-rome-2026_0062_01.jpg' started
+2026-03-31 14:26:59,970 [INFO] [Thread-69 (_worker)] Upload OK 'codemotion-rome-2026_0062_01.jpg' -> bedea0da-5350-4703-9fd8-2b3e2d4a9b84
+2026-03-31 14:27:49,965 [INFO] [Thread-71 (_worker)] Uploading 'codemotion-rome-2026_0063_01.jpg' started
+2026-03-31 14:27:54,148 [INFO] [Thread-71 (_worker)] Upload OK 'codemotion-rome-2026_0063_01.jpg' -> 6205ff5a-0bcc-4dc7-b7ba-7ee97a2a7d27
+2026-03-31 14:28:24,215 [INFO] [Thread-73 (_worker)] Uploading 'codemotion-rome-2026_0064_01.jpg' started
+2026-03-31 14:28:29,172 [INFO] [Thread-73 (_worker)] Upload OK 'codemotion-rome-2026_0064_01.jpg' -> 94a879da-1ad6-484e-bb8c-318bd419597e
+2026-03-31 14:30:04,755 [INFO] [Thread-75 (_worker)] Uploading 'codemotion-rome-2026_0065_01.jpg' started
+2026-03-31 14:30:09,426 [INFO] [Thread-75 (_worker)] Upload OK 'codemotion-rome-2026_0065_01.jpg' -> 792bf816-4684-4dcd-89cb-082e24e62c7c
+2026-03-31 14:32:25,863 [INFO] [Thread-77 (_worker)] Uploading 'codemotion-rome-2026_0066_01.jpg' started
+2026-03-31 14:32:30,331 [INFO] [Thread-77 (_worker)] Upload OK 'codemotion-rome-2026_0066_01.jpg' -> 2337dd61-e8dd-4297-bdef-89e461ab76cd
+2026-03-31 14:46:18,596 [INFO] [Thread-79 (_worker)] Uploading 'codemotion-rome-2026_0067_01.jpg' started
+2026-03-31 14:46:32,185 [INFO] [Thread-79 (_worker)] Upload OK 'codemotion-rome-2026_0067_01.jpg' -> 9207a436-c231-439d-a2f8-7444cedcbe35
