@@ -100,7 +100,16 @@ class Settings:
             return settings
 
         return None'''
+    def get_capture_mode(self) -> str:
+        '''
+        Method which returns the capture mode (pc or camera) setted in settings.yaml file.
+        :return: capture mode
+        '''
 
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict.get('capture_mode', 'pc') # Defaults to pc if not specified
 
 # DEBUG SECTION
 # settings = Settings()
