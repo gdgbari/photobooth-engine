@@ -1,7 +1,7 @@
-venv/
+.venv/
 __pycache__/
 *.pyc
 *.pyo
 .idea/
 .DS_Store
-settings.yaml
+.pytest_cache/
