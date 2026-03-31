@@ -103,7 +103,10 @@ class Runner:
 
         while True:
             file_name = self._file_naming.get_photo_name()
-            photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
+            if self._settings.get_capture_mode() == 'camera':
+                photo_path = self._camera.get_shoot_from_camera(self._folders.get_current_path(), file_name, self._ui)
+            else:
+                photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
             # photo_path = self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
