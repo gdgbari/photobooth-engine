@@ -14,12 +14,12 @@ import os
 import shutil
 import utils
 
-
 '''
 Runner is the principal class that coordinates all the components of the application.
 Here all the managers are instantiated and the main execution loop is implemented.
 It provides methods to manage the life cycle of camera, editing and printing.
 '''
+
 
 class Runner:
 
@@ -53,6 +53,8 @@ class Runner:
         self._camera.init_camera()
         self._queue.load_queue()
         self._printer.prepare()
+        if not self._settings.verify_logs_existence():
+            self._settings.crete_logs_file()
 
         # now check how many corners are present in the assets
         self._SINGLE_FRAME = self._assets.is_frame_single()
@@ -91,9 +93,14 @@ class Runner:
         self._queue.add_photo(self._folders.clean_current_path(photo_path), times)
         self._queue.add_edit(effect_path, times)
 
-        while self._queue.queue_is_ready(): # if there are 2 or more photos in queue then start to edit
-            path_to_print=self.edit() # actually there is no more the need to declare here this paths
-            self._printer.print_image(path_to_print)
+        printed_photos_number = self._settings.get_printed_photos_number()
+        counter = 1
+        while self._queue.queue_is_ready():  # if there are 2 or more photos in queue then start to edit
+            path_to_print = self.edit()  # actually there is no more the need to declare here this paths
+            self._printer.print_image(path_to_print, printed_photos_number + counter)
+            counter += 2
+
+        self._settings.update_logs(counter + 1, 'p')
 
     def choice_photo_with_preview(self):
         '''
@@ -101,9 +108,12 @@ class Runner:
         :return: shot photo path
         '''
 
+        shooted_photos_number = self._settings.get_shooted_photos_number()
+        counter = 1
+
         while True:
             file_name = self._file_naming.get_photo_name()
-            photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
+            photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui, shooted_photos_number + counter)
             # photo_path = self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
@@ -114,23 +124,21 @@ class Runner:
                 # the photo is accepted, we can go on
                 # session has ended
                 self._file_naming.increment_session_number()
+                self._settings.update_logs(counter, 's')
                 return [photo_path, '']
             else:
-                # the photo is not accepted, move it and try again
+                counter += 1
                 shutil.move(os.path.join(self._folders.get_current_path(), file_name), os.path.join(self._folders.get_originals_path(), file_name))
                 print('Photo rejected, retrying...')
-
 
     def edit(self):
         '''
         Method which gets photos and their effects from the queues and sends to the editor manager to edit them.
         :return: edited photo path
         '''
-
         photo_list = self._queue.get_photos()
         edit_list = self._queue.get_edits()
         self._editor.set_infos(photo_list, edit_list, self._folders.get_output_folder_path())
-
         joined_photo = self._editor.edit()
         print(joined_photo)
         return joined_photo

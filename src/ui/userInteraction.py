@@ -113,12 +113,12 @@ class UserInterface:
 
         input('press any key to shoot')
 
-    def notify_shot_taken(self):
+    def notify_shot_taken(self, shooted_photo_number: int):
         '''
         Method which print a message to notify the user that a shoot happened.
         '''
 
-        print('shot taken')
+        print('shot n. ' + str(shooted_photo_number) + 'taken')
 
     def show_preview_without_response(self, previw_img: Image):
         """
