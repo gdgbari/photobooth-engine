@@ -1,4 +1,4 @@
-venv/
+.venv/
 __pycache__/
 *.pyc
 *.pyo
@@ -7,3 +7,5 @@ __pycache__/
 settings.yaml
 out
 photobooth-upload.log
+.pytest_cache/
+

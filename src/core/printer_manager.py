@@ -69,7 +69,7 @@ class Printer:
         except subprocess.CalledProcessError as e:
             return f"Errore: {e}"
 
-    def print_image(self, file_path):
+    def print_image(self, file_path, printed_photos_number):
         """
         command = [
             'lp', '-d', self.printer_name,
@@ -92,6 +92,7 @@ class Printer:
 
         try:
             subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            print(f'printed photos n.{printed_photos_number} and {printed_photos_number + 1}')
         except subprocess.CalledProcessError as e:
             print(f"An error occurred while printing: {e}")
         except FileNotFoundError:
