@@ -19,10 +19,9 @@ class Printer:
     def __init__(self, printer_name, user_options=None):
 
         self.printer_name = printer_name
-        if user_options is None:
-            self._filling_command = ""
-        else:
-            self._filling_command += " ".join(f"-o {key}={value}" for key, value in user_options.items()) + " "
+        self._filling_command = ""
+        if user_options:
+            self._filling_command = " ".join(f"-o {key}={value}" for key, value in user_options.items()) + " "
 
     def prepare(self)-> None:
 

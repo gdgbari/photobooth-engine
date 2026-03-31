@@ -1,0 +1,307 @@
+2026-03-29 22:41:18,785 [INFO] [Thread-1 (_worker)] Uploading 'Test_0004_01.jpg' started
+2026-03-29 22:41:19,162 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0004_01.jpg'. Connection Error
+2026-03-29 22:41:19,162 [INFO] [Thread-1 (_worker)] The upload of 'Test_0004_01.jpg' will be retried in 5 seconds
+2026-03-29 22:44:36,781 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:44:37,156 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:44:37,156 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:44:42,161 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:44:42,520 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:44:42,520 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:44:47,525 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:44:47,864 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:44:47,864 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:44:52,868 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:44:53,225 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:44:53,225 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:44:58,228 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:44:58,586 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:44:58,586 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:03,592 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:03,952 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:03,952 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:08,954 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:09,311 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:09,312 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:14,316 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:14,678 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:14,678 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:19,682 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:20,044 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:20,045 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:25,047 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:25,405 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:25,406 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:30,408 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:30,765 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:30,766 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:35,770 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:36,128 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:36,129 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:41,133 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:41,490 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:41,491 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:46,492 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:46,859 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:46,860 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:51,864 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:52,212 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:52,213 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:45:57,219 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:45:57,581 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:45:57,581 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:02,585 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:02,943 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:02,943 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:07,948 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:08,308 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:08,309 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:13,314 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:13,673 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:13,674 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:18,677 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:19,029 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:19,030 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:24,032 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:24,398 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:24,398 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:29,403 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:29,743 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:29,743 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:34,745 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:35,093 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:35,094 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:40,098 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:40,456 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:40,456 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:45,462 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:45,802 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:45,803 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:50,805 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:51,140 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:51,140 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:46:56,145 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:46:56,504 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:46:56,504 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:01,507 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:01,894 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:01,895 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:06,896 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:07,255 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:07,256 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:12,261 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:12,629 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:12,629 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:17,635 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:17,999 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:17,999 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:23,005 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:23,385 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:23,386 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:28,390 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:28,733 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:28,734 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:33,735 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:34,094 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:34,094 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:39,099 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:39,449 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:39,449 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:44,455 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:44,815 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:44,815 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:49,820 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:50,180 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:50,180 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:47:55,186 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:47:55,551 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:47:55,552 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:00,556 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:00,911 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:00,911 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:05,914 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:06,275 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:06,275 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:11,278 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:11,632 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:11,632 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:16,633 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:17,008 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:17,008 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:22,013 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:22,373 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:22,374 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:27,377 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:27,739 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:27,739 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:32,740 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:33,114 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:33,114 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:38,121 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:38,584 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:38,586 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:43,592 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:43,951 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:43,951 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:48,957 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:49,338 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:49,339 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:54,340 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:48:54,687 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:48:54,688 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:48:59,691 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:00,041 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:00,042 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:05,044 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:05,397 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:05,397 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:10,402 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:10,759 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:10,759 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:15,764 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:16,100 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:16,101 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:21,106 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:21,447 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:21,447 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:26,451 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:26,817 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:26,818 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:31,823 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:32,176 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:32,177 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:37,180 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:37,515 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:37,515 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:42,521 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:42,889 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:42,889 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:47,894 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:48,253 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:48,254 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:53,256 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:53,617 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:53,618 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:49:58,621 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:49:59,005 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:49:59,005 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:04,007 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:04,369 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:04,370 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:09,376 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:09,739 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:09,740 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:14,742 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:15,088 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:15,088 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:20,090 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:20,432 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:20,433 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:25,436 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:25,793 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:25,793 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:30,797 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:31,148 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:31,149 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:36,155 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:36,511 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:36,512 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:41,515 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:41,874 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:41,874 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:46,879 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:47,219 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:47,219 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:52,225 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:52,584 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:52,585 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 22:50:57,588 [INFO] [Thread-1 (_worker)] Uploading 'Test_0006_01.jpg' started
+2026-03-29 22:50:57,949 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'Test_0006_01.jpg'. Connection Error
+2026-03-29 22:50:57,950 [INFO] [Thread-1 (_worker)] The upload of 'Test_0006_01.jpg' will be retried in 5 seconds
+2026-03-29 23:06:47,293 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0010_01.jpg' started
+2026-03-29 23:06:47,720 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0010_01.jpg'. Connection Error
+2026-03-29 23:06:47,720 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0010_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:20,649 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:21,079 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:21,079 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:26,081 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:26,494 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:26,494 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:31,498 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:31,908 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:31,909 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:36,914 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:37,328 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:37,329 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:42,335 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:42,747 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:42,747 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:47,750 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:48,210 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:48,210 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:53,216 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:53,622 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:53,623 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:20:58,627 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:20:59,022 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:20:59,023 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:04,029 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:04,427 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:04,427 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:09,429 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:09,847 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:09,847 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:14,848 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:15,246 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:15,246 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:20,249 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:20,641 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:20,641 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:25,647 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:26,060 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:26,079 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:31,084 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:31,477 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:31,478 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:36,482 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:36,897 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:36,897 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:41,899 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:42,309 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:42,309 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:47,315 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:47,728 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:47,729 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:21:52,733 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:21:53,147 [ERROR] [Thread-1 (_worker)] Upload FAILED (backend unreachable) for 'codemotion-rome-2026_0002_01.jpg'. Connection Error
+2026-03-29 23:21:53,148 [INFO] [Thread-1 (_worker)] The upload of 'codemotion-rome-2026_0002_01.jpg' will be retried in 5 seconds
+2026-03-29 23:34:48,122 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0002_01.jpg' started
+2026-03-29 23:34:48,496 [INFO] [Thread-1 (_worker)] Attempting login to backend...
+2026-03-29 23:34:49,147 [ERROR] [Thread-1 (_worker)] Login failed: Client error '404 Not Found' for url 'https://api.photobooth.vitodibari.dev/auth/token'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2026-03-29 23:34:49,148 [ERROR] [Thread-1 (_worker)] [PhotoAPIClient] Background upload failed for 'codemotion-rome-2026_0002_01.jpg'
+Traceback (most recent call last):
+  File "/Users/vitodibari/Projects/GDGProjects/photobooth/src/backend/new_backend_endpoint.py", line 120, in _worker
+    asyncio.run(self.upload_pil(img, photo_name))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/vitodibari/Projects/GDGProjects/photobooth/src/backend/new_backend_endpoint.py", line 67, in upload_pil
+    await self.login()
+  File "/Users/vitodibari/Projects/GDGProjects/photobooth/src/backend/new_backend_endpoint.py", line 43, in login
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/vitodibari/Projects/GDGProjects/photobooth/.venv/lib/python3.14/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '404 Not Found' for url 'https://api.photobooth.vitodibari.dev/auth/token'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2026-03-29 23:35:23,582 [INFO] [Thread-1 (_worker)] Uploading 'codemotion-rome-2026_0003_01.jpg' started
+2026-03-29 23:35:23,956 [INFO] [Thread-1 (_worker)] Attempting login to backend...
+2026-03-29 23:35:24,656 [INFO] [Thread-1 (_worker)] Login successful
+2026-03-29 23:35:35,648 [INFO] [Thread-1 (_worker)] Upload OK 'codemotion-rome-2026_0003_01.jpg' -> f9f11358-c514-47a8-b2b1-14b3c991a6cd
