@@ -5,6 +5,7 @@ from utils import camera_is_connected
 import gphoto2 as gp
 import os
 import time
+import shutil
 
 
 '''
@@ -18,6 +19,8 @@ class PhotoManager:
         self._settings_manager = Settings()
 
     def stop_camera(self):
+        if self._settings_manager.get_mock_camera():
+            return
         self._camera.exit()
 
     def get_shoot_from_camera(self, path, photo_name, user_interactor: UserInterface):
@@ -29,6 +32,20 @@ class PhotoManager:
         :param user_interactor: the user interactor instance to manage user interactions
         :return: shooted photo path
         '''
+
+        if self._settings_manager.get_mock_camera():
+            user_interactor.wait_for_camera_shutter()
+            target = os.path.join(path, photo_name)
+            mock_dir = os.path.join(os.getcwd(), 'test/assets/mock')
+            mock_source = os.path.join(mock_dir, 'photo.jpg')
+            if not os.path.exists(mock_source) and os.path.exists(mock_dir):
+                files = [f for f in os.listdir(mock_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+                if files:
+                    mock_source = os.path.join(mock_dir, files[0])
+            shutil.copyfile(mock_source, target)
+            os.chmod(target, 0o777)
+            user_interactor.notify_shot_taken()
+            return target
 
         try:
             user_interactor.wait_for_camera_shutter()
@@ -49,6 +66,20 @@ class PhotoManager:
                     camera_file.save(target)
                     os.chmod(target, 0o777)
 
+                    # # Introduce a small delay to ensure camera finishes writing to the SD card
+                    # time.sleep(1.5)
+                    #
+                    # # Try to retrieve and save the file (retry up to 3 times if size is 0 or GPhoto2Error occurs)
+                    # for attempt in range(3):
+                    #     try:
+                    #         camera_file = self._camera.file_get(folder, file_name, gp.GP_FILE_TYPE_NORMAL)
+                    #         camera_file.save(target)
+                    #         if os.path.exists(target) and os.path.getsize(target) > 0:
+                    #             break
+                    #     except GPhoto2Error as download_err:
+                    #         print(f"Attempt {attempt + 1} to retrieve file from camera failed: {download_err}")
+                    #     # time.sleep(1.0)
+
                     user_interactor.notify_shot_taken()
 
                     return target
@@ -68,12 +99,41 @@ class PhotoManager:
         :return: shooted photo path
         '''
 
+        if self._settings_manager.get_mock_camera():
+            user_interactor.press_to_shot()
+            target = os.path.join(path, photo_name)
+            mock_dir = os.path.join(os.getcwd(), 'test/assets/mock')
+            mock_source = os.path.join(mock_dir, 'photo.jpg')
+            if not os.path.exists(mock_source) and os.path.exists(mock_dir):
+                files = [f for f in os.listdir(mock_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+                if files:
+                    mock_source = os.path.join(mock_dir, files[0])
+            shutil.copyfile(mock_source, target)
+            os.chmod(target, 0o777)
+            user_interactor.notify_shot_taken()
+            return target
+
         try:
             # print('Capturing image')
             user_interactor.press_to_shot()
             file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
             target = os.path.join(path, photo_name)
-            # print('Copying image to', target)
+            
+            # # Introduce a small delay to ensure camera finishes writing to the SD card
+            # time.sleep(1.5)
+            #
+            # # Try to retrieve and save the file (retry up to 3 times if size is 0 or GPhoto2Error occurs)
+            # for attempt in range(3):
+            #     try:
+            #         camera_file = self._camera.file_get(
+            #             file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL)
+            #         camera_file.save(target)
+            #         if os.path.exists(target) and os.path.getsize(target) > 0:
+            #             break
+            #     except GPhoto2Error as download_err:
+            #         print(f"Attempt {attempt+1} to retrieve file from PC trigger failed: {download_err}")
+            #     time.sleep(1.0)
+
             camera_file = self._camera.file_get(
                 file_path.folder, file_path.name, gp.GP_FILE_TYPE_NORMAL)
             camera_file.save(target)
@@ -94,6 +154,10 @@ class PhotoManager:
         Method which initializes the camera.
         If something goes wrong, it retries by recursion until the camera is connected.
         '''
+
+        if self._settings_manager.get_mock_camera():
+            print("Mock camera enabled. Skipping real camera initialization.")
+            return
 
         while not camera_is_connected(self._settings_manager):
             print('camera not found. check if it\'s connected and try again')

@@ -9,6 +9,7 @@ Tailor class gets the chosen photo and applies the wanted effect.
 It provides methods to edit photos with the selected effects, add padding, combine paires of photos and edit to have one total photo with 2 polaroids inside.
 '''
 
+
 class Tailor:
 
     def __init__(self, print_size='4x6'):
@@ -31,13 +32,10 @@ class Tailor:
         Method which build the final path of the combined/single photo.
         '''
 
-        if self._print_size == '4x3':
-            base_name = utils.get_name_from_path(self._photo_list[0])[:-4]
-        else:
-            first_photo_name = utils.get_name_from_path(self._photo_list[0])[:-4]
-            second_photo_name = utils.get_name_from_path(self._photo_list[1])[:-4]
-            base_name = first_photo_name + '-' + second_photo_name
-            
+        first_photo_name = utils.get_name_from_path(self._photo_list[0])[:-4]
+        second_photo_name = utils.get_name_from_path(self._photo_list[1])[:-4]
+        base_name = first_photo_name + '-' + second_photo_name
+
         path = os.path.join(self._output_folder_path, base_name + '_00.jpg')
         i = 1
         while os.path.exists(path):
@@ -45,7 +43,7 @@ class Tailor:
             i += 1
         return path
 
-    def edit(self)-> str:
+    def edit(self) -> str:
         """
         Edits the photos
         :return: edited file path, as string
@@ -53,16 +51,9 @@ class Tailor:
 
         edited_file_path = self._build_output_path()
 
-        if self._print_size == '4x3':
-            first_photo = self.prepare_single_photo(self._photo_list[0], self._effect_list[0])
-            # For 4x3 prints, we want to maximize the area by rotating and resizing
-            # the portrait oriented polaroid into a landscape 4:3 canvas (2000x1500).
-            output_file = first_photo.rotate(90, expand=True)
-            output_file = output_file.resize((2000, 1500), Image.Resampling.LANCZOS)
-        else:
-            first_photo = self.prepare_single_photo(self._photo_list[0], self._effect_list[0])
-            second_photo = self.prepare_single_photo(self._photo_list[1], self._effect_list[1])
-            output_file = self._combine_two_photos(first_photo, second_photo)
+        first_photo = self.prepare_single_photo(self._photo_list[0], self._effect_list[0])
+        second_photo = self.prepare_single_photo(self._photo_list[1], self._effect_list[1])
+        output_file = self._combine_two_photos(first_photo, second_photo)
 
         # HERE PADDING
         output_file = self.add_final_padding(output_file, 98)
@@ -82,14 +73,18 @@ class Tailor:
         :return: combined photo
         '''
 
-        output_image = Image.new('RGB', size=(3000,2000)) # right now the output is rotated
-        output_image.paste(first_photo, (0, 0))
-        output_image.paste(second_photo, (1500, 0))
-        # rotate
-        output_image = output_image.rotate(90, expand=True)
+        # Rotate 90 degrees and resize both photos to landscape 4x3 (2000x1500)
+        first_4x3 = first_photo.rotate(90, expand=True).resize((2000, 1500), Image.Resampling.LANCZOS)
+        second_4x3 = second_photo.rotate(90, expand=True).resize((2000, 1500), Image.Resampling.LANCZOS)
+
+        # Create a new 2000x3000 canvas to stack them vertically (4x6 portrait print)
+        output_image = Image.new('RGB', size=(2000, 3000))
+        output_image.paste(first_4x3, (0, 0))
+        output_image.paste(second_4x3, (0, 1500))
         return output_image
 
-    def prepare_single_photo(self, photo, effect, horizontal_offset=0, vertical_alignment='center', auto_orientation=True) -> Image:
+    def prepare_single_photo(self, photo, effect, horizontal_offset=0, vertical_alignment='center',
+                             auto_orientation=True) -> Image:
         '''
         Method which edits a single photo with the chosen effect.
         The photo is automatically centered and resized to fit the effect's transparent area.
@@ -117,7 +112,8 @@ class Tailor:
         hole_bbox = mask.getbbox()
 
         if not hole_bbox:
-            raise ValueError("Could not find a transparent hole in the effect frame. The frame must be a PNG with a transparent area for the photo.")
+            raise ValueError(
+                "Could not find a transparent hole in the effect frame. The frame must be a PNG with a transparent area for the photo.")
 
         hole_left, hole_top, hole_right, hole_bottom = hole_bbox
         hole_width = hole_right - hole_left
@@ -138,21 +134,21 @@ class Tailor:
         # Crop the resized photo based on alignment to match the hole size
         # Apply horizontal offset here
         crop_x = (new_photo_width - hole_width) / 2 - horizontal_offset
-        
+
         if vertical_alignment == 'top':
             crop_y = 0
         elif vertical_alignment == 'bottom':
             crop_y = new_photo_height - hole_height
-        else: # 'center'
+        else:  # 'center'
             crop_y = (new_photo_height - hole_height) / 2
-        
+
         # Ensure crop coordinates are within bounds (optional, but good practice)
         # If we shift too much, we might go out of bounds. For now, let's just crop.
         # PIL handles out-of-bounds crop by padding with black if I recall correctly, 
         # but usually crop() expects coordinates within the image. 
         # However, since we are resizing to cover, we usually have some slack.
         # Let's just apply the offset.
-        
+
         cropped_photo = resized_photo.crop((crop_x, crop_y, crop_x + hole_width, crop_y + hole_height))
 
         # Composite the images.
@@ -174,24 +170,23 @@ class Tailor:
         # i build a background big as the image but of color: #f0f0f0
         # resize the image with percentage
         # put the image onto the background
-        img_w, img_h =  image.size
-        canvas = Image.new('RGB', (img_w, img_h), (240,240,240))
-        resized_w = int(img_w*(percentage/100))
-        resized_h = int(img_h*(percentage/100))
-        resized_image = image.resize((resized_w,resized_h))
-        w_padding = int((img_w - resized_w) /2)
-        h_padding = int((img_h - resized_h) /2)
-        canvas.paste(resized_image, (w_padding,h_padding))
+        img_w, img_h = image.size
+        canvas = Image.new('RGB', (img_w, img_h), (240, 240, 240))
+        resized_w = int(img_w * (percentage / 100))
+        resized_h = int(img_h * (percentage / 100))
+        resized_image = image.resize((resized_w, resized_h))
+        w_padding = int((img_w - resized_w) / 2)
+        h_padding = int((img_h - resized_h) / 2)
+        canvas.paste(resized_image, (w_padding, h_padding))
 
         return canvas
 
     # def _final_cleaning(self, originals_folder : str, file_name : str):
-        # WARNING: this function is deprecated
-        # at the end the file in the current folder has to be moved in the originals folder
-        # previous_path = self._photo_path
-        # final_path = os.path.join(originals_folder,file_name)
-        # shutil.move(previous_path,final_path)
-
+    # WARNING: this function is deprecated
+    # at the end the file in the current folder has to be moved in the originals folder
+    # previous_path = self._photo_path
+    # final_path = os.path.join(originals_folder,file_name)
+    # shutil.move(previous_path,final_path)
 
 # DEBUG
 # ph_path = "/home/gape01/PycharmProjects/photobooth/Assets/test.jpg"
@@ -204,5 +199,5 @@ class Tailor:
 #                 '/home/gape01/PycharmProjects/photobooth/Assets/test.jpg',
 #                 '/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
 #                 '/home/gape01/Desktop/main/output')
-#tailor.edit()
+# tailor.edit()
 # tailor.edit("prova.jpg")

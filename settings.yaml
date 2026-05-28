@@ -1,10 +1,12 @@
-main_folder_path: "/Users/vitodibari/Projects/GDGProjects/photobooth/out"
+main_folder_path: "/Users/vitodibari/Projects/GDGProjects/photobooth-main/engine/out"
 cam_name: 'USB PTP Class Camera'
 printer_name: 'Dai_Nippon_Printing_DP_QW410'
 print_size: '4x3' # 4x6 or 4x3
-event_name: 'codemotion-rome-2026'
+event_name: 'wetribe-anniversary'
 backend: "https://api.photobooth.vitodibari.dev"
-printer_options:
-  PageSize: "dnp4x3"
 client_secret: "yaSy3tNjSNXUCnCdwyrnUhyZuzg2LnLwBtb+4uNGEOQ="
 capture_mode: "camera" # pc or camera
+mock_camera: false
+mock_printer: false
+enable_hotfolder: true
+hotfolder_path: "/Users/vitodibari/HotFolderPrint/Prints/s4x3_2/QW410"

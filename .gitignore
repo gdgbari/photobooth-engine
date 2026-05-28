@@ -10,6 +10,7 @@ __pycache__/
 settings-prod.yaml
 settings.yaml
 temp_data.yaml
+.env*
 
 # Logs
 photobooth-upload.log
