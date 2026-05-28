@@ -114,6 +114,54 @@ class Settings:
 
         return yaml_dict.get('capture_mode', 'pc') # Defaults to pc if not specified
 
+    def get_logs_path(self) -> str:
+        '''
+        Method which returns the logs path.
+        :return: logs path
+        '''
+
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict['logs_path']
+
+    def verify_logs_existence(self) -> bool:
+        if os.path.exists(self.get_logs_path()):
+            return True
+
+        return False
+
+    def crete_logs_file(self):
+        logs_header = ['time', 'shooted_photos', 'printed_photos']
+        logs_header_dataframe = pd.DataFrame(columns=logs_header)
+        logs_header_dataframe.to_csv(self.get_logs_path(), index=False)
+
+    def get_shooted_photos_number(self) -> int:
+        logs_dataset = pd.read_csv(self.get_logs_path())
+
+        return np.sum(np.array(logs_dataset['shooted_photos'].to_list))
+
+    def get_printed_photos_number(self) -> int:
+        logs_dataset = pd.read_csv(self.get_logs_path())
+
+        return np.sum(np.array(logs_dataset['printed_photos'].to_list))
+
+    def update_logs(self, photos_number: int, flag: str):
+        raw_to_add = {
+            'time': datetime.datetime.now(),
+        }
+
+        if flag == 's':
+            raw_to_add['shooted_photos'] = photos_number
+            raw_to_add['printed_photos'] = 0
+        else:
+            raw_to_add['shooted_photos'] = 0
+            raw_to_add['printed_photos'] = photos_number
+
+        raw_to_add_dataframe = pd.DataFrame(raw_to_add)
+        raw_to_add_dataframe.to_csv(self.get_logs_path(), mode='a', header=False, index=False)
+
+
 # DEBUG SECTION
 # settings = Settings()
 # print(settings.get_main_folder_path())
