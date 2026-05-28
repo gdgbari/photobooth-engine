@@ -6,3 +6,5 @@ pytest
 requests
 httpx
 numpy
+pandas
+tqdm
