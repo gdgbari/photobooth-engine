@@ -16,8 +16,8 @@ def resume_old_session(current_path):
 
     if len(os.listdir(current_path)) != 0:
         print('maybe some error occured in the last session')
-        choice = input('do you want to resume it?')
-        if choice == 'y':
+        choice = input('do you want to resume it? [y]/n: ')
+        if choice.strip().lower() in ('y', ''):
             assets = AssetManager()
             ui = UserInterface(assets.get_corners_names())
             return ui.visualize_current_photos(current_path)

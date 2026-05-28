@@ -76,13 +76,14 @@ class UserInterface:
 
 
         while True:
-            print('Do you like it? y/n')
+            print('Do you like it? [y]/n')
 
             decision = input('choose: ')
 
-            if decision == 'y':
+            decision_clean = decision.strip().lower()
+            if decision_clean in ('y', ''):
                 return True
-            elif decision == 'n':
+            elif decision_clean == 'n':
                 return False
 
             print('Some error occurred, please try again')
@@ -101,11 +102,12 @@ class UserInterface:
                 if 0 < times <= 99:
                     while  True:
                         print('you choose '+str(times)+' copies, is it correct?')
-                        ui_input = input('y/n: ')
-                        if ui_input.lower() == 'y':
+                        ui_input = input('[y]/n: ')
+                        ui_input_clean = ui_input.strip().lower()
+                        if ui_input_clean in ('y', ''):
                             print('all right')
                             return times
-                        elif ui_input.lower() == 'n':
+                        elif ui_input_clean == 'n':
                             break
             print('Some error occurred, please try again')
 
@@ -147,10 +149,11 @@ class UserInterface:
         self._show_image(previw_img)
         print('do you like it?')
         while True:
-            choiche = input('y/n: ')
-            if choiche == 'y':
+            choiche = input('[y]/n: ')
+            choiche_clean = choiche.strip().lower()
+            if choiche_clean in ('y', ''):
                 return True
-            elif choiche == 'n':
+            elif choiche_clean == 'n':
                 return False
             else:
                 print('some error occured')
