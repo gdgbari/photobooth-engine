@@ -119,12 +119,12 @@ class UserInterface:
 
         input('press any key to shoot')
 
-    def notify_shot_taken(self):
+    def notify_shot_taken(self, shooted_photo_number: int):
         '''
         Method which print a message to notify the user that a shoot happened.
         '''
 
-        print('shot taken')
+        print('shot n. ' + str(shooted_photo_number) + 'taken')
 
     def show_preview_without_response(self, previw_img: Image):
         """
@@ -172,7 +172,11 @@ class UserInterface:
         '''
 
         photos_list = os.listdir(path)
-        photos_list.sort()
+        import re
+        def natural_sort_key(s):
+            return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
+        photos_list.sort(key=natural_sort_key)
+
 
         # subprocess.run(["nautilus", path]) #TODO make it cross platform
 

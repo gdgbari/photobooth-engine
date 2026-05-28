@@ -1,21 +1,30 @@
 import argparse
 import os
+import re
 import sys
 from tqdm import tqdm
 
-from core.photo_edit_manager import Tailor
 
 # Add the src directory to the Python path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.join(project_root, ''))
+sys.path.append(os.path.join(project_root, 'src'))
+
+from core.photo_edit_manager import Tailor
+
+
+def natural_sort_key(s):
+    """Helper function to sort alphanumeric strings naturally."""
+    return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
 
 
 def find_photos(directory):
-    """Finds all image files in a directory."""
+    """Finds all image files in a directory sorted naturally (case-insensitive)."""
     photos = []
-    for f in sorted(os.listdir(directory)):
-        if f.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
-            photos.append(os.path.join(directory, f))
+    # filter files first
+    img_files = [f for f in os.listdir(directory) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif'))]
+    # sort them naturally
+    for f in sorted(img_files, key=natural_sort_key):
+        photos.append(os.path.join(directory, f))
     return photos
 
 
@@ -25,12 +34,33 @@ def check_effect(effect_path):
 
 def main():
     parser = argparse.ArgumentParser(description='Bulk edit photos from a directory.')
-    parser.add_argument('--input_dir', help='Directory containing photos to edit.',
-                        default='/Users/vitodibari/Projects/GDGProjects/photobooth/test/assets/in')
-    parser.add_argument('--output_dir', help='Directory to save edited photos.',
-                        default='/Users/vitodibari/Projects/GDGProjects/photobooth/test/assets/out')
-    parser.add_argument('--frame_path', help='Effect (frame file) path.',
-                        default=os.path.join(project_root, 'assets/Milano.png'))
+    parser.add_argument(
+        '--input_dir',
+        help='Directory containing photos to edit.',
+        default='/Users/vitodibari/Projects/GDGProjects/photobooth/test/assets/in'
+    )
+    parser.add_argument(
+        '--output_dir',
+        help='Directory to save edited photos.',
+        default='/Users/vitodibari/Projects/GDGProjects/photobooth/test/assets/out'
+    )
+    parser.add_argument(
+        '--frame_path',
+        help='Effect (frame file) path.',
+        default=os.path.join(project_root, 'assets/Milano.png')
+    )
+    parser.add_argument(
+        '--vertical_alignment',
+        help="Vertical alignment of photo inside the frame ('center', 'top', 'bottom').",
+        default='bottom'
+    )
+    parser.add_argument(
+        '--auto_orientation',
+        action='store_false',
+        dest='auto_orientation',
+        help="Enable EXIF-based photo orientation correction."
+    )
+    parser.set_defaults(keep_orientation=True)
     args = parser.parse_args()
 
     if not os.path.isdir(args.input_dir):
@@ -57,7 +87,8 @@ def main():
         edited_path = tailor.prepare_single_photo(
             photo,
             effect,
-            horizontal_offset=-150
+            vertical_alignment=args.vertical_alignment,
+            auto_orientation=args.auto_orientation
         )
         save_path = os.path.join(args.output_dir, os.path.basename(photo))
         # progress_bar.set_description(f"Processing {os.path.basename(photo)} with effect {os.path.basename(effect)} to {save_path} \n") #log mode

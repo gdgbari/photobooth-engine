@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageOps
 
 import os
 
@@ -89,17 +89,21 @@ class Tailor:
         output_image = output_image.rotate(90, expand=True)
         return output_image
 
-    def prepare_single_photo(self, photo, effect, horizontal_offset=0) -> Image:
+    def prepare_single_photo(self, photo, effect, horizontal_offset=0, vertical_alignment='center', auto_orientation=True) -> Image:
         '''
         Method which edits a single photo with the chosen effect.
         The photo is automatically centered and resized to fit the effect's transparent area.
         :param photo: chosen photo path
         :param effect: chosen effect path (frame with a transparent hole)
         :param horizontal_offset: offset to shift the photo horizontally (positive = right, negative = left)
+        :param vertical_alignment: vertical alignment of the photo inside the hole ('center', 'top', 'bottom')
+        :param auto_orientation: whether to keep/correct photo orientation using EXIF data
         :return: edited photo
         '''
 
         background = Image.open(photo)
+        if auto_orientation:
+            background = ImageOps.exif_transpose(background)
         foreground = Image.open(effect)
 
         # Ensure frame has an alpha channel for transparency
@@ -131,10 +135,16 @@ class Tailor:
         new_photo_height = int(photo_height * scale)
         resized_photo = background.resize((new_photo_width, new_photo_height), Image.Resampling.LANCZOS)
 
-        # Crop the resized photo from the center to match the hole size
+        # Crop the resized photo based on alignment to match the hole size
         # Apply horizontal offset here
         crop_x = (new_photo_width - hole_width) / 2 - horizontal_offset
-        crop_y = (new_photo_height - hole_height) / 2
+        
+        if vertical_alignment == 'top':
+            crop_y = 0
+        elif vertical_alignment == 'bottom':
+            crop_y = new_photo_height - hole_height
+        else: # 'center'
+            crop_y = (new_photo_height - hole_height) / 2
         
         # Ensure crop coordinates are within bounds (optional, but good practice)
         # If we shift too much, we might go out of bounds. For now, let's just crop.
