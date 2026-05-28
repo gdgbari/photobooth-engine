@@ -6,5 +6,5 @@ event_name: 'codemotion-rome-2026'
 backend: "https://api.photobooth.vitodibari.dev"
 printer_options:
   PageSize: "dnp4x3"
-client_secret: "SECRET_HERE"
-logs_path: 'TO_DEFINE'
+client_secret: "yaSy3tNjSNXUCnCdwyrnUhyZuzg2LnLwBtb+4uNGEOQ="
+capture_mode: "camera" # pc or camera

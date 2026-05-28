@@ -13,6 +13,7 @@ temp_data.yaml
 
 # Logs
 photobooth-upload.log
+settings-prod.yaml
 
 # Output files
 out
