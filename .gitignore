@@ -4,8 +4,15 @@ __pycache__/
 *.pyo
 .idea/
 .DS_Store
-settings.yaml
-out
-photobooth-upload.log
 .pytest_cache/
+
+# Config files
 settings-prod.yaml
+settings.yaml
+temp_data.yaml
+
+# Logs
+photobooth-upload.log
+
+# Output files
+out
