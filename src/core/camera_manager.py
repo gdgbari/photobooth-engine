@@ -58,7 +58,7 @@ class PhotoManager:
             self.init_camera()
             return self.get_shoot_from_camera(path, photo_name, user_interactor)
 
-    def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface):
+    def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface, shooted_photo_number):
         '''
         Method which allows to take a photo from the connected camera and save it in the given path with the given name.
         If something goes wrong, the camera is re-initialized and the user is asked to take the photo again by recursion.
@@ -79,7 +79,7 @@ class PhotoManager:
             camera_file.save(target)
             os.chmod(target, 0o777)
 
-            user_interactor.notify_shot_taken()
+            user_interactor.notify_shot_taken(shooted_photo_number)
             # subprocess.call(['xdg-open', target])
             return target
             # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
@@ -87,7 +87,7 @@ class PhotoManager:
             print(e)
             print('something went wrong')
             self.init_camera()
-            return self.get_shoot_from_pc(path, photo_name, user_interactor)
+            return self.get_shoot_from_pc(path, photo_name, user_interactor, shooted_photo_number)
 
     def init_camera(self):
         '''
