@@ -166,7 +166,11 @@ class UserInterface:
         '''
 
         photos_list = os.listdir(path)
-        photos_list.sort()
+        import re
+        def natural_sort_key(s):
+            return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
+        photos_list.sort(key=natural_sort_key)
+
 
         # subprocess.run(["nautilus", path]) #TODO make it cross platform
 
