@@ -62,13 +62,16 @@ class UserInterface:
             # If running as root (via sudo), we try to open it in the context of the original user
             # to ensure it appears in their GUI session.
             abs_photo_path = os.path.abspath(photo_path)
-            try:
-                # SUDO_USER gives the name of the user who invoked sudo.
-                # os.getlogin() might return root or raise an error in non-TTY contexts.
-                user = os.environ.get('SUDO_USER') or os.getlogin()
-                subprocess.run(["sudo", "-u", user, "open", abs_photo_path])
-            except Exception:
-                # Graceful fallback: just try 'open' directly if user detection fails.
+            if os.geteuid() == 0:
+                try:
+                    # SUDO_USER gives the name of the user who invoked sudo.
+                    # os.getlogin() might return root or raise an error in non-TTY contexts.
+                    user = os.environ.get('SUDO_USER') or os.getlogin()
+                    subprocess.run(["sudo", "-u", user, "open", abs_photo_path])
+                except Exception:
+                    # Graceful fallback: just try 'open' directly if user detection fails.
+                    subprocess.run(["open", abs_photo_path])
+            else:
                 subprocess.run(["open", abs_photo_path])
 
 

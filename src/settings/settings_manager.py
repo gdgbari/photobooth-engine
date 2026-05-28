@@ -114,6 +114,26 @@ class Settings:
 
         return yaml_dict.get('capture_mode', 'pc') # Defaults to pc if not specified
 
+    def get_mock_camera(self) -> bool:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('mock_camera', False)
+
+    def get_mock_printer(self) -> bool:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('mock_printer', False)
+
+    def get_enable_hotfolder(self) -> bool:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('enable_hotfolder', False)
+
+    def get_hotfolder_path(self) -> str:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('hotfolder_path', '')
+
     def get_logs_path(self) -> str:
         '''
         Method which returns the logs path.

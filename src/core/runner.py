@@ -42,7 +42,7 @@ class Runner:
         # if in asset only one corner is present,
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
-        self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options())
+        self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options(), print_size=self._print_size, mock=self._settings.get_mock_printer(), enable_hotfolder=self._settings.get_enable_hotfolder(), hotfolder_path=self._settings.get_hotfolder_path())
         self._backend = BackendMananger(self._settings.get_backend_url(), self._settings.get_client_secret())
 
     def prepare(self):

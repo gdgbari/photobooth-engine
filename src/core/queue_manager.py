@@ -28,14 +28,9 @@ class QueueManager:
     def queue_is_ready(self):
         '''
         Method which checks if there are enough photos in the photo queue.
-        If print_size is 4x3, it checks if there is at least 1 photo.
-        Otherwise, it checks for at least 2 photos.
         :return: True if ready, False otherwise
         '''
 
-        if self._print_size == '4x3':
-            return len(self._dict['photos']) >= 1
-        
         return len(self._dict['photos']) >= 2
 
     def add_photo(self, photo_path, times):
@@ -65,9 +60,8 @@ class QueueManager:
     def get_photos(self)-> list[str]:
         '''
         Method which gets the photos from the queue and removes them.
-        Returns 1 photo if print_size is 4x3, otherwise 2.
         '''
-        num = 1 if self._print_size == '4x3' else 2
+        num = 2
         photos = self._dict['photos'][:num]
         del self._dict['photos'][:num]
         self._update_yaml()
@@ -76,9 +70,8 @@ class QueueManager:
     def get_edits(self) -> list[str]:
         '''
         Method which gets the edits from the queue and removes them.
-        Returns 1 edit if print_size is 4x3, otherwise 2.
         '''
-        num = 1 if self._print_size == '4x3' else 2
+        num = 2
         edits = self._dict['edits'][:num]
         del self._dict['edits'][:num]
         self._update_yaml()

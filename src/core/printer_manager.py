@@ -12,18 +12,33 @@
 # it is possible to check if the printer is supported by gutenprint here: https://gimp-print.sourceforge.io/p_Supported_Printers.php
 # warning: if the printer is supported by gutenprint it does not mean that has the flag StpiShrinkOutput=Shrink
 import subprocess
+import shutil
+import os
 
 
 class Printer:
 
-    def __init__(self, printer_name, user_options=None):
+    def __init__(self, printer_name, user_options=None, print_size='4x6', mock=False, enable_hotfolder=False, hotfolder_path=''):
 
         self.printer_name = printer_name
+        self.print_size = print_size
+        self.mock = mock
+        self.enable_hotfolder = enable_hotfolder
+        self.hotfolder_path = hotfolder_path
         self._filling_command = ""
         if user_options:
             self._filling_command = " ".join(f"-o {key}={value}" for key, value in user_options.items()) + " "
 
     def prepare(self)-> None:
+
+        if self.mock:
+            print("Mock printer enabled. Skipping printer preparation.")
+            return
+
+        # If print size is 4x6 and we are on a QW410, enable multicut (Cutter=2Inch)
+        if self.print_size == '4x3' and 'qw410' in self.printer_name.lower():
+            self._filling_command = "-o media=dnp4x6 -o Cutter=2Inch "
+            return
 
         if self._filling_command == "":
             # here we check which command execute to fill the corner
@@ -69,7 +84,23 @@ class Printer:
         except subprocess.CalledProcessError as e:
             return f"Errore: {e}"
 
-    def print_image(self, file_path, printed_photos_number):
+    def print_image(self, file_path, printed_photos_number=0):
+        if self.enable_hotfolder:
+            if not self.hotfolder_path or not os.path.isdir(self.hotfolder_path):
+                raise FileNotFoundError(f"Hotfolder directory does not exist: {self.hotfolder_path}")
+            target_path = os.path.join(self.hotfolder_path, os.path.basename(file_path))
+            print(f"Hotfolder enabled: copying {file_path} to {target_path}")
+            shutil.copy(file_path, target_path)
+            try:
+                os.chmod(target_path, 0o777)
+            except OSError:
+                pass
+            return
+
+        if self.mock:
+            print(f"Mock printer: keeping final file at {file_path} and not printing.")
+            return
+
         """
         command = [
             'lp', '-d', self.printer_name,
