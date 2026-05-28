@@ -106,6 +106,12 @@ class UserInterface:
                             break
             print('Some error occurred, please try again')
 
+    def wait_for_camera_shutter(self):
+        '''
+        Method which notifies the user to press the shutter button on the camera.
+        '''
+        print('Ready! Press the shutter button on the camera to take the photo.')
+
     def press_to_shot(self):
         '''
         Method which allows the user to press a key on the keyboard in order to take a photo.
@@ -113,12 +119,10 @@ class UserInterface:
 
         input('press any key to shoot')
 
-    def notify_shot_taken(self, shooted_photo_number: int):
+    def notify_shot_taken(self):
         '''
         Method which print a message to notify the user that a shoot happened.
         '''
-
-        print('shot n. ' + str(shooted_photo_number) + 'taken')
 
     def show_preview_without_response(self, previw_img: Image):
         """

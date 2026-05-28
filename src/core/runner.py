@@ -53,8 +53,8 @@ class Runner:
         self._camera.init_camera()
         self._queue.load_queue()
         self._printer.prepare()
-        if not self._settings.verify_logs_existence():
-            self._settings.crete_logs_file()
+        # if not self._settings.verify_logs_existence():
+        #     self._settings.crete_logs_file()
 
         # now check how many corners are present in the assets
         self._SINGLE_FRAME = self._assets.is_frame_single()
@@ -93,14 +93,14 @@ class Runner:
         self._queue.add_photo(self._folders.clean_current_path(photo_path), times)
         self._queue.add_edit(effect_path, times)
 
-        printed_photos_number = self._settings.get_printed_photos_number()
-        counter = 1
+        # printed_photos_number = self._settings.get_printed_photos_number()
+        # counter = 1
         while self._queue.queue_is_ready():  # if there are 2 or more photos in queue then start to edit
             path_to_print = self.edit()  # actually there is no more the need to declare here this paths
-            self._printer.print_image(path_to_print, printed_photos_number + counter)
-            counter += 2
+            self._printer.print_image(path_to_print)
+            # counter += 2
 
-        self._settings.update_logs(counter + 1, 'p')
+        # self._settings.update_logs(counter + 1, 'p')
 
     def choice_photo_with_preview(self):
         '''
@@ -108,12 +108,15 @@ class Runner:
         :return: shot photo path
         '''
 
-        shooted_photos_number = self._settings.get_shooted_photos_number()
-        counter = 1
+        # shooted_photos_number = self._settings.get_shooted_photos_number()
+        # counter = 1
 
         while True:
             file_name = self._file_naming.get_photo_name()
-            photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui, shooted_photos_number + counter)
+            if self._settings.get_capture_mode() == 'camera':
+                photo_path = self._camera.get_shoot_from_camera(self._folders.get_current_path(), file_name, self._ui)
+            else:
+                photo_path = self._camera.get_shoot_from_pc(self._folders.get_current_path(), file_name, self._ui)
             # photo_path = self._camera.get_fake_shoot(self._folders.get_current_path(),self._file_naming.get_photo_name() ,self._ui)
 
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
@@ -124,10 +127,10 @@ class Runner:
                 # the photo is accepted, we can go on
                 # session has ended
                 self._file_naming.increment_session_number()
-                self._settings.update_logs(counter, 's')
+                # self._settings.update_logs(counter, 's')
                 return [photo_path, '']
             else:
-                counter += 1
+                # counter += 1
                 shutil.move(os.path.join(self._folders.get_current_path(), file_name), os.path.join(self._folders.get_originals_path(), file_name))
                 print('Photo rejected, retrying...')
 

@@ -20,11 +20,20 @@ class PhotoManager:
     def stop_camera(self):
         self._camera.exit()
 
-    def get_shoot(self, download_path):
-        # WARNING, from now on the following is deprecated
-        timeout = 5000
+    def get_shoot_from_camera(self, path, photo_name, user_interactor: UserInterface):
+        '''
+        Method which waits for a photo to be taken from the camera and save it in the given path with the given name.
+        If something goes wrong, the camera is re-initialized and the user is asked to take the photo again by recursion.
+        :param path: the path where the photo has to be saved
+        :param photo_name: the name of the photo to be saved
+        :param user_interactor: the user interactor instance to manage user interactions
+        :return: shooted photo path
+        '''
+
         try:
-            print("waiting for a shoot...")
+            user_interactor.wait_for_camera_shutter()
+            timeout = 1000 # wait 1s for each event loop
+
             while True:
                 # waits for a camera event
                 event_type, event_data = self._camera.wait_for_event(timeout)
@@ -35,15 +44,21 @@ class PhotoManager:
                     print(f"New photo detected: {file_name} in the folder {folder}")
 
                     # get the file
-                    file_path = os.path.join(download_path, file_name)
+                    target = os.path.join(path, photo_name)
                     camera_file = self._camera.file_get(folder, file_name, gp.GP_FILE_TYPE_NORMAL)
-                    camera_file.save(file_path)
+                    camera_file.save(target)
+                    os.chmod(target, 0o777)
 
-                    return file_path
-        finally:
-            print('nothing detected')
+                    user_interactor.notify_shot_taken()
 
-    def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface, shooted_photo_number):
+                    return target
+        except GPhoto2Error as e:
+            print(e)
+            print('something went wrong, re-initializing camera')
+            self.init_camera()
+            return self.get_shoot_from_camera(path, photo_name, user_interactor)
+
+    def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface):
         '''
         Method which allows to take a photo from the connected camera and save it in the given path with the given name.
         If something goes wrong, the camera is re-initialized and the user is asked to take the photo again by recursion.
@@ -64,7 +79,7 @@ class PhotoManager:
             camera_file.save(target)
             os.chmod(target, 0o777)
 
-            user_interactor.notify_shot_taken(shooted_photo_number)
+            user_interactor.notify_shot_taken()
             # subprocess.call(['xdg-open', target])
             return target
             # print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
@@ -72,7 +87,7 @@ class PhotoManager:
             print(e)
             print('something went wrong')
             self.init_camera()
-            return self.get_shoot_from_pc(path, photo_name, user_interactor, shooted_photo_number)
+            return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
     def init_camera(self):
         '''
