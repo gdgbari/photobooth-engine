@@ -5,11 +5,11 @@ import sys
 from tqdm import tqdm
 
 
-# Add the src directory to the Python path
+# Add the project root directory to the Python path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.join(project_root, 'src'))
+sys.path.append(project_root)
 
-from core.photo_edit_manager import Tailor
+from photobooth.core.photo_edit_manager import Tailor
 
 
 def natural_sort_key(s):

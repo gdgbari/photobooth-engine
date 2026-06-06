@@ -1,4 +1,4 @@
-from core.photo_edit_manager import Tailor as Editor
+from photobooth.core.photo_edit_manager import Tailor as Editor
 from PIL import Image, ImageChops
 import os
 

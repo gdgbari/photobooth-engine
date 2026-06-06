@@ -1,7 +1,7 @@
-from settings.settings_manager import Settings
-from ui.userInteraction import UserInterface
+from photobooth.settings_manager import Settings
+from photobooth.user_interaction import UserInterface
 from gphoto2 import GPhoto2Error
-from utils import camera_is_connected
+from photobooth.utils import camera_is_connected
 import gphoto2 as gp
 import os
 import time

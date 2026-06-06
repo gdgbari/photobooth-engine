@@ -1,5 +1,5 @@
-from backend.new_backend_endpoint import PhotoAPIClient
-from core.photo_edit_manager import Tailor
+from photobooth.backend.new_backend_endpoint import PhotoAPIClient
+from photobooth.core.photo_edit_manager import Tailor
 from pathlib import Path
 
 class BackendManager():

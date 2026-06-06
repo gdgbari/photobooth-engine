@@ -1,9 +1,9 @@
-from core.folder_manager import FolderManager, FileNaming, AssetManager
-from settings.settings_manager import Settings
-from ui.userInteraction import UserInterface
-from core.photo_edit_manager import Tailor
+from photobooth.core.folder_manager import FolderManager, FileNaming, AssetManager
+from photobooth.settings_manager import Settings
+from photobooth.user_interaction import UserInterface
+from photobooth.core.photo_edit_manager import Tailor
 
-import utils
+from photobooth import utils
 import random
 
 

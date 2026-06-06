@@ -9,9 +9,9 @@
   "terminal.integrated.cwd": "${workspaceFolder}",
 
   // Ensure Python can import from photobooth no matter which file you run
-  // (so `from core ...` works). Add osx/windows blocks as needed.
+  // (so `from photobooth.core ...` works). Add osx/windows blocks as needed.
   "terminal.integrated.env.linux": {
-    "PYTHONPATH": "${workspaceFolder}/src"
+    "PYTHONPATH": "${workspaceFolder}"
   },
 
   // Make pytest run from the root without a pytest.ini
@@ -19,8 +19,8 @@
   "python.testing.cwd": "${workspaceFolder}",
   "python.testing.pytestArgs": ["test"],
 
-  // Help Pylance resolve imports like `from core...` and `from ui...`
-  "python.analysis.extraPaths": ["${workspaceFolder}/src"],
+  // Help Pylance resolve imports like `from photobooth.core...`
+  "python.analysis.extraPaths": ["${workspaceFolder}"],
 
   // (Optional) if you like using a .env file instead of inline envs
   // "python.envFile": "${workspaceFolder}/.env"

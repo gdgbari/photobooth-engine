@@ -2,8 +2,8 @@ import os
 import shutil
 import yaml
 
-from settings.settings_manager import Settings
-import utils
+from photobooth.settings_manager import Settings
+from photobooth import utils
 
 # FOLDERS EXPLANATION
 #

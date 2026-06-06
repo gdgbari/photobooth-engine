@@ -6,7 +6,7 @@
 
 import os
 import shutil
-from ui.userInteraction import UserInterface
+from photobooth.user_interaction import UserInterface
 
 def get_fake_shoot(self, path, photo_name, user_interactor : UserInterface):
     user_interactor.press_to_shoot()

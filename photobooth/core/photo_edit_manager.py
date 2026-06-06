@@ -2,7 +2,7 @@ from PIL import Image, ImageOps
 
 import os
 
-import utils
+from photobooth import utils
 
 '''
 Tailor class gets the chosen photo and applies the wanted effect.

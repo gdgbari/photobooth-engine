@@ -85,6 +85,10 @@ class Printer:
             return f"Errore: {e}"
 
     def print_image(self, file_path, printed_photos_number=0):
+        if self.mock:
+            print(f"Mock printer: keeping final file at {file_path} and not printing.")
+            return
+
         if self.enable_hotfolder:
             if not self.hotfolder_path or not os.path.isdir(self.hotfolder_path):
                 raise FileNotFoundError(f"Hotfolder directory does not exist: {self.hotfolder_path}")
@@ -97,9 +101,6 @@ class Printer:
                 pass
             return
 
-        if self.mock:
-            print(f"Mock printer: keeping final file at {file_path} and not printing.")
-            return
 
         """
         command = [
@@ -118,8 +119,8 @@ class Printer:
         """
 
         command = [
-            'lp', '-d', self.printer_name
-        ] + self._filling_command.split() + [file_path]
+                      'lp', '-d', self.printer_name
+                  ] + self._filling_command.split() + [file_path]
 
         try:
             subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

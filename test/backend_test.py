@@ -1,4 +1,4 @@
-from backend.backend_endpoint import PhotoAPIClient
+from photobooth.backend.backend_endpoint import PhotoAPIClient
 from PIL import Image, ImageChops
 
 

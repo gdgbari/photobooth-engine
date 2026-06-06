@@ -6,9 +6,9 @@ from PIL import Image, ImageOps
 from tqdm import tqdm
 
 
-# Add the src directory to the Python path
+# Add the project root directory to the Python path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.join(project_root, 'src'))
+sys.path.append(project_root)
 
 
 def natural_sort_key(s):

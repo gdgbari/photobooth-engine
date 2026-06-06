@@ -1,18 +1,18 @@
-from core.folder_manager import FolderManager, FileNaming, AssetManager
-from core.camera_manager import PhotoManager
-from core.disaster_recovery import resume_old_session
-from core.photo_edit_manager import Tailor
-from core.queue_manager import QueueManager
-from settings.settings_manager import Settings
-from ui.userInteraction import UserInterface
-from core.printer_manager import Printer
-from core.frame_chooser import FrameChooser
-from backend.backend_manager import BackendManager
-from backend.logger import setup_logging
+from photobooth.core.folder_manager import FolderManager, FileNaming, AssetManager
+from photobooth.core.camera_manager import PhotoManager
+from photobooth.core.disaster_recovery import resume_old_session
+from photobooth.core.photo_edit_manager import Tailor
+from photobooth.core.queue_manager import QueueManager
+from photobooth.settings_manager import Settings
+from photobooth.user_interaction import UserInterface
+from photobooth.core.printer_manager import Printer
+from photobooth.core.frame_chooser import FrameChooser
+from photobooth.backend.backend_manager import BackendManager
+from photobooth.backend.logger import setup_logging
 
 import os
 import shutil
-import utils
+from photobooth import utils
 
 '''
 Runner is the principal class that coordinates all the components of the application.

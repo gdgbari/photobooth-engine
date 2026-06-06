@@ -1,6 +1,6 @@
-from core.folder_manager import FolderManager, AssetManager
-from settings.settings_manager import Settings
-from ui.userInteraction import UserInterface
+from photobooth.core.folder_manager import FolderManager, AssetManager
+from photobooth.settings_manager import Settings
+from photobooth.user_interaction import UserInterface
 import os
 
 

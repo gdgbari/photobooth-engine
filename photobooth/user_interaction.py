@@ -1,8 +1,8 @@
 from PIL import Image
-from utils import Platform, detect_os
+from photobooth.utils import Platform, detect_os
 import os
 import subprocess
-from settings.settings_manager import Settings
+from photobooth.settings_manager import Settings
 
 
 '''

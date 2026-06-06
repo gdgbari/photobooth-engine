@@ -2,7 +2,7 @@ import os
 import platform
 import subprocess
 
-from settings.settings_manager import Settings
+from photobooth.settings_manager import Settings
 
 
 def get_asset_path_from_name(asset_name : str) -> str:
