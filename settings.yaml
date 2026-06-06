@@ -10,3 +10,5 @@ mock_camera: false
 mock_printer: false
 enable_hotfolder: true
 hotfolder_path: "/Users/vitodibari/HotFolderPrint/Prints/s4x3_2/QW410"
+min_num_photos: 1
+max_num_photos: 50
