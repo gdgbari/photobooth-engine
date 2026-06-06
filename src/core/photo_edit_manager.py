@@ -6,7 +6,7 @@ import utils
 
 '''
 Tailor class gets the chosen photo and applies the wanted effect.
-It provides methods to edit photos with the selected effects, add padding, combine paires of photos and edit to have one total photo with 2 polaroids inside.
+It provides methods to edit photos with the selected effects, add padding, combine pairs of photos and edit to have one total photo with 2 polaroids inside.
 '''
 
 
@@ -29,7 +29,7 @@ class Tailor:
 
     def _build_output_path(self):
         '''
-        Method which build the final path of the combined/single photo.
+        Method which builds the final path of the combined/single photo.
         '''
 
         first_photo_name = utils.get_name_from_path(self._photo_list[0])[:-4]
@@ -167,7 +167,7 @@ class Tailor:
         :return: padded photo
         '''
 
-        # i build a background big as the image but of color: #f0f0f0
+        # builds a background as big as the image but of color: #f0f0f0
         # resize the image with percentage
         # put the image onto the background
         img_w, img_h = image.size

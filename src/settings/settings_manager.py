@@ -15,7 +15,7 @@ class Settings:
 
     def get_main_folder_path(self) -> str:
         '''
-        Method wich returns the main folder path setted in settings.yaml file.
+        Method which returns the main folder path set in settings.yaml file.
         :return: main folder path
         '''
 
@@ -25,7 +25,7 @@ class Settings:
 
     def get_printer_name(self) -> str:
         '''
-        Method wich returns the printer name setted in settings.yaml file.
+        Method which returns the printer name set in settings.yaml file.
         :return: printer name
         '''
 
@@ -40,7 +40,7 @@ class Settings:
 
     def get_cam_name(self) -> str:
         '''
-        Method wich returns the camera name setted in settings.yaml file.
+        Method which returns the camera name set in settings.yaml file.
         :return: camera name
         '''
 
@@ -58,7 +58,7 @@ class Settings:
 
     def get_event_name(self) -> str:
         '''
-        Method wich returns the event name setted in settings.yaml file.
+        Method which returns the event name set in settings.yaml file.
         :return: event name
         '''
 
@@ -69,7 +69,7 @@ class Settings:
     
     def get_print_size(self) -> str:
         '''
-        Method which returns the print size setted in settings.yaml file.
+        Method which returns the print size set in settings.yaml file.
         :return: print size
         '''
 
@@ -80,7 +80,7 @@ class Settings:
     
     def get_client_secret(self) -> str:
         '''
-        Method which returns the client secret setted in settings.yaml file.
+        Method which returns the client secret set in settings.yaml file.
         :return: client secret
         '''
 
@@ -105,7 +105,7 @@ class Settings:
         return None'''
     def get_capture_mode(self) -> str:
         '''
-        Method which returns the capture mode (pc or camera) setted in settings.yaml file.
+        Method which returns the capture mode (pc or camera) set in settings.yaml file.
         :return: capture mode
         '''
 
@@ -161,7 +161,7 @@ class Settings:
 
         return False
 
-    def crete_logs_file(self):
+    def create_logs_file(self):
         logs_header = ['time', 'shooted_photos', 'printed_photos']
         logs_header_dataframe = pd.DataFrame(columns=logs_header)
         logs_header_dataframe.to_csv(self.get_logs_path(), index=False)

@@ -7,7 +7,7 @@ from settings.settings_manager import Settings
 from ui.userInteraction import UserInterface
 from core.printer_manager import Printer
 from core.frame_chooser import FrameChooser
-from backend.backend_manager import BackendMananger
+from backend.backend_manager import BackendManager
 from backend.logger import setup_logging
 
 import os
@@ -43,18 +43,18 @@ class Runner:
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
         self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options(), print_size=self._print_size, mock=self._settings.get_mock_printer(), enable_hotfolder=self._settings.get_enable_hotfolder(), hotfolder_path=self._settings.get_hotfolder_path())
-        self._backend = BackendMananger(self._settings.get_backend_url(), self._settings.get_client_secret())
+        self._backend = BackendManager(self._settings.get_backend_url(), self._settings.get_client_secret())
 
     def prepare(self):
         '''
-        Method which allows to prepare camera, initzialize printing and editing queue and prepare the printer.
+        Method which allows to prepare camera, initialize printing and editing queue and prepare the printer.
         '''
 
         self._camera.init_camera()
         self._queue.load_queue()
         self._printer.prepare()
         # if not self._settings.verify_logs_existence():
-        #     self._settings.crete_logs_file()
+        #     self._settings.create_logs_file()
 
         # now check how many corners are present in the assets
         self._SINGLE_FRAME = self._assets.is_frame_single()
@@ -64,7 +64,7 @@ class Runner:
 
     def main_execution(self):
         '''
-        Method where disaster recovery is applied something strange happened in the last session, allowing to resume it.
+        Method where disaster recovery is applied if something strange happened in the last session, allowing to resume it.
         If there are many effects in the Assets folder, the user is allowed to choose which one to apply.
         Then the edited photo is shown to the user for confirmation.
         Then the user is asked how many copies of the photo he wants to print.
@@ -122,7 +122,7 @@ class Runner:
             # photo_path, photo_name = utils.get_the_file_in_dir(self._folders.get_current_path())
             # ATTENTION
             # up to now to make the pipeline faster, the user will not confirm the shoot here but only after the polaroid edit
-            # in the future will added granurality
+            # in the future, granularity will be added
             if self._ui.confirm_shot(photo_path, utils.detect_os()):
                 # the photo is accepted, we can go on
                 # session has ended

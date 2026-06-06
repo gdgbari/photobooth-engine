@@ -25,12 +25,12 @@ class PhotoManager:
 
     def get_shoot_from_camera(self, path, photo_name, user_interactor: UserInterface):
         '''
-        Method which waits for a photo to be taken from the camera and save it in the given path with the given name.
+        Method which waits for a photo to be taken from the camera and saves it in the given path with the given name.
         If something goes wrong, the camera is re-initialized and the user is asked to take the photo again by recursion.
         :param path: the path where the photo has to be saved
         :param photo_name: the name of the photo to be saved
         :param user_interactor: the user interactor instance to manage user interactions
-        :return: shooted photo path
+        :return: shot photo path
         '''
 
         if self._settings_manager.get_mock_camera():
@@ -91,16 +91,16 @@ class PhotoManager:
 
     def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface):
         '''
-        Method which allows to take a photo from the connected camera and save it in the given path with the given name.
+        Method which allows taking a photo from the connected camera and saving it in the given path with the given name.
         If something goes wrong, the camera is re-initialized and the user is asked to take the photo again by recursion.
         :param path: the path where the photo has to be saved
         :param photo_name: the name of the photo to be saved
         :param user_interactor: the user interactor instance to manage user interactions
-        :return: shooted photo path
+        :return: shot photo path
         '''
 
         if self._settings_manager.get_mock_camera():
-            user_interactor.press_to_shot()
+            user_interactor.press_to_shoot()
             target = os.path.join(path, photo_name)
             mock_dir = os.path.join(os.getcwd(), 'test/assets/mock')
             mock_source = os.path.join(mock_dir, 'photo.jpg')
@@ -115,7 +115,7 @@ class PhotoManager:
 
         try:
             # print('Capturing image')
-            user_interactor.press_to_shot()
+            user_interactor.press_to_shoot()
             file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
             target = os.path.join(path, photo_name)
             

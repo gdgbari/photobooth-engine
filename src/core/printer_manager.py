@@ -1,13 +1,13 @@
 # NOTE
 # sometimes the format can cause some errors, bitmap are preferred in such cases
 # lp uses cups underneath
-# alternative to lp is pycups which has some nice feature to control the print flow (we dont need this features)
+# alternative to lp is pycups which has some nice features to control the print flow (we don't need these features)
 # both have a way to determine the additional settings of the printer
 # for lp is : lpoptions -p name_printer -l
 # to know the printer name: lpstat -p
 # then we use the flag StpiShrinkOutput=Shrink to make the image use all the paper
 # *Shrink Crop Expand
-# the precedent flag is present in the gutenprint set (gutenprint is not installed in minimal distro), otherwise similar ones are:
+# the preceding flag is present in the gutenprint set (gutenprint is not installed in minimal distro), otherwise similar ones are:
 # fit-to-page / scaling=X / fitplot
 # it is possible to check if the printer is supported by gutenprint here: https://gimp-print.sourceforge.io/p_Supported_Printers.php
 # warning: if the printer is supported by gutenprint it does not mean that has the flag StpiShrinkOutput=Shrink
@@ -41,7 +41,7 @@ class Printer:
             return
 
         if self._filling_command == "":
-            # here we check which command execute to fill the corner
+            # here we check which command to execute to fill the corner
             # check for
             possible_printer_options = {
                 "StpiShrinkOutput": ["Shrink", "Crop", "Expand"],  # Opzione Gutenprint (se disponibile)

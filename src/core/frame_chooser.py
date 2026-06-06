@@ -75,12 +75,12 @@ class FrameChooser():
 
     def choice_edit_with_preview(self, photo_path):
         '''
-        Method which allows the user to choose the effect to apply to the shooted photo with a preview.
+        Method which allows the user to choose the effect to apply to the shot photo with a preview.
         Returns the effect path when the edited photo is accepted.
         :param photo_path: photo path to edit
         :return: effect path
         '''
-        # in this case the photo was already accepted in the runner method, so only the edit will be choosen
+        # in this case the photo was already accepted in the runner method, so only the edit will be chosen
         # in other words: here the logic to change the photo is not implemented
         while True:
             effect_name = self._ui.choose_polaroid_effect()

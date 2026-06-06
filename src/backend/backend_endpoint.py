@@ -71,7 +71,7 @@ class PhotoAPIClient:
             logger.info("Sync upload successful, photo_id=%s", photo_id)
             return photo_id
         
-    # just for test purpose
+    # just for test purposes
     def download_image_by_id(self, photo_id : UUID):
         logger.info("Downloading image, id=%s", photo_id)
         with httpx.Client(timeout=self.timeout, headers=self.headers) as client:
@@ -98,7 +98,7 @@ class PhotoAPIClient:
             img = img.convert("RGBA")
 
         # Detach from the file & ensure all pixels are in memory
-        # it seems that sometimes it pillow work in a lazy way and can break stuff here
+        # it seems that sometimes pillow works in a lazy way and can break stuff here
         img.load()
         img = img.copy()
 

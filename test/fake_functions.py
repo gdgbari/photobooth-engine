@@ -1,6 +1,6 @@
-#######################################
-# METHODS FOR MONKEY PUNCHING TESTING #
-#######################################
+######################################
+# METHODS FOR MONKEY PATCHING TESTING #
+######################################
 
 
 
@@ -9,7 +9,7 @@ import shutil
 from ui.userInteraction import UserInterface
 
 def get_fake_shoot(self, path, photo_name, user_interactor : UserInterface):
-    user_interactor.press_to_shot()
+    user_interactor.press_to_shoot()
     file_path = './test/assets/photo.jpg'
     # file_name = input('input file name:')
     target = os.path.join(path, photo_name)

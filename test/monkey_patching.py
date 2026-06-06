@@ -1,14 +1,11 @@
-# The integration test are executed by monkey patching,
-# we are substituting at runtime some methods with fakes one
+# The integration tests are executed by monkey patching,
+# we are substituting at runtime some methods with fake ones
 
 
 import os
-from core.runner import Runner
 from core.runner import Runner
 import core.camera_manager
 import fake_functions as fake_functions
-
-import os
 
 
 def starter():

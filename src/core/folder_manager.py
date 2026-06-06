@@ -34,11 +34,11 @@ class FolderManager:
 
     def _folder_consistency_assurance(self):
         '''
-        Method which checks if the main folder and the sub-folders exists.
+        Method which checks if the main folder and the sub-folders exist.
         If not, they will be created.
         '''
 
-        # if the sub-folders misses, will be created
+        # if the sub-folders are missing, they will be created
         folder_list = [self._main_folder_path, self._current_folder_path,
                        self._originals_folder_path, self._output_folder_path]
         for folder in folder_list:
@@ -69,7 +69,7 @@ class FolderManager:
 
     def clean_current_path(self, chosen_photo_path: str) -> str:
         """
-        Move all the file from the current folder to the originals folder but saves the new path of the chosen shoot
+        Move all files from the current folder to the originals folder but save the new path of the chosen shot
         :param chosen_photo_path: old path of the photo which we will hold
         :return: pointed photo new path
         """

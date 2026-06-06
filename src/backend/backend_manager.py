@@ -2,7 +2,7 @@ from backend.new_backend_endpoint import PhotoAPIClient
 from core.photo_edit_manager import Tailor
 from pathlib import Path
 
-class BackendMananger():
+class BackendManager():
 
     def __init__(self, backend_url : str, client_secret: str = None) -> None:
         

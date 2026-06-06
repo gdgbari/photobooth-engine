@@ -17,7 +17,7 @@ class UserInterface:
 
     def choose_polaroid_effect(self) -> str:
         '''
-        Method which shows a menu in order to allow the user to choose the wanted effect (if there are more then one in the asset folder).
+        Method which shows a menu in order to allow the user to choose the wanted effect (if there are more than one in the asset folder).
         :return: effect path
         '''
 
@@ -46,7 +46,7 @@ class UserInterface:
 
     def confirm_shot(self, photo_path, os_platform: Platform) -> bool:
         '''
-        Method wich shows the preview of the shooted photo in order to allow the user to choose if it's goot or not.
+        Method which shows the preview of the shot photo in order to allow the user to choose if it's good or not.
         :param photo_path: photo path
         :param os_platform: os where photobooth is running
         :return: True if the photo is good, False if not
@@ -105,7 +105,7 @@ class UserInterface:
             if times.isdigit():
                 times = int(times)
                 if min_num <= times <= max_num:
-                    while  True:
+                    while True:
                         print('you choose '+str(times)+' copies, is it correct?')
                         ui_input = input('[y]/n: ')
                         ui_input_clean = ui_input.strip().lower()
@@ -122,7 +122,7 @@ class UserInterface:
         '''
         print('Ready! Press the shutter button on the camera to take the photo.')
 
-    def press_to_shot(self):
+    def press_to_shoot(self):
         '''
         Method which allows the user to press a key on the keyboard in order to take a photo.
         '''
@@ -131,27 +131,27 @@ class UserInterface:
 
     def notify_shot_taken(self):
         '''
-        Method which print a message to notify the user that a shoot happened.
+        Method which prints a message to notify the user that a shot happened.
         '''
 
-    def show_preview_without_response(self, previw_img: Image):
+    def show_preview_without_response(self, preview_img: Image):
         """
         Used in case there is only a single corner possible, there is no need to get the user response.
         """
 
         print('here the edit')
-        self._show_image(previw_img)
+        self._show_image(preview_img)
 
-    def show_preview_image(self, previw_img: Image) -> bool:
+    def show_preview_image(self, preview_img: Image) -> bool:
         '''
-        Method wich shows the preview of the shooted photo in order to allow the user to choose if it's goot or not.
+        Method which shows the preview of the shot photo in order to allow the user to choose if it's good or not.
         :param photo_path: photo path
         :param os_platform: os where photobooth is running
         :return: True if the photo is good, False if not
         '''
 
         print('here the edit')
-        self._show_image(previw_img)
+        self._show_image(preview_img)
         print('do you like it?')
         while True:
             choiche = input('[y]/n: ')
@@ -161,12 +161,12 @@ class UserInterface:
             elif choiche_clean == 'n':
                 return False
             else:
-                print('some error occured')
+                print('some error occurred')
 
     def show_new_session_menu(self):
         while True:
             print(
-                "Hoy many photos do wou want to shoot? Please choose a number between 1 and 5 (Press 0 if you want to recover precedent photos)")
+                "How many photos do you want to shoot? Please choose a number between 1 and 5 (Press 0 if you want to recover preceding photos)")
             choice = int(input("Enter your choice: "))
             if 0 <= choice <= 5:
                 return choice
@@ -175,8 +175,8 @@ class UserInterface:
 
     def visualize_current_photos(self, path):
         '''
-        Method used in case of disastery recovery procedure execution.
-        Shows a menu in order to allow the user to choose the photo which wants to recover.
+        Method used in case of disaster recovery procedure execution.
+        Shows a menu in order to allow the user to choose the photo they want to recover.
         :param path: current folder path
         '''
 

@@ -10,7 +10,7 @@ from PIL import Image
 from urllib.parse import urljoin
 import logging
 
-# NOT PROUD OF THE FOLLOWING CODE, i created a new file just to pplay with it with calm later
+# NOT PROUD OF THE FOLLOWING CODE, i created a new file just to play with it with calm later
 
 # Use logger configured in main (coherent name)
 logger = logging.getLogger("photobooth.upload")
@@ -262,7 +262,7 @@ class PhotoAPIClient:
                 logger.exception(f"Unhandled error while uploading '{photo_name}'")
                 raise
 
-    # just for test purpose
+    # just for test purposes
     def download_image_by_id(self, photo_id: UUID):
         # logger.info("Downloading image, id=%s", photo_id)  # removed
         if self.client_secret:

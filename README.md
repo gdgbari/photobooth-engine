@@ -1,6 +1,6 @@
 # 📸 Photobooth
 
-A simple **photobooth** app that takes pictures and prints them applying a **miniportraits-style overlay**, perfect for events, parties, and interactive installations.
+A simple **photobooth** app that takes pictures and prints them by applying a **miniportraits-style overlay**, perfect for events, parties, and interactive installations.
 
 ## ✨ Features
 
@@ -22,7 +22,7 @@ A simple **photobooth** app that takes pictures and prints them applying a **min
 
 ## 📑 User guide
 
-- Install [Python](https://www.python.org/) and its packet's manager ([pip](https://pypi.org/project/pip/)) (a packet's manager allows to install the libraries your code needs in order to be executed):
+- Install [Python](https://www.python.org/) and its package manager ([pip](https://pypi.org/project/pip/)) (a package manager allows installing the libraries your code needs in order to be executed):
   - **sudo apt install python3 -y**
   - **sudo apt install python3-pip -y**
 - Move to a folder of your choice and clone this GitHub repo (if you don't have [git](https://git-scm.com/) installed, run **sudo apt install git -y**):

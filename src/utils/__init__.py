@@ -7,7 +7,7 @@ from settings.settings_manager import Settings
 
 def get_asset_path_from_name(asset_name : str) -> str:
     '''
-    Method which return the effect path starting from its name.
+    Method which returns the effect path starting from its name.
     :return: effect path
     '''
 
@@ -104,7 +104,7 @@ def get_string_from_session_number(session_number):
 
 def camera_is_connected(settings_manager: Settings) -> bool:
     '''
-    Method which verifies if the camera setted in the settings.yaml file is connected to the PC.
+    Method which verifies if the camera set in the settings.yaml file is connected to the PC.
     :return: True if the camera is connected, No if not
     '''
 
