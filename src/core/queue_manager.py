@@ -8,7 +8,8 @@ It provides methods to add photos and edits to the queues, check if the photo qu
 
 class QueueManager:
 
-    def __init__(self):
+    def __init__(self, print_size='4x6'):
+        self._print_size = print_size
         self._queue_path = 'temp_data.yaml'
         self._dict = {'photos':[],'edits':[]}
 
@@ -26,8 +27,8 @@ class QueueManager:
 
     def queue_is_ready(self):
         '''
-        Method which checks if there are at least 2 photos in the photo queue.
-        :return: True if there are at least 2 photos, False otherwise
+        Method which checks if there are enough photos in the photo queue.
+        :return: True if ready, False otherwise
         '''
 
         return len(self._dict['photos']) >= 2
@@ -56,29 +57,23 @@ class QueueManager:
             self._dict['edits'].append(edit_path)
         self._update_yaml()
 
-    def get_two_photos(self)-> list[str]:
+    def get_photos(self)-> list[str]:
         '''
-        Method which gets the first two photo from the photo queue and removes them from the queue.
-        Then it updates the temp_data.yaml file.
-        :return: two photo paths list
+        Method which gets the photos from the queue and removes them.
         '''
-
-        photos = self._dict['photos'][:2]  # get first 2 photos from the queue
-        # self._dict['photos'] = self._dict['photos'][:-2]  # delete last 2 photos from the queue
-        del self._dict['photos'][:2]
+        num = 2
+        photos = self._dict['photos'][:num]
+        del self._dict['photos'][:num]
         self._update_yaml()
         return photos
 
-    def get_two_edit(self) -> list[str]:
+    def get_edits(self) -> list[str]:
         '''
-        Method which gets the first two edit from the edit queue and removes them from the queue.
-        Then it updates the temp_data.yaml file.
-        :return: two edit paths list
+        Method which gets the edits from the queue and removes them.
         '''
-
-        edits = self._dict['edits'][:2]
-        # self._dict['edits'] = self._dict['edits'][:-2]
-        del self._dict['edits'][:2]
+        num = 2
+        edits = self._dict['edits'][:num]
+        del self._dict['edits'][:num]
         self._update_yaml()
         return edits
 

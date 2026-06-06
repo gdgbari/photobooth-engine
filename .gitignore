@@ -1,7 +1,20 @@
-venv/
+.venv/
 __pycache__/
 *.pyc
 *.pyo
-.idea/
 .DS_Store
+.pytest_cache/
+
+# Config files
+settings-prod.yaml
 settings.yaml
+temp_data.yaml
+.env*
+
+# Logs
+photobooth-upload.log
+settings-prod.yaml
+
+# Output files
+out
+temp_data.yaml

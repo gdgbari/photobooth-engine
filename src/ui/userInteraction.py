@@ -1,7 +1,8 @@
 from PIL import Image
-from utils import Platform
+from utils import Platform, detect_os
 import os
 import subprocess
+from settings.settings_manager import Settings
 
 
 '''
@@ -12,6 +13,7 @@ class UserInterface:
 
     def __init__(self, polaroid_effect_list : list):
         self.effect_list = polaroid_effect_list
+        self._settings = Settings()
 
     def choose_polaroid_effect(self) -> str:
         '''
@@ -58,23 +60,32 @@ class UserInterface:
             windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
             subprocess.run(['powershell.exe', 'Start-Process', windows_path])
         elif os_platform.is_macos():
-            # maybe in the future this will change
-            # image = Image.open(photo_path)
-            # image.show()
-            user = os.getlogin()
-            # Comando per aprire l'immagine come utente normale
-            comando = ["sudo", "-u", user, "open", photo_path]
-            # Esegui il comando
-            subprocess.run(comando)
+            # On macOS, the best way to open a file is using the 'open' command.
+            # If running as root (via sudo), we try to open it in the context of the original user
+            # to ensure it appears in their GUI session.
+            abs_photo_path = os.path.abspath(photo_path)
+            if os.geteuid() == 0:
+                try:
+                    # SUDO_USER gives the name of the user who invoked sudo.
+                    # os.getlogin() might return root or raise an error in non-TTY contexts.
+                    user = os.environ.get('SUDO_USER') or os.getlogin()
+                    subprocess.run(["sudo", "-u", user, "open", abs_photo_path])
+                except Exception:
+                    # Graceful fallback: just try 'open' directly if user detection fails.
+                    subprocess.run(["open", abs_photo_path])
+            else:
+                subprocess.run(["open", abs_photo_path])
+
 
         while True:
-            print('Do you like it? y/n')
+            print('Do you like it? [y]/n')
 
             decision = input('choose: ')
 
-            if decision == 'y':
+            decision_clean = decision.strip().lower()
+            if decision_clean in ('y', ''):
                 return True
-            elif decision == 'n':
+            elif decision_clean == 'n':
                 return False
 
             print('Some error occurred, please try again')
@@ -85,21 +96,31 @@ class UserInterface:
         :return: times number to print the photo
         """
 
+        min_num = self._settings.get_min_num_photos()
+        max_num = self._settings.get_max_num_photos()
+
         print('How many copies of the photo do you want to print?')
         while True:
-            times = input('choose between 1 up to 99: ')
+            times = input(f'choose between {min_num} up to {max_num}: ')
             if times.isdigit():
                 times = int(times)
-                if 0 < times <= 99:
+                if min_num <= times <= max_num:
                     while  True:
                         print('you choose '+str(times)+' copies, is it correct?')
-                        ui_input = input('y/n: ')
-                        if ui_input.lower() == 'y':
+                        ui_input = input('[y]/n: ')
+                        ui_input_clean = ui_input.strip().lower()
+                        if ui_input_clean in ('y', ''):
                             print('all right')
                             return times
-                        elif ui_input.lower() == 'n':
+                        elif ui_input_clean == 'n':
                             break
             print('Some error occurred, please try again')
+
+    def wait_for_camera_shutter(self):
+        '''
+        Method which notifies the user to press the shutter button on the camera.
+        '''
+        print('Ready! Press the shutter button on the camera to take the photo.')
 
     def press_to_shot(self):
         '''
@@ -113,15 +134,13 @@ class UserInterface:
         Method which print a message to notify the user that a shoot happened.
         '''
 
-        print('shot taken')
-
     def show_preview_without_response(self, previw_img: Image):
         """
         Used in case there is only a single corner possible, there is no need to get the user response.
         """
 
         print('here the edit')
-        previw_img.show()
+        self._show_image(previw_img)
 
     def show_preview_image(self, previw_img: Image) -> bool:
         '''
@@ -132,13 +151,14 @@ class UserInterface:
         '''
 
         print('here the edit')
-        previw_img.show()
+        self._show_image(previw_img)
         print('do you like it?')
         while True:
-            choiche = input('y/n: ')
-            if choiche == 'y':
+            choiche = input('[y]/n: ')
+            choiche_clean = choiche.strip().lower()
+            if choiche_clean in ('y', ''):
                 return True
-            elif choiche == 'n':
+            elif choiche_clean == 'n':
                 return False
             else:
                 print('some error occured')
@@ -161,24 +181,49 @@ class UserInterface:
         '''
 
         photos_list = os.listdir(path)
-        photos_list.sort()
+        import re
+        def natural_sort_key(s):
+            return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
+        photos_list.sort(key=natural_sort_key)
+
 
         # subprocess.run(["nautilus", path]) #TODO make it cross platform
 
         while True:
             for i in range(0, len(photos_list)):
                 print(f"{i + 1}. Visualize {photos_list[i]}")
-            # print(f"{len(photos_list) + 1}. Make another burst")
-            # print(f"{len(photos_list) + 2}. Go back")
             choice = int(input("Enter your choice: "))
-
             if 1 <= choice <= (len(photos_list)):
-                """op_sys = detect_os()
+                op_sys = detect_os()
                 result = self.confirm_shot(os.path.join(path, photos_list[choice - 1]), op_sys)
-                if result is True:"""
-                return os.path.join(path, photos_list[choice - 1])
+                if result is True:
+                    return os.path.join(path, photos_list[choice - 1])
 
             print("Please enter a valid choice")
+
+    def _show_image(self, img: Image):
+        """
+        Helper method to show an image in a native viewer.
+        On macOS, if running as root, it ensures the temporary file has correct permissions for the logged-in user.
+        """
+        import tempfile
+        os_platform = detect_os()
+
+        if os_platform.is_macos() and os.geteuid() == 0:
+            # On macOS as root, PIL .show() creates a file that the user GUI cannot read.
+            # We manually save to a world-readable temp file and use native 'open'.
+            fd, temp_path = tempfile.mkstemp(suffix='.png')
+            os.close(fd)
+            img.save(temp_path)
+            os.chmod(temp_path, 0o777)
+
+            user = os.environ.get('SUDO_USER') or os.getlogin()
+            try:
+                subprocess.run(["sudo", "-u", user, "open", temp_path])
+            except Exception:
+                subprocess.run(["open", temp_path])
+        else:
+            img.show()
 
 
 # DEBUG SECTION
