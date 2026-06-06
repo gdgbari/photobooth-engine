@@ -5,7 +5,8 @@ __pycache__/
 .DS_Store
 .pytest_cache/
 
-# Config files
+# Project files
+assets/
 settings-prod.yaml
 settings.yaml
 temp_data.yaml
@@ -16,5 +17,5 @@ photobooth-upload.log
 settings-prod.yaml
 
 # Output files
-out
+user_data/
 temp_data.yaml
