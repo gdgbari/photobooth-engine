@@ -1,0 +1,14 @@
+main_folder_path: "path_to_your_main_folder" # e.g. /home/pi/photobooth
+cam_name: 'Your_Camera_Name' # fetch it from gphoto2 --auto-detect
+printer_name: 'Your_Printer_Name' # fetch it from lpstat -p
+print_size: '4x3' # 4x6 or 4x3
+event_name: 'Your Event Name'
+backend: "path_to_your_backend" # e.g. http://localhost:3000
+client_secret: "your_client_secret_from_backend"
+capture_mode: "camera" # pc or camera
+mock_camera: false
+mock_printer: false
+enable_hotfolder: true
+hotfolder_path: "path_to_your_hotfolder" # take it from DNP Hotfolder settings
+min_num_photos: 1
+max_num_photos: 50
