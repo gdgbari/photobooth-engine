@@ -25,9 +25,10 @@ class FolderManager:
     def __init__(self, main_folder_path: str):
         self._main_folder_path = main_folder_path
         # now the paths of all the sub-folders
-        self._current_folder_path = os.path.join(main_folder_path, 'current')
-        self._originals_folder_path = os.path.join(main_folder_path, 'originals')
-        self._output_folder_path = os.path.join(main_folder_path, 'output')
+        user_data_path = os.path.join(main_folder_path, 'user_data')
+        self._current_folder_path = os.path.join(user_data_path, 'current')
+        self._originals_folder_path = os.path.join(user_data_path, 'originals')
+        self._output_folder_path = os.path.join(user_data_path, 'output')
 
         # then we check the folders consistency
         self._folder_consistency_assurance()
@@ -39,7 +40,8 @@ class FolderManager:
         '''
 
         # if the sub-folders are missing, they will be created
-        folder_list = [self._main_folder_path, self._current_folder_path,
+        user_data_path = os.path.join(self._main_folder_path, 'user_data')
+        folder_list = [self._main_folder_path, user_data_path, self._current_folder_path,
                        self._originals_folder_path, self._output_folder_path]
         for folder in folder_list:
             if not os.path.exists(folder):
@@ -99,6 +101,12 @@ class FileNaming:
     def __init__(self):
         self._temp_data_path = "temp_data.yaml"
         self._settings = Settings()
+        self._ensure_file_exists()
+
+    def _ensure_file_exists(self):
+        if not os.path.exists(self._temp_data_path):
+            with open(self._temp_data_path, 'w') as f:
+                yaml.dump({'photos': [], 'edits': [], 'session': '0000'}, f, default_flow_style=False, allow_unicode=True)
 
     def get_photo_name(self) -> str:
         '''

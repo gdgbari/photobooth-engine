@@ -1,3 +1,4 @@
+import os
 import yaml
 
 
@@ -12,6 +13,12 @@ class QueueManager:
         self._print_size = print_size
         self._queue_path = 'temp_data.yaml'
         self._dict = {'photos':[],'edits':[]}
+        self._ensure_file_exists()
+
+    def _ensure_file_exists(self):
+        if not os.path.exists(self._queue_path):
+            with open(self._queue_path, 'w') as f:
+                yaml.dump({'photos': [], 'edits': [], 'session': '0000'}, f, default_flow_style=False, allow_unicode=True)
 
     def _update_yaml(self):
         '''
