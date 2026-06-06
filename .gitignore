@@ -2,7 +2,6 @@
 __pycache__/
 *.pyc
 *.pyo
-.idea/
 .DS_Store
 .pytest_cache/
 
@@ -18,3 +17,4 @@ settings-prod.yaml
 
 # Output files
 out
+temp_data.yaml

@@ -134,6 +134,16 @@ class Settings:
             yaml_dict = yaml.safe_load(yaml_file)
         return yaml_dict.get('hotfolder_path', '')
 
+    def get_min_num_photos(self) -> int:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('min_num_photos', 1)
+
+    def get_max_num_photos(self) -> int:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('max_num_photos', 99)
+
     def get_logs_path(self) -> str:
         '''
         Method which returns the logs path.

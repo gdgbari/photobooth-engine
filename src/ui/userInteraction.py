@@ -2,6 +2,7 @@ from PIL import Image
 from utils import Platform, detect_os
 import os
 import subprocess
+from settings.settings_manager import Settings
 
 
 '''
@@ -12,6 +13,7 @@ class UserInterface:
 
     def __init__(self, polaroid_effect_list : list):
         self.effect_list = polaroid_effect_list
+        self._settings = Settings()
 
     def choose_polaroid_effect(self) -> str:
         '''
@@ -94,12 +96,15 @@ class UserInterface:
         :return: times number to print the photo
         """
 
+        min_num = self._settings.get_min_num_photos()
+        max_num = self._settings.get_max_num_photos()
+
         print('How many copies of the photo do you want to print?')
         while True:
-            times = input('choose between 1 up to 99: ')
+            times = input(f'choose between {min_num} up to {max_num}: ')
             if times.isdigit():
                 times = int(times)
-                if 0 < times <= 99:
+                if min_num <= times <= max_num:
                     while  True:
                         print('you choose '+str(times)+' copies, is it correct?')
                         ui_input = input('[y]/n: ')
