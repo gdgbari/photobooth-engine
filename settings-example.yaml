@@ -1,5 +1,7 @@
 main_folder_path: "path_to_your_main_folder" # e.g. /home/pi/photobooth
 cam_name: 'Your_Camera_Name' # fetch it from gphoto2 --auto-detect
+camera_connection: 'usb' # usb or ptpip
+camera_ip: '192.168.1.1' # Only needed if camera_connection is ptpip
 printer_name: 'Your_Printer_Name' # fetch it from lpstat -p
 print_size: '4x3' # 4x6 or 4x3
 event_name: 'Your Event Name'

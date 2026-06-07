@@ -1,5 +1,6 @@
 import os
 import platform
+import socket
 import subprocess
 
 from photobooth.settings_manager import Settings
@@ -107,6 +108,17 @@ def camera_is_connected(settings_manager: Settings) -> bool:
     Method which verifies if the camera set in the settings.yaml file is connected to the PC.
     :return: True if the camera is connected, No if not
     '''
+
+    if settings_manager.get_camera_connection() == 'ptpip':
+        ip = settings_manager.get_camera_ip()
+        if not ip:
+            return False
+        try:
+            # PTP/IP uses port 15740
+            with socket.create_connection((ip, 15740), timeout=1.5):
+                return True
+        except Exception:
+            return False
 
     output = subprocess.run(['gphoto2', '--auto-detect'], capture_output=True, text=True)
     for line in output.stdout.split('\n'):

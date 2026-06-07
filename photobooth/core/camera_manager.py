@@ -168,6 +168,20 @@ class PhotoManager:
         try:
             _, camera = gp.gp_camera_new()
             self._camera = camera
+
+            if self._settings_manager.get_camera_connection() == 'ptpip':
+                ip = self._settings_manager.get_camera_ip()
+                port_path = f"ptpip:{ip}"
+                port_info_list = gp.PortInfoList()
+                port_info_list.load()
+                try:
+                    idx = port_info_list.lookup_path(port_path)
+                    self._camera.set_port_info(port_info_list[idx])
+                    print(f"PTP/IP port configured for {port_path}")
+                except Exception as port_err:
+                    print(f"Failed to find or set PTP/IP port driver info for {port_path}: {port_err}")
+                    raise port_err
+
             self._camera.init()
         except GPhoto2Error as e:
             print(e)

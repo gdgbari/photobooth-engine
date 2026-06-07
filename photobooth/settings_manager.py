@@ -50,6 +50,28 @@ class Settings:
         return yaml_dict['cam_name']
     
 
+    def get_camera_connection(self) -> str:
+        '''
+        Method which returns the camera connection type (usb or ptpip) set in settings.yaml file.
+        :return: camera connection type
+        '''
+
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict.get('camera_connection', 'usb')
+
+    def get_camera_ip(self) -> str:
+        '''
+        Method which returns the camera IP address set in settings.yaml file.
+        :return: camera IP address
+        '''
+
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+
+        return yaml_dict.get('camera_ip', '192.168.1.1')
+
     def get_backend_url(self) -> str:
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
