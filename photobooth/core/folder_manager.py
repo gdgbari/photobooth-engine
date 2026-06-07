@@ -7,7 +7,7 @@ from photobooth import utils
 
 # FOLDERS EXPLANATION
 #
-#    main_folder
+#    user_data
 #       |___________> current       [ here the current shots: in future the user would choose from different shots]
 #       |___________> originals     [ all the originals chosen shots                                              ]
 #       |___________> output        [ all the outputs: cropped and cornered                                       ]

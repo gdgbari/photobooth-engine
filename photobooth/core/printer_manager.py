@@ -18,7 +18,8 @@ import os
 
 class Printer:
 
-    def __init__(self, printer_name, user_options=None, print_size='4x6', mock=False, enable_hotfolder=False, hotfolder_path=''):
+    def __init__(self, printer_name, user_options=None, print_size='4x6', mock=False, enable_hotfolder=False,
+                 hotfolder_path=''):
 
         self.printer_name = printer_name
         self.print_size = print_size
@@ -29,7 +30,7 @@ class Printer:
         if user_options:
             self._filling_command = " ".join(f"-o {key}={value}" for key, value in user_options.items()) + " "
 
-    def prepare(self)-> None:
+    def prepare(self) -> None:
 
         if self.mock:
             print("Mock printer enabled. Skipping printer preparation.")
@@ -53,7 +54,7 @@ class Printer:
                 "page-border": ["None", "Single", "Double", "Thick"],  # Aggiunta di bordi
             }
 
-            best_option_value =  {
+            best_option_value = {
                 "StpiShrinkOutput": "Shrink",
                 "fit-to-page": True,  # Opzione CUPS standard
                 "scaling": 100,  # Percentuale di ridimensionamento (1-200)
@@ -64,7 +65,6 @@ class Printer:
             }
 
             supported_options = self.get_printer_options(self.printer_name)
-
 
             for possible_option in possible_printer_options.keys():
                 if possible_option in supported_options:
@@ -101,7 +101,6 @@ class Printer:
                 pass
             return
 
-
         """
         command = [
             'lp', '-d', self.printer_name,
@@ -129,9 +128,3 @@ class Printer:
             print(f"An error occurred while printing: {e}")
         except FileNotFoundError:
             print("The 'lp' command was not found. Ensure CUPS is installed.")
-
-
-# DEBUG SECTION
-# printer = Printer(printer_name="Dai-Nippon-Printing-DS40")
-# printer.prepare()
-# printer.print_image("/home/gape01/Desktop/PROGETTI/photobooth/Assets/test.jpg")
