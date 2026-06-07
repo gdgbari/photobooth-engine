@@ -4,10 +4,10 @@ import os
 
 from photobooth import utils
 
-'''
+"""
 Tailor class gets the chosen photo and applies the wanted effect.
 It provides methods to edit photos with the selected effects, add padding, combine pairs of photos and edit to have one total photo with 2 polaroids inside.
-'''
+"""
 
 
 class Tailor:
@@ -28,9 +28,9 @@ class Tailor:
         self._output_folder_path = output_folder_path
 
     def _build_output_path(self):
-        '''
+        """
         Method which builds the final path of the combined/single photo.
-        '''
+        """
 
         first_photo_name = utils.get_name_from_path(self._photo_list[0])[:-4]
         second_photo_name = utils.get_name_from_path(self._photo_list[1])[:-4]
@@ -66,12 +66,12 @@ class Tailor:
         return edited_file_path
 
     def _combine_two_photos(self, first_photo: Image, second_photo: Image) -> Image:
-        '''
+        """
         Method which combines two edited photos into a single one.
         :param first_photo: first edited photo
         :param second_photo: second edited photo
         :return: combined photo
-        '''
+        """
 
         # Rotate 90 degrees and resize both photos to landscape 4x3 (2000x1500)
         first_4x3 = first_photo.rotate(90, expand=True).resize((2000, 1500), Image.Resampling.LANCZOS)
@@ -85,7 +85,7 @@ class Tailor:
 
     def prepare_single_photo(self, photo, effect, horizontal_offset=0, vertical_alignment='center',
                              auto_orientation=True) -> Image:
-        '''
+        """
         Method which edits a single photo with the chosen effect.
         The photo is automatically centered and resized to fit the effect's transparent area.
         :param photo: chosen photo path
@@ -94,7 +94,7 @@ class Tailor:
         :param vertical_alignment: vertical alignment of the photo inside the hole ('center', 'top', 'bottom')
         :param auto_orientation: whether to keep/correct photo orientation using EXIF data
         :return: edited photo
-        '''
+        """
 
         background = Image.open(photo)
         if auto_orientation:
@@ -160,12 +160,12 @@ class Tailor:
         return output_image
 
     def add_final_padding(self, image: Image, percentage: int) -> Image:
-        '''
+        """
         Method which adds a padding to the combined photo.
         :param image: combined photo
         :param percentage: percentage of resizing of the image
         :return: padded photo
-        '''
+        """
 
         # builds a background as big as the image but of color: #f0f0f0
         # resize the image with percentage
@@ -180,24 +180,3 @@ class Tailor:
         canvas.paste(resized_image, (w_padding, h_padding))
 
         return canvas
-
-    # def _final_cleaning(self, originals_folder : str, file_name : str):
-    # WARNING: this function is deprecated
-    # at the end the file in the current folder has to be moved in the originals folder
-    # previous_path = self._photo_path
-    # final_path = os.path.join(originals_folder,file_name)
-    # shutil.move(previous_path,final_path)
-
-# DEBUG
-# ph_path = "/home/gape01/PycharmProjects/photobooth/Assets/test.jpg"
-# eff_path = "/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png"
-# output_f = "/home/gape01/Desktop"
-# tailor = Tailor(ph_path,eff_path,output_f)
-# tailor = Tailor()
-# tailor.set_infos('/home/gape01/PycharmProjects/photobooth/Assets/test.jpg',
-#                 '/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
-#                 '/home/gape01/PycharmProjects/photobooth/Assets/test.jpg',
-#                 '/home/gape01/PycharmProjects/photobooth/Assets/Polaroid - 1.png',
-#                 '/home/gape01/Desktop/main/output')
-# tailor.edit()
-# tailor.edit("prova.jpg")

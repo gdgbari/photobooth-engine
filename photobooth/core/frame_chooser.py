@@ -1,10 +1,8 @@
-from photobooth.core.folder_manager import FolderManager, FileNaming, AssetManager
+from photobooth import utils
+from photobooth.core.folder_manager import FolderManager, AssetManager
+from photobooth.core.photo_edit_manager import Tailor
 from photobooth.settings_manager import Settings
 from photobooth.user_interaction import UserInterface
-from photobooth.core.photo_edit_manager import Tailor
-
-from photobooth import utils
-import random
 
 
 class FrameChooser():
@@ -21,7 +19,6 @@ class FrameChooser():
         self._RANDOM_FRAME = True
         self._random_frame_index = 0
 
-
     def choose_frame(self, photo_path):
         # effect_name = self._ui.choose_polaroid_effect()
         # effect_path = utils.get_asset_path_from_name(effect_name)
@@ -33,7 +30,6 @@ class FrameChooser():
             [effect_path, accepted] = self.choice_edit_with_preview(photo_path)
 
         return [effect_path, accepted]
-            
 
     def show_random_edit(self, photo_path):
 
@@ -54,16 +50,14 @@ class FrameChooser():
         else:
             return ['', False]
 
-
     def show_single_edit(self, photo_path):
         """
         Method which shows the preview of the edited photo with the single effect and returns the effect path if accepted or False if not.
         :param photo_path: photo path to edit
         :return: effect path or False
         """
-        
 
-        effect_name = self._assets.get_corners_names()[0]+".png"
+        effect_name = self._assets.get_corners_names()[0] + ".png"
         effect_path = utils.get_asset_path_from_name(effect_name)
         # ugly application to get faster
         # self._ui.show_preview_without_response(self._editor.prepare_single_photo(photo_path,effect_path))
@@ -71,15 +65,14 @@ class FrameChooser():
             return [effect_path, True]
         else:
             return ['', False]
-        
 
     def choice_edit_with_preview(self, photo_path):
-        '''
+        """
         Method which allows the user to choose the effect to apply to the shot photo with a preview.
         Returns the effect path when the edited photo is accepted.
         :param photo_path: photo path to edit
         :return: effect path
-        '''
+        """
         # in this case the photo was already accepted in the runner method, so only the edit will be chosen
         # in other words: here the logic to change the photo is not implemented
         while True:

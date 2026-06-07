@@ -7,10 +7,10 @@ import os
 import time
 import shutil
 
-
-'''
+"""
 PhotoManager class manages the camera operations, such as initialization and photo capturing.
-'''
+"""
+
 
 class PhotoManager:
 
@@ -24,14 +24,14 @@ class PhotoManager:
         self._camera.exit()
 
     def get_shoot_from_camera(self, path, photo_name, user_interactor: UserInterface):
-        '''
+        """
         Method which waits for a photo to be taken from the camera and saves it in the given path with the given name.
         If something goes wrong, the camera is re-initialized and the user is asked to take the photo again by recursion.
         :param path: the path where the photo has to be saved
         :param photo_name: the name of the photo to be saved
         :param user_interactor: the user interactor instance to manage user interactions
         :return: shot photo path
-        '''
+        """
 
         if self._settings_manager.get_mock_camera():
             user_interactor.wait_for_camera_shutter()
@@ -49,7 +49,7 @@ class PhotoManager:
 
         try:
             user_interactor.wait_for_camera_shutter()
-            timeout = 1000 # wait 1s for each event loop
+            timeout = 1000  # wait 1s for each event loop
 
             while True:
                 # waits for a camera event
@@ -89,15 +89,15 @@ class PhotoManager:
             self.init_camera()
             return self.get_shoot_from_camera(path, photo_name, user_interactor)
 
-    def get_shoot_from_pc(self, path, photo_name, user_interactor : UserInterface):
-        '''
+    def get_shoot_from_pc(self, path, photo_name, user_interactor: UserInterface):
+        """
         Method which allows taking a photo from the connected camera and saving it in the given path with the given name.
         If something goes wrong, the camera is re-initialized and the user is asked to take the photo again by recursion.
         :param path: the path where the photo has to be saved
         :param photo_name: the name of the photo to be saved
         :param user_interactor: the user interactor instance to manage user interactions
         :return: shot photo path
-        '''
+        """
 
         if self._settings_manager.get_mock_camera():
             user_interactor.press_to_shoot()
@@ -118,7 +118,7 @@ class PhotoManager:
             user_interactor.press_to_shoot()
             file_path = self._camera.capture(gp.GP_CAPTURE_IMAGE)
             target = os.path.join(path, photo_name)
-            
+
             # # Introduce a small delay to ensure camera finishes writing to the SD card
             # time.sleep(1.5)
             #
@@ -150,10 +150,10 @@ class PhotoManager:
             return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
     def init_camera(self):
-        '''
+        """
         Method which initializes the camera.
         If something goes wrong, it retries by recursion until the camera is connected.
-        '''
+        """
 
         if self._settings_manager.get_mock_camera():
             print("Mock camera enabled. Skipping real camera initialization.")
@@ -186,12 +186,3 @@ class PhotoManager:
         except GPhoto2Error as e:
             print(e)
             self.init_camera()
-
-
-# DEBUG
-#settings = Settings()
-
-#ph_manager = PhotoManager()
-#ph_manager.start_camera()
-#ph_manager.get_shoot_from_pc(settings.get_main_folder_path())
-#ph_manager.stop_camera()

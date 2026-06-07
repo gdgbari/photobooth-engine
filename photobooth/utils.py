@@ -7,10 +7,10 @@ from photobooth.settings_manager import Settings
 
 
 def get_asset_path_from_name(asset_name : str) -> str:
-    '''
+    """
     Method which returns the effect path starting from its name.
     :return: effect path
-    '''
+    """
 
     # WARNING: if this function is not in the main folder of the project,
     # it will not work properly
@@ -19,19 +19,12 @@ def get_asset_path_from_name(asset_name : str) -> str:
     output_path = os.path.join(output_path, asset_name)
     return output_path
 
-def get_the_file_in_dir(folder_path :str):
-    files = os.listdir(folder_path)
-    files_path = []
-    for file_name in files:
-        files_path.append(os.path.join(folder_path,file_name))
-
-    return files_path[0], files[0]
 
 def get_name_from_path(file_path :str) -> str:
-    '''
+    """
     Method which returns the last path part
     :return: last path part
-    '''
+    """
 
     return os.path.basename(file_path)
 
@@ -78,10 +71,10 @@ def detect_os():
     return output_obj
 
 def get_string_from_photo_number(photo_number):
-    '''
+    """
     Method which returns the photo number as string.
     :return: photo number as string
-    '''
+    """
 
     if len(str(photo_number)) == 1:
         return f"0{photo_number}"
@@ -89,10 +82,10 @@ def get_string_from_photo_number(photo_number):
     return photo_number
 
 def get_string_from_session_number(session_number):
-    '''
+    """
     Method which returns the session number as string.
     :return: session number as string
-    '''
+    """
 
     if len(str(session_number)) == 1:
         return f"000{session_number}"
@@ -104,10 +97,10 @@ def get_string_from_session_number(session_number):
     return session_number
 
 def camera_is_connected(settings_manager: Settings) -> bool:
-    '''
+    """
     Method which verifies if the camera set in the settings.yaml file is connected to the PC.
     :return: True if the camera is connected, No if not
-    '''
+    """
 
     if settings_manager.get_camera_connection() == 'ptpip':
         ip = settings_manager.get_camera_ip()
