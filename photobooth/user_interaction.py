@@ -4,9 +4,9 @@ import os
 import subprocess
 from photobooth.settings_manager import Settings
 
-'''
+"""
 UserInterface class offers methods to manage user interaction through choices about photo goodness, effects to apply and so on.
-'''
+"""
 
 
 class UserInterface:
@@ -20,9 +20,6 @@ class UserInterface:
         Method which shows a menu in order to allow the user to choose the wanted effect (if there are more than one in the asset folder).
         :return: effect path
         """
-
-        # effect_list = ['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular',
-        #               'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore']
 
         print('Choose which effect to apply')
 

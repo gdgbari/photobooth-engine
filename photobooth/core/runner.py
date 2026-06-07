@@ -14,19 +14,19 @@ import os
 import shutil
 from photobooth import utils
 
-'''
+"""
 Runner is the principal class that coordinates all the components of the application.
 Here all the managers are instantiated and the main execution loop is implemented.
 It provides methods to manage the life cycle of camera, editing and printing.
-'''
+"""
 
 
 class Runner:
 
     def __init__(self):
-        '''
+        """
         Constructor method.
-        '''
+        """
 
         self._settings = Settings()
         self._print_size = self._settings.get_print_size()
@@ -46,9 +46,9 @@ class Runner:
         self._backend = BackendManager(self._settings.get_backend_url(), self._settings.get_client_secret())
 
     def prepare(self):
-        '''
+        """
         Method which allows to prepare camera, initialize printing and editing queue and prepare the printer.
-        '''
+        """
 
         self._camera.init_camera()
         self._queue.load_queue()
@@ -63,13 +63,13 @@ class Runner:
         setup_logging()
 
     def main_execution(self):
-        '''
+        """
         Method where disaster recovery is applied if something strange happened in the last session, allowing to resume it.
         If there are many effects in the Assets folder, the user is allowed to choose which one to apply.
         Then the edited photo is shown to the user for confirmation.
         Then the user is asked how many copies of the photo he wants to print.
         At the end if there are 2 or more photos in the printing queue the printing process starts.
-        '''
+        """
 
         disaster_has_happened = resume_old_session(self._folders.get_current_path())
         photo_path = ''
@@ -103,10 +103,10 @@ class Runner:
         # self._settings.update_logs(counter + 1, 'p')
 
     def choice_photo_with_preview(self):
-        '''
+        """
         Method which allows the user to take a photo.
         :return: shot photo path
-        '''
+        """
 
         # shooted_photos_number = self._settings.get_shooted_photos_number()
         # counter = 1
@@ -135,10 +135,10 @@ class Runner:
                 print('Photo rejected, retrying...')
 
     def edit(self):
-        '''
+        """
         Method which gets photos and their effects from the queues and sends to the editor manager to edit them.
         :return: edited photo path
-        '''
+        """
         photo_list = self._queue.get_photos()
         edit_list = self._queue.get_edits()
         self._editor.set_infos(photo_list, edit_list, self._folders.get_output_folder_path())
