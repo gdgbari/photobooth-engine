@@ -4,22 +4,22 @@ import os
 import subprocess
 from photobooth.settings_manager import Settings
 
-
 '''
 UserInterface class offers methods to manage user interaction through choices about photo goodness, effects to apply and so on.
 '''
 
+
 class UserInterface:
 
-    def __init__(self, polaroid_effect_list : list):
+    def __init__(self, polaroid_effect_list: list):
         self.effect_list = polaroid_effect_list
         self._settings = Settings()
 
     def choose_polaroid_effect(self) -> str:
-        '''
+        """
         Method which shows a menu in order to allow the user to choose the wanted effect (if there are more than one in the asset folder).
         :return: effect path
-        '''
+        """
 
         # effect_list = ['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular',
         #               'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore']
@@ -41,16 +41,16 @@ class UserInterface:
 
             print('Some error occurred, please try again')
 
-        file_name = self.effect_list[chosen_edit-1] + '.png'
+        file_name = self.effect_list[chosen_edit - 1] + '.png'
         return file_name
 
     def confirm_shot(self, photo_path, os_platform: Platform) -> bool:
-        '''
+        """
         Method which shows the preview of the shot photo in order to allow the user to choose if it's good or not.
         :param photo_path: photo path
         :param os_platform: os where photobooth is running
         :return: True if the photo is good, False if not
-        '''
+        """
 
         if os_platform.is_linux():
             # image = Image.open(photo_path)
@@ -75,7 +75,6 @@ class UserInterface:
                     subprocess.run(["open", abs_photo_path])
             else:
                 subprocess.run(["open", abs_photo_path])
-
 
         while True:
             print('Do you like it? [y]/n')
@@ -106,7 +105,7 @@ class UserInterface:
                 times = int(times)
                 if min_num <= times <= max_num:
                     while True:
-                        print('you choose '+str(times)+' copies, is it correct?')
+                        print('you choose ' + str(times) + ' copies, is it correct?')
                         ui_input = input('[y]/n: ')
                         ui_input_clean = ui_input.strip().lower()
                         if ui_input_clean in ('y', ''):
@@ -117,38 +116,30 @@ class UserInterface:
             print('Some error occurred, please try again')
 
     def wait_for_camera_shutter(self):
-        '''
+        """
         Method which notifies the user to press the shutter button on the camera.
-        '''
+        """
         print('Ready! Press the shutter button on the camera to take the photo.')
 
     def press_to_shoot(self):
-        '''
+        """
         Method which allows the user to press a key on the keyboard in order to take a photo.
-        '''
+        """
 
         input('press any key to shoot')
 
     def notify_shot_taken(self):
-        '''
+        """
         Method which prints a message to notify the user that a shot happened.
-        '''
-
-    def show_preview_without_response(self, preview_img: Image):
         """
-        Used in case there is only a single corner possible, there is no need to get the user response.
-        """
-
-        print('here the edit')
-        self._show_image(preview_img)
 
     def show_preview_image(self, preview_img: Image) -> bool:
-        '''
+        """
         Method which shows the preview of the shot photo in order to allow the user to choose if it's good or not.
         :param photo_path: photo path
         :param os_platform: os where photobooth is running
         :return: True if the photo is good, False if not
-        '''
+        """
 
         print('here the edit')
         self._show_image(preview_img)
@@ -163,29 +154,19 @@ class UserInterface:
             else:
                 print('some error occurred')
 
-    def show_new_session_menu(self):
-        while True:
-            print(
-                "How many photos do you want to shoot? Please choose a number between 1 and 5 (Press 0 if you want to recover preceding photos)")
-            choice = int(input("Enter your choice: "))
-            if 0 <= choice <= 5:
-                return choice
-
-            print("Please enter a valid choice")
-
     def visualize_current_photos(self, path):
-        '''
+        """
         Method used in case of disaster recovery procedure execution.
         Shows a menu in order to allow the user to choose the photo they want to recover.
         :param path: current folder path
-        '''
+        """
 
         photos_list = os.listdir(path)
         import re
         def natural_sort_key(s):
             return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
-        photos_list.sort(key=natural_sort_key)
 
+        photos_list.sort(key=natural_sort_key)
 
         # subprocess.run(["nautilus", path]) #TODO make it cross platform
 
@@ -224,8 +205,3 @@ class UserInterface:
                 subprocess.run(["open", temp_path])
         else:
             img.show()
-
-
-# DEBUG SECTION
-# ui = UserInterface(['Gemini', 'Flutter', 'Android', 'Firebase', 'Kotlin', 'Angular', 'Cloud', 'Jetpack Compose', 'TensorFlow', 'ARCore'])
-# print(ui.choose_polaroid_effect())

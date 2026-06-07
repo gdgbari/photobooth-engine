@@ -1,20 +1,31 @@
 from __future__ import annotations
-import base64, io, asyncio, threading
+import base64
+import io
+import asyncio
+import threading
 from typing import Tuple
 from uuid import UUID
 import httpx
 from PIL import Image
-import time
 from urllib.parse import urljoin
 import logging
 
-# Usa il logger configurato nel main (nome coerente)
+# Use logger configured in main (coherent name)
 logger = logging.getLogger("photobooth.upload")
 
 
 class PhotoAPIClient:
-    def __init__(self, base_url: str = "http://localhost:8000", timeout: Tuple[float, float] = (5.0, 30.0)):
+    def __init__(
+            self,
+            base_url: str = "http://localhost:8000",
+            client_id: str = "agent",
+            client_secret: str = None,
+            timeout: Tuple[float, float] = (5.0, 30.0),
+    ):
         self.base_url = base_url.rstrip("/")
+        self.client_id = client_id
+        self.client_secret = client_secret
+
         # httpx requires all four fields or a single default
         self.timeout = httpx.Timeout(
             connect=timeout[0],
@@ -22,88 +33,250 @@ class PhotoAPIClient:
             write=timeout[1],
             pool=timeout[0],
         )
-        self.headers = {"Accept": "application/json", "Content-Type": "application/json"}
-        logger.info("PhotoAPIClient initialized with base_url=%s", self.base_url)
 
-    async def upload_pil(self, img: Image.Image) -> UUID:
-        """Send a PIL image as PNG base64 to POST /photos and return the new photo UUID (async)."""
+        self.headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        }
+        self._async_lock = asyncio.Lock()
+        self._sync_lock = threading.Lock()
+
+    async def login(self, force: bool = False):
+        """Perform login to get JWT Bearer token (async)."""
+        if not self.client_secret:
+            return
+
+        async with self._async_lock:
+            # Check if another request already refreshed the token
+            if not force and self.headers.get("Authorization"):
+                return
+
+            logger.info("Attempting login to backend (async)...")
+            payload = {"client_id": self.client_id, "client_secret": self.client_secret}
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                try:
+                    r = await client.post(f"{self.base_url}/oauth/token", json=payload)
+                    r.raise_for_status()
+                    token = r.json()["access_token"]
+                    self.headers["Authorization"] = f"Bearer {token}"
+                    logger.info("Login successful (async)")
+                except Exception as e:
+                    logger.error(f"Login failed (async): {e}")
+                    raise
+
+    def login_sync(self, force: bool = False):
+        """Perform login to get JWT Bearer token (sync)."""
+        if not self.client_secret:
+            return
+
+        with self._sync_lock:
+            if not force and self.headers.get("Authorization"):
+                return
+
+            logger.info("Attempting login to backend (sync)...")
+            payload = {"client_id": self.client_id, "client_secret": self.client_secret}
+            with httpx.Client(timeout=self.timeout) as client:
+                try:
+                    r = client.post(f"{self.base_url}/oauth/token", json=payload)
+                    r.raise_for_status()
+                    token = r.json()["access_token"]
+                    self.headers["Authorization"] = f"Bearer {token}"
+                    logger.info("Login successful (sync)")
+                except Exception as e:
+                    logger.error(f"Login failed (sync): {e}")
+                    raise
+
+    async def upload_pil(self, img: Image.Image, photo_name: str = "unnamed_photo") -> UUID:
+        """
+        Send a PIL image as PNG base64 to POST /photos and return the new photo UUID (async).
+        """
+        logger.info(f"Uploading '{photo_name}' started")
+
         if img.mode not in ("RGB", "RGBA", "L", "LA"):
             img = img.convert("RGBA")
-        logger.debug("Starting async upload_pil, image mode=%s", img.mode)
 
         b64 = await asyncio.to_thread(self._to_b64, img)
 
-        async with httpx.AsyncClient(timeout=self.timeout, headers=self.headers) as client:
-            logger.info("POST %s/photos (async)", self.base_url)
-            r = await client.post(f"{self.base_url}/photos", json={"data": b64})
-            logger.debug("Response status (async): %s", r.status_code)
-            r.raise_for_status()
-            photo_id = UUID(r.json()["id"])
-            logger.info("Async upload successful, photo_id=%s", photo_id)
-            return photo_id
+        if self.client_secret:
+            await self.login()
 
-    def upload_pil_background(self, img: Image.Image, photo_name:str) -> None:
-        """Fire-and-forget upload that never blocks the caller."""
-        def _worker():
+        async with httpx.AsyncClient(
+                timeout=self.timeout, headers=self.headers
+        ) as client:
             try:
-                logger.info("Background upload started")
-                asyncio.run(self.upload_pil(img))
-                logger.info("Background upload finished OK")
+                r = await client.post(f"{self.base_url}/photos", json={"data": b64})
+
+                if r.status_code == 401 and self.client_secret:
+                    logger.warning(
+                        f"401 Unauthorized for '{photo_name}', retrying login"
+                    )
+                    await self.login(force=True)
+                    async with httpx.AsyncClient(
+                            timeout=self.timeout, headers=self.headers
+                    ) as retry_client:
+                        r = await retry_client.post(
+                            f"{self.base_url}/photos", json={"data": b64}
+                        )
+
+                r.raise_for_status()
+
+                photo_id = UUID(r.json()["id"])
+                logger.info(f"Upload OK '{photo_name}' -> {photo_id}")
+
+                return photo_id
+
+            except httpx.TimeoutException:
+                logger.error(f"Upload FAILED (timeout) for '{photo_name}'")
+                raise
+
+            except httpx.ConnectError:
+                logger.error(
+                    f"Upload FAILED (backend unreachable) for '{photo_name}'. Connection Error"
+                )
+                raise
+
+            except httpx.ReadError:
+                logger.error(
+                    f"Upload FAILED (backend unreachable) for '{photo_name}'. Read Error"
+                )
+                raise
+
             except Exception:
-                # Replace with your logger if you have one
-                logger.exception("[PhotoAPIClient] Upload failed")
+                logger.exception(f"Unhandled error while uploading '{photo_name}'")
+                raise
+
+    # ---------- BACKGROUND ----------
+    def upload_pil_background(self, img: Image.Image, photo_name: str = "unnamed_photo") -> None:
+        """Fire-and-forget upload that never blocks the caller."""
+
+        def _worker():
+            not_sent = True
+
+            while not_sent:
+                try:
+                    asyncio.run(self.upload_pil(img, photo_name))
+                    not_sent = False
+
+                except httpx.ConnectError:
+                    logger.info(
+                        f"The upload of '{photo_name}' will be retried in 5 seconds"
+                    )
+                    import time
+
+                    time.sleep(5)
+                except httpx.TimeoutException:
+                    logger.info(
+                        f"The upload of '{photo_name}' will be retried in 5 seconds"
+                    )
+                    import time
+
+                    time.sleep(5)
+                except httpx.ReadError:
+                    logger.info(
+                        f"The upload of '{photo_name}' will be retried in 5 seconds"
+                    )
+                    import time
+
+                    time.sleep(5)
+                except Exception:
+                    logger.exception(
+                        f"[PhotoAPIClient] Background upload failed for '{photo_name}'"
+                    )
+                    not_sent = False
+
         threading.Thread(target=_worker, daemon=True).start()
 
-    # ---------- SYNC ----------
-    def upload_pil_sync(self, img: Image.Image) -> UUID:
+    # ---------- SYNC VERSION ----------
+    def upload_pil_sync(self, img: Image.Image, photo_name: str = "unnamed_photo") -> UUID:
         """Blocking version (no asyncio)."""
+
+        logger.info(f"Uploading '{photo_name}' started")
+
         if img.mode not in ("RGB", "RGBA", "L", "LA"):
             img = img.convert("RGBA")
-        logger.debug("Starting sync upload_pil_sync, image mode=%s", img.mode)
 
         b64 = self._to_b64(img)
-        with httpx.Client(timeout=self.timeout, headers=self.headers) as client:
-            logger.info("POST %s/photos (sync)", self.base_url)
-            r = client.post(f"{self.base_url}/photos", json={"data": b64})
-            logger.debug("Response status (sync): %s", r.status_code)
-            r.raise_for_status()
-            photo_id = UUID(r.json()["id"])
-            logger.info("Sync upload successful, photo_id=%s", photo_id)
-            return photo_id
-        
-    # just for test purposes
-    def download_image_by_id(self, photo_id : UUID):
-        logger.info("Downloading image, id=%s", photo_id)
-        with httpx.Client(timeout=self.timeout, headers=self.headers) as client:
-            # First get the signed/raw URL from metadata
-            r = client.get(f"{self.base_url}/photos/{photo_id}")
-            logger.debug("GET metadata status: %s", r.status_code)
-            r.raise_for_status()
-            raw_url = r.json()["url"]
 
-            # Now fetch the actual image bytes
+        if self.client_secret:
+            self.login_sync()
+
+        with httpx.Client(timeout=self.timeout, headers=self.headers) as client:
+            try:
+                r = client.post(f"{self.base_url}/photos", json={"data": b64})
+
+                if r.status_code == 401 and self.client_secret:
+                    logger.warning(
+                        f"401 Unauthorized for '{photo_name}' (sync), retrying login"
+                    )
+                    self.login_sync(force=True)
+                    with httpx.Client(
+                            timeout=self.timeout, headers=self.headers
+                    ) as retry_client:
+                        r = retry_client.post(
+                            f"{self.base_url}/photos", json={"data": b64}
+                        )
+
+                r.raise_for_status()
+
+                photo_id = UUID(r.json()["id"])
+                logger.info(f"Upload OK '{photo_name}' → {photo_id}")
+
+                return photo_id
+
+            except httpx.TimeoutException:
+                logger.error(f"Upload FAILED (timeout) for '{photo_name}'")
+                raise
+
+            except httpx.ConnectError:
+                logger.error(f"Upload FAILED (backend unreachable) for '{photo_name}'")
+                raise
+
+            except Exception:
+                logger.exception(f"Unhandled error while uploading '{photo_name}'")
+                raise
+
+    # just for test purposes
+    def download_image_by_id(self, photo_id: UUID):
+        if self.client_secret:
+            self.login_sync()
+
+        with httpx.Client(timeout=self.timeout, headers=self.headers) as client:
+            r = client.get(f"{self.base_url}/photos/{photo_id}")
+
+            if r.status_code == 401 and self.client_secret:
+                logger.warning(f"401 Unauthorized for GET photo {photo_id}, retrying")
+                self.login_sync(force=True)
+                with httpx.Client(
+                        timeout=self.timeout, headers=self.headers
+                ) as retry_client:
+                    r = retry_client.get(f"{self.base_url}/photos/{photo_id}")
+
+            r.raise_for_status()
+
+            raw_url = r.json()["url"]
             raw_url = urljoin(self.base_url, raw_url)
-            logger.info("GET raw image %s", raw_url)
+
             r = client.get(raw_url)
-            logger.debug("GET raw status: %s", r.status_code)
+            if r.status_code == 401 and self.client_secret:
+                self.login_sync(force=True)
+                with httpx.Client(
+                        timeout=self.timeout, headers=self.headers
+                ) as retry_client:
+                    r = retry_client.get(raw_url)
             r.raise_for_status()
 
         img = Image.open(io.BytesIO(r.content))
-        img.load()  # fully decode so the BytesIO can close
-        logger.info("Image downloaded and decoded")
+        img.load()
         return img
 
     def _to_b64(self, img: Image.Image) -> str:
         if img.mode not in ("RGB", "RGBA", "L", "LA"):
             img = img.convert("RGBA")
 
-        # Detach from the file & ensure all pixels are in memory
-        # it seems that sometimes pillow works in a lazy way and can break stuff here
         img.load()
         img = img.copy()
 
         buf = io.BytesIO()
         img.save(buf, format="PNG")
         encoded = base64.b64encode(buf.getvalue()).decode("ascii")
-        logger.debug("Image converted to base64 (%d chars)", len(encoded))
         return encoded
