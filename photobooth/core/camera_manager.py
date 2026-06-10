@@ -33,6 +33,9 @@ class PhotoManager:
         :return: shot photo path
         """
 
+        if self._settings_manager.get_camera_connection() == 'wifi':
+            return self.get_shoot_from_wifi(path, photo_name, user_interactor)
+
         if self._settings_manager.get_mock_camera():
             user_interactor.wait_for_camera_shutter()
             target = os.path.join(path, photo_name)
@@ -99,6 +102,9 @@ class PhotoManager:
         :return: shot photo path
         """
 
+        if self._settings_manager.get_camera_connection() == 'wifi':
+            return self.get_shoot_from_wifi(path, photo_name, user_interactor)
+
         if self._settings_manager.get_mock_camera():
             user_interactor.press_to_shoot()
             target = os.path.join(path, photo_name)
@@ -149,14 +155,77 @@ class PhotoManager:
             self.init_camera()
             return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
+    def get_shoot_from_wifi(self, path, photo_name, user_interactor: UserInterface):
+        """
+        Method which waits for a new photo to appear in the camera-hotfolder and copies it to the given path with the given name.
+        :param path: the path where the photo has to be saved
+        :param photo_name: the name of the photo to be saved
+        :param user_interactor: the user interactor instance to manage user interactions
+        :return: shot photo path
+        """
+        user_interactor.wait_for_camera_shutter()
+        hotfolder = self._settings_manager.get_camera_hotfolder_path()
+        if not hotfolder:
+            print("Warning: camera_hotfolder_path is not configured.")
+            return None
+
+        if not os.path.exists(hotfolder):
+            os.makedirs(hotfolder, exist_ok=True)
+
+        initial_files = set(os.listdir(hotfolder))
+        print(f"Waiting for photo in hotfolder: {hotfolder}")
+
+        while True:
+            current_files = set(os.listdir(hotfolder))
+            new_files = current_files - initial_files
+            new_images = [f for f in new_files if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+
+            if new_images:
+                new_image_name = new_images[0]
+                source_path = os.path.join(hotfolder, new_image_name)
+
+                # Wait for file transfer to complete (size stops changing and image is complete)
+                last_size = -1
+                while True:
+                    try:
+                        current_size = os.path.getsize(source_path)
+                        if current_size == last_size and current_size > 0:
+                            if self.is_image_complete(source_path):
+                                break
+                        last_size = current_size
+                    except OSError:
+                        pass
+                    time.sleep(0.5)
+
+                target = os.path.join(path, photo_name)
+                shutil.copyfile(source_path, target)
+                os.chmod(target, 0o777)
+
+                user_interactor.notify_shot_taken()
+                return target
+
+            time.sleep(0.5)
+
+    def is_image_complete(self, file_path) -> bool:
+        """
+        Verifies if the image is valid and not truncated by loading its pixel data.
+        """
+        try:
+            from PIL import Image
+            with Image.open(file_path) as img:
+                img.load()
+            return True
+        except Exception:
+            return False
+
     def init_camera(self):
         """
         Method which initializes the camera.
         If something goes wrong, it retries by recursion until the camera is connected.
         """
 
-        if self._settings_manager.get_mock_camera():
-            print("Mock camera enabled. Skipping real camera initialization.")
+        if self._settings_manager.get_mock_camera() or self._settings_manager.get_camera_connection() == 'wifi':
+            print("Mock camera or WiFi connection enabled. Skipping real camera initialization.")
             return
 
         while not camera_is_connected(self._settings_manager):
