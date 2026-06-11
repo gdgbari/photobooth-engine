@@ -172,13 +172,34 @@ class PhotoManager:
         if not os.path.exists(hotfolder):
             os.makedirs(hotfolder, exist_ok=True)
 
-        initial_files = set(os.listdir(hotfolder))
+        temp_data_path = "temp_data.yaml"
+        if not hasattr(self, '_processed_wifi_photos'):
+            self._processed_wifi_photos = set()
+            if os.path.exists(temp_data_path):
+                try:
+                    import yaml
+                    with open(temp_data_path, 'r') as f:
+                        data = yaml.safe_load(f) or {}
+                    self._processed_wifi_photos = set(data.get('processed_wifi_photos', []))
+                except Exception as e:
+                    print(f"Error loading processed wifi photos: {e}")
+
+            if not self._processed_wifi_photos:
+                self._processed_wifi_photos = set(os.listdir(hotfolder))
+                self._save_processed_wifi_photos()
+
         print(f"Waiting for photo in hotfolder: {hotfolder}")
 
         while True:
             current_files = set(os.listdir(hotfolder))
-            new_files = current_files - initial_files
-            new_images = [f for f in new_files if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+            # Keep memory clean of deleted files
+            pruned_photos = self._processed_wifi_photos.intersection(current_files)
+            if pruned_photos != self._processed_wifi_photos:
+                self._processed_wifi_photos = pruned_photos
+                self._save_processed_wifi_photos()
+
+            new_files = current_files - self._processed_wifi_photos
+            new_images = sorted([f for f in new_files if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
 
             if new_images:
                 new_image_name = new_images[0]
@@ -201,10 +222,32 @@ class PhotoManager:
                 shutil.copyfile(source_path, target)
                 os.chmod(target, 0o777)
 
+                self._processed_wifi_photos.add(new_image_name)
+                self._save_processed_wifi_photos()
+
                 user_interactor.notify_shot_taken()
                 return target
 
             time.sleep(0.5)
+
+    def _save_processed_wifi_photos(self):
+        """
+        Saves the processed wifi photos list to temp_data.yaml.
+        """
+        temp_data_path = "temp_data.yaml"
+        try:
+            import yaml
+            data = {}
+            if os.path.exists(temp_data_path):
+                with open(temp_data_path, 'r') as f:
+                    data = yaml.safe_load(f) or {}
+
+            data['processed_wifi_photos'] = list(self._processed_wifi_photos)
+
+            with open(temp_data_path, 'w') as f:
+                yaml.dump(data, f, default_flow_style=False, allow_unicode=True)
+        except Exception as e:
+            print(f"Error saving processed wifi photos: {e}")
 
     def is_image_complete(self, file_path) -> bool:
         """
