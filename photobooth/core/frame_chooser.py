@@ -22,6 +22,17 @@ class FrameChooser():
     def choose_frame(self, photo_path):
         # effect_name = self._ui.choose_polaroid_effect()
         # effect_path = utils.get_asset_path_from_name(effect_name)
+        configured_frame = self._settings.get_frame_name()
+        if configured_frame:
+            effect_name = configured_frame
+            if not effect_name.endswith('.png'):
+                effect_name += '.png'
+            effect_path = utils.get_asset_path_from_name(effect_name)
+            if self._ui.show_preview_image(self._editor.prepare_single_photo(photo_path, effect_path)):
+                return [effect_path, True]
+            else:
+                return ['', False]
+
         if self._SINGLE_FRAME:
             [effect_path, accepted] = self.show_single_edit(photo_path)
         elif self._RANDOM_FRAME:

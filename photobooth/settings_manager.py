@@ -111,10 +111,10 @@ class Settings:
             yaml_dict = yaml.safe_load(yaml_file)
         return yaml_dict.get('enable_hotfolder', False)
 
-    def get_hotfolder_path(self) -> str:
+    def get_printer_hotfolder_path(self) -> str:
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
-        return yaml_dict.get('hotfolder_path', '')
+        return yaml_dict.get('printer_hotfolder_path', '')
 
     def get_min_num_photos(self) -> int:
         with open(self._settings_path, 'r') as yaml_file:
@@ -125,3 +125,18 @@ class Settings:
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
         return yaml_dict.get('max_num_photos', 99)
+
+    def get_camera_connection(self) -> str:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('camera_connection', 'usb')
+
+    def get_camera_hotfolder_path(self) -> str:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('camera_hotfolder_path', '')
+
+    def get_frame_name(self) -> str:
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('frame_name', '')

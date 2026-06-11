@@ -33,6 +33,9 @@ class PhotoManager:
         :return: shot photo path
         """
 
+        if self._settings_manager.get_camera_connection() == 'wifi':
+            return self.get_shoot_from_wifi(path, photo_name, user_interactor)
+
         if self._settings_manager.get_mock_camera():
             user_interactor.wait_for_camera_shutter()
             target = os.path.join(path, photo_name)
@@ -99,6 +102,9 @@ class PhotoManager:
         :return: shot photo path
         """
 
+        if self._settings_manager.get_camera_connection() == 'wifi':
+            return self.get_shoot_from_wifi(path, photo_name, user_interactor)
+
         if self._settings_manager.get_mock_camera():
             user_interactor.press_to_shoot()
             target = os.path.join(path, photo_name)
@@ -149,14 +155,120 @@ class PhotoManager:
             self.init_camera()
             return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
+    def get_shoot_from_wifi(self, path, photo_name, user_interactor: UserInterface):
+        """
+        Method which waits for a new photo to appear in the camera-hotfolder and copies it to the given path with the given name.
+        :param path: the path where the photo has to be saved
+        :param photo_name: the name of the photo to be saved
+        :param user_interactor: the user interactor instance to manage user interactions
+        :return: shot photo path
+        """
+        user_interactor.wait_for_camera_shutter()
+        hotfolder = self._settings_manager.get_camera_hotfolder_path()
+        if not hotfolder:
+            print("Warning: camera_hotfolder_path is not configured.")
+            return None
+
+        if not os.path.exists(hotfolder):
+            os.makedirs(hotfolder, exist_ok=True)
+
+        temp_data_path = "temp_data.yaml"
+        if not hasattr(self, '_processed_wifi_photos'):
+            self._processed_wifi_photos = set()
+            if os.path.exists(temp_data_path):
+                try:
+                    import yaml
+                    with open(temp_data_path, 'r') as f:
+                        data = yaml.safe_load(f) or {}
+                    self._processed_wifi_photos = set(data.get('processed_wifi_photos', []))
+                except Exception as e:
+                    print(f"Error loading processed wifi photos: {e}")
+
+            if not self._processed_wifi_photos:
+                self._processed_wifi_photos = set(os.listdir(hotfolder))
+                self._save_processed_wifi_photos()
+
+        print(f"Waiting for photo in hotfolder: {hotfolder}")
+
+        while True:
+            current_files = set(os.listdir(hotfolder))
+            # Keep memory clean of deleted files
+            pruned_photos = self._processed_wifi_photos.intersection(current_files)
+            if pruned_photos != self._processed_wifi_photos:
+                self._processed_wifi_photos = pruned_photos
+                self._save_processed_wifi_photos()
+
+            new_files = current_files - self._processed_wifi_photos
+            new_images = sorted([f for f in new_files if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
+
+            if new_images:
+                new_image_name = new_images[0]
+                source_path = os.path.join(hotfolder, new_image_name)
+
+                # Wait for file transfer to complete (size stops changing and image is complete)
+                last_size = -1
+                while True:
+                    try:
+                        current_size = os.path.getsize(source_path)
+                        if current_size == last_size and current_size > 0:
+                            if self.is_image_complete(source_path):
+                                break
+                        last_size = current_size
+                    except OSError:
+                        pass
+                    time.sleep(0.5)
+
+                target = os.path.join(path, photo_name)
+                shutil.copyfile(source_path, target)
+                os.chmod(target, 0o777)
+
+                self._processed_wifi_photos.add(new_image_name)
+                self._save_processed_wifi_photos()
+
+                user_interactor.notify_shot_taken()
+                return target
+
+            time.sleep(0.5)
+
+    def _save_processed_wifi_photos(self):
+        """
+        Saves the processed wifi photos list to temp_data.yaml.
+        """
+        temp_data_path = "temp_data.yaml"
+        try:
+            import yaml
+            data = {}
+            if os.path.exists(temp_data_path):
+                with open(temp_data_path, 'r') as f:
+                    data = yaml.safe_load(f) or {}
+
+            data['processed_wifi_photos'] = list(self._processed_wifi_photos)
+
+            with open(temp_data_path, 'w') as f:
+                yaml.dump(data, f, default_flow_style=False, allow_unicode=True)
+        except Exception as e:
+            print(f"Error saving processed wifi photos: {e}")
+
+    def is_image_complete(self, file_path) -> bool:
+        """
+        Verifies if the image is valid and not truncated by loading its pixel data.
+        """
+        try:
+            from PIL import Image
+            with Image.open(file_path) as img:
+                img.load()
+            return True
+        except Exception:
+            return False
+
     def init_camera(self):
         """
         Method which initializes the camera.
         If something goes wrong, it retries by recursion until the camera is connected.
         """
 
-        if self._settings_manager.get_mock_camera():
-            print("Mock camera enabled. Skipping real camera initialization.")
+        if self._settings_manager.get_mock_camera() or self._settings_manager.get_camera_connection() == 'wifi':
+            print("Mock camera or WiFi connection enabled. Skipping real camera initialization.")
             return
 
         while not camera_is_connected(self._settings_manager):

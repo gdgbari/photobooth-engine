@@ -42,7 +42,10 @@ class Runner:
         # if in asset only one corner is present,
         # there is no need to ask the user every time which one apply
         self._SINGLE_FRAME = False
-        self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options(), print_size=self._print_size, mock=self._settings.get_mock_printer(), enable_hotfolder=self._settings.get_enable_hotfolder(), hotfolder_path=self._settings.get_hotfolder_path())
+        self._printer = Printer(self._settings.get_printer_name(), self._settings.get_printer_options(),
+                                print_size=self._print_size, mock=self._settings.get_mock_printer(),
+                                enable_hotfolder=self._settings.get_enable_hotfolder(),
+                                hotfolder_path=self._settings.get_printer_hotfolder_path())
         self._backend = BackendManager(self._settings.get_backend_url(), self._settings.get_client_secret())
 
     def prepare(self):
@@ -78,15 +81,14 @@ class Runner:
         else:
             [photo_path, _] = self.choice_photo_with_preview()
 
-
         [effect_path, photo_accepted] = self._frame_chooser.choose_frame(photo_path)
         if not photo_accepted:
             self._folders.clean_current_path(photo_path)
             return
 
-        #----   send to the server  ----
-        self._backend.send_photo_and_edit(photo_path,effect_path)
-        #-------------------------------
+        # ----   send to the server  ----
+        self._backend.send_photo_and_edit(photo_path, effect_path)
+        # -------------------------------
 
         times = self._ui.choose_times_to_print()
         # the photo is added to the queue and the folder get cleared
@@ -131,7 +133,8 @@ class Runner:
                 return [photo_path, '']
             else:
                 # counter += 1
-                shutil.move(os.path.join(self._folders.get_current_path(), file_name), os.path.join(self._folders.get_originals_path(), file_name))
+                shutil.move(os.path.join(self._folders.get_current_path(), file_name),
+                            os.path.join(self._folders.get_originals_path(), file_name))
                 print('Photo rejected, retrying...')
 
     def edit(self):
