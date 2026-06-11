@@ -156,6 +156,17 @@ class PhotoManager:
             self.init_camera()
             return self.get_shoot_from_pc(path, photo_name, user_interactor)
 
+    def get_photo_id(self, filename: str) -> int:
+        """
+        Extracts the last sequence of digits from a filename (excluding extension) as an integer ID.
+        """
+        import re
+        name, _ = os.path.splitext(filename)
+        digits = re.findall(r'\d+', name)
+        if digits:
+            return int(digits[-1])
+        return 0
+
     def get_shoot_from_wifi(self, path, photo_name, user_interactor: UserInterface):
         """
         Method which waits for a new photo to appear in the camera-hotfolder and copies it to the given path with the given name.
@@ -175,36 +186,40 @@ class PhotoManager:
 
         from photobooth.consts import TEMP_DATA_PATH, WIFI_POLL_DELAY_SEC
         temp_data_path = TEMP_DATA_PATH
-        if not hasattr(self, '_processed_wifi_photos'):
-            self._processed_wifi_photos = set()
+        if not hasattr(self, '_last_read_wifi_id'):
+            self._last_read_wifi_id = None
             if os.path.exists(temp_data_path):
                 try:
                     import yaml
                     with open(temp_data_path, 'r') as f:
                         data = yaml.safe_load(f) or {}
-                    self._processed_wifi_photos = set(data.get('processed_wifi_photos', []))
+                    self._last_read_wifi_id = data.get('last_read_wifi_id', None)
                 except Exception as e:
-                    print(f"Error loading processed wifi photos: {e}")
+                    print(f"Error loading last read wifi ID: {e}")
 
-            if not self._processed_wifi_photos:
-                self._processed_wifi_photos = set(os.listdir(hotfolder))
-                self._save_processed_wifi_photos()
+            if self._last_read_wifi_id is None:
+                # Initialize with the maximum ID currently in the hotfolder
+                existing_files = os.listdir(hotfolder)
+                existing_ids = [self.get_photo_id(f) for f in existing_files if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+                self._last_read_wifi_id = max(existing_ids) if existing_ids else 0
+                self._save_last_read_wifi_id()
 
-        print(f"Waiting for photo in hotfolder: {hotfolder}")
+        print(f"Waiting for photo in hotfolder: {hotfolder} with ID > {self._last_read_wifi_id}")
 
         while True:
-            current_files = set(os.listdir(hotfolder))
-            # Keep memory clean of deleted files
-            pruned_photos = self._processed_wifi_photos.intersection(current_files)
-            if pruned_photos != self._processed_wifi_photos:
-                self._processed_wifi_photos = pruned_photos
-                self._save_processed_wifi_photos()
+            current_files = os.listdir(hotfolder)
+            new_candidates = []
+            for f in current_files:
+                if f.lower().endswith(('.jpg', '.jpeg', '.png')):
+                    photo_id = self.get_photo_id(f)
+                    if photo_id > self._last_read_wifi_id:
+                        new_candidates.append((photo_id, f))
 
-            new_files = current_files - self._processed_wifi_photos
-            new_images = sorted([f for f in new_files if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
+            # Sort by ID progressively
+            new_candidates.sort(key=lambda x: x[0])
 
-            if new_images:
-                new_image_name = new_images[0]
+            if new_candidates:
+                chosen_id, new_image_name = new_candidates[0]
                 source_path = os.path.join(hotfolder, new_image_name)
 
                 # Wait for file transfer to complete (size stops changing and image is complete)
@@ -224,17 +239,17 @@ class PhotoManager:
                 shutil.copyfile(source_path, target)
                 os.chmod(target, 0o777)
 
-                self._processed_wifi_photos.add(new_image_name)
-                self._save_processed_wifi_photos()
+                self._last_read_wifi_id = chosen_id
+                self._save_last_read_wifi_id()
 
                 user_interactor.notify_shot_taken()
                 return target
 
             time.sleep(WIFI_POLL_DELAY_SEC)
 
-    def _save_processed_wifi_photos(self):
+    def _save_last_read_wifi_id(self):
         """
-        Saves the processed wifi photos list to temp_data.yaml.
+        Saves the last read wifi ID to temp_data.yaml and removes any obsolete lists.
         """
         from photobooth.consts import TEMP_DATA_PATH
         temp_data_path = TEMP_DATA_PATH
@@ -245,12 +260,15 @@ class PhotoManager:
                 with open(temp_data_path, 'r') as f:
                     data = yaml.safe_load(f) or {}
 
-            data['processed_wifi_photos'] = list(self._processed_wifi_photos)
+            if 'processed_wifi_photos' in data:
+                del data['processed_wifi_photos']
+
+            data['last_read_wifi_id'] = self._last_read_wifi_id
 
             with open(temp_data_path, 'w') as f:
                 yaml.dump(data, f, default_flow_style=False, allow_unicode=True)
         except Exception as e:
-            print(f"Error saving processed wifi photos: {e}")
+            print(f"Error saving last read wifi ID: {e}")
 
     def is_image_complete(self, file_path) -> bool:
         """

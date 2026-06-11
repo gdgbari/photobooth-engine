@@ -125,7 +125,7 @@ class Runner:
             # ATTENTION
             # up to now to make the pipeline faster, the user will not confirm the shoot here but only after the polaroid edit
             # in the future, granularity will be added
-            if self._ui.confirm_shot(photo_path, utils.detect_os()):
+            if not self._settings.get_preview_pre_frame() or self._ui.confirm_shot(photo_path, utils.detect_os()):
                 # the photo is accepted, we can go on
                 # session has ended
                 self._file_naming.increment_session_number()

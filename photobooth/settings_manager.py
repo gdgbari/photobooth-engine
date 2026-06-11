@@ -149,3 +149,15 @@ class Settings:
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
         return yaml_dict.get('frame_name', '')
+
+    def get_preview_pre_frame(self) -> bool:
+        from photobooth.consts import DEFAULT_PREVIEW_PRE_FRAME
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('preview_pre_frame', DEFAULT_PREVIEW_PRE_FRAME)
+
+    def get_preview_post_frame(self) -> bool:
+        from photobooth.consts import DEFAULT_PREVIEW_POST_FRAME
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('preview_post_frame', DEFAULT_PREVIEW_POST_FRAME)
