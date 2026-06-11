@@ -1,22 +1,33 @@
+# Folder and Event Settings
 main_folder_path: "path_to_your_main_folder" # e.g. /home/pi/photobooth
+event_name: 'Your Event Name'
+
+# Camera and Capture Settings
 cam_name: 'Your_Camera_Name' # fetch it from gphoto2 --auto-detect
 camera_connection: 'usb' # usb or wifi
 camera_hotfolder_path: "path_to_your_camera_hotfolder"
-printer_name: 'Your_Printer_Name' # fetch it from lpstat -p
-print_size: '4x3' # 4x6 or 4x3
-event_name: 'Your Event Name'
-backend: "path_to_your_backend" # e.g. http://localhost:3000
-client_secret: "your_client_secret_from_backend"
 capture_mode: "camera" # pc or camera
 mock_camera: false
+
+# Printer Settings
+printer_name: 'Your_Printer_Name' # fetch it from lpstat -p
+print_size: '4x3' # 4x6 or 4x3
 mock_printer: false
 enable_hotfolder: true
 printer_hotfolder_path: "path_to_your_hotfolder" # take it from DNP Hotfolder settings
+
+# Backend Integration Settings
+backend: "path_to_your_backend" # e.g. http://localhost:3000
+client_secret: "your_client_secret_from_backend"
+
+# Session and Limitations Settings
 min_num_photos: 1
 max_num_photos: 50
+warn_num_photos: 20
 frame_name: "" # Leave empty to choose randomly/manually, or specify file name from Assets (e.g. frame1)
+
+# Preview Settings
 preview_pre_frame: true
 preview_post_frame: true
 terminal_preview: false
 terminal_preview_rows: 0
-warn_num_photos: 20
