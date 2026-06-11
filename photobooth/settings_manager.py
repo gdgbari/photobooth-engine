@@ -162,6 +162,18 @@ class Settings:
             yaml_dict = yaml.safe_load(yaml_file)
         return yaml_dict.get('preview_post_frame', DEFAULT_PREVIEW_POST_FRAME)
 
+    def get_terminal_preview(self) -> bool:
+        from photobooth.consts import DEFAULT_TERMINAL_PREVIEW
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return yaml_dict.get('terminal_preview', DEFAULT_TERMINAL_PREVIEW)
+
+    def get_terminal_preview_rows(self) -> int:
+        from photobooth.consts import DEFAULT_TERMINAL_PREVIEW_ROWS
+        with open(self._settings_path, 'r') as yaml_file:
+            yaml_dict = yaml.safe_load(yaml_file)
+        return int(yaml_dict.get('terminal_preview_rows', DEFAULT_TERMINAL_PREVIEW_ROWS))
+
     def get_warn_num_photos(self) -> int:
         from photobooth.consts import DEFAULT_WARN_NUM_PHOTOS
         with open(self._settings_path, 'r') as yaml_file:

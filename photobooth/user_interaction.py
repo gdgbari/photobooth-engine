@@ -49,29 +49,32 @@ class UserInterface:
         :return: True if the photo is good, False if not
         """
 
-        if os_platform.is_linux():
-            # image = Image.open(photo_path)
-            # image.show()
-            subprocess.run(["xdg-open", photo_path])
-        elif os_platform.is_wsl():
-            windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
-            subprocess.run(['powershell.exe', 'Start-Process', windows_path])
-        elif os_platform.is_macos():
-            # On macOS, the best way to open a file is using the 'open' command.
-            # If running as root (via sudo), we try to open it in the context of the original user
-            # to ensure it appears in their GUI session.
-            abs_photo_path = os.path.abspath(photo_path)
-            if os.geteuid() == 0:
-                try:
-                    # SUDO_USER gives the name of the user who invoked sudo.
-                    # os.getlogin() might return root or raise an error in non-TTY contexts.
-                    user = os.environ.get('SUDO_USER') or os.getlogin()
-                    subprocess.run(["sudo", "-u", user, "open", abs_photo_path])
-                except Exception:
-                    # Graceful fallback: just try 'open' directly if user detection fails.
+        if self._settings.get_terminal_preview():
+            self._show_terminal_preview(photo_path)
+        else:
+            if os_platform.is_linux():
+                # image = Image.open(photo_path)
+                # image.show()
+                subprocess.run(["xdg-open", photo_path])
+            elif os_platform.is_wsl():
+                windows_path = subprocess.check_output(['wslpath', '-w', photo_path]).decode().strip()
+                subprocess.run(['powershell.exe', 'Start-Process', windows_path])
+            elif os_platform.is_macos():
+                # On macOS, the best way to open a file is using the 'open' command.
+                # If running as root (via sudo), we try to open it in the context of the original user
+                # to ensure it appears in their GUI session.
+                abs_photo_path = os.path.abspath(photo_path)
+                if os.geteuid() == 0:
+                    try:
+                        # SUDO_USER gives the name of the user who invoked sudo.
+                        # os.getlogin() might return root or raise an error in non-TTY contexts.
+                        user = os.environ.get('SUDO_USER') or os.getlogin()
+                        subprocess.run(["sudo", "-u", user, "open", abs_photo_path])
+                    except Exception:
+                        # Graceful fallback: just try 'open' directly if user detection fails.
+                        subprocess.run(["open", abs_photo_path])
+                else:
                     subprocess.run(["open", abs_photo_path])
-            else:
-                subprocess.run(["open", abs_photo_path])
 
         while True:
             print('Do you like it? [y]/n')
@@ -187,6 +190,10 @@ class UserInterface:
         Helper method to show an image in a native viewer.
         On macOS, if running as root, it ensures the temporary file has correct permissions for the logged-in user.
         """
+        if self._settings.get_terminal_preview():
+            self._show_terminal_preview(img)
+            return
+
         import tempfile
         os_platform = detect_os()
 
@@ -205,3 +212,42 @@ class UserInterface:
                 subprocess.run(["open", temp_path])
         else:
             img.show()
+
+    def _show_terminal_preview(self, image_or_path):
+        """
+        Shows a preview of the photo in the terminal directly using timg.
+        """
+        import timg
+        import shutil
+
+        try:
+            obj = timg.Renderer()
+            if isinstance(image_or_path, str):
+                obj.load_image_from_file(image_or_path)
+            elif isinstance(image_or_path, Image.Image):
+                obj.load_image(image_or_path)
+            else:
+                raise ValueError("Unsupported image type")
+
+            columns, lines = shutil.get_terminal_size()
+            width, height = obj.image.size
+
+            # Determine dimension bounds in terminal characters/cells (rows).
+            # Columns are automatically calculated based on the photo's aspect ratio.
+            # If terminal_preview_rows is 0 or not set, it falls back to auto-fitting current terminal size.
+            custom_rows = self._settings.get_terminal_preview_rows()
+
+            if custom_rows > 0:
+                new_h = custom_rows
+                new_w = int(new_h * (width / height))
+            else:
+                max_w = max(10, columns - 4)
+                max_h = max(10, lines - 6)
+                scale = min(max_w / width, max_h / height)
+                new_w = int(width * scale)
+                new_h = int(height * scale)
+
+            obj.resize(new_w, new_h)
+            obj.render(timg.Ansi24HblockMethod)
+        except Exception as e:
+            print(f"Error rendering terminal preview: {e}")
