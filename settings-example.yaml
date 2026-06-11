@@ -14,3 +14,4 @@ enable_hotfolder: true
 hotfolder_path: "path_to_your_hotfolder" # take it from DNP Hotfolder settings
 min_num_photos: 1
 max_num_photos: 50
+frame_name: "" # Leave empty to choose randomly/manually, or specify file name from Assets (e.g. frame1)
