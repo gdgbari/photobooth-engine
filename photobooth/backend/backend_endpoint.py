@@ -10,17 +10,19 @@ from PIL import Image
 from urllib.parse import urljoin
 import logging
 
+from photobooth.consts import LOGGER_NAME, DEFAULT_BACKEND_URL, DEFAULT_CLIENT_ID, DEFAULT_TIMEOUT
+
 # Use logger configured in main (coherent name)
-logger = logging.getLogger("photobooth.upload")
+logger = logging.getLogger(LOGGER_NAME)
 
 
 class PhotoAPIClient:
     def __init__(
             self,
-            base_url: str = "http://localhost:8000",
-            client_id: str = "agent",
+            base_url: str = DEFAULT_BACKEND_URL,
+            client_id: str = DEFAULT_CLIENT_ID,
             client_secret: str = None,
-            timeout: Tuple[float, float] = (5.0, 30.0),
+            timeout: Tuple[float, float] = DEFAULT_TIMEOUT,
     ):
         self.base_url = base_url.rstrip("/")
         self.client_id = client_id

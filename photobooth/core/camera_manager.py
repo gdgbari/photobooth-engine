@@ -51,8 +51,9 @@ class PhotoManager:
             return target
 
         try:
+            from photobooth.consts import CAMERA_EVENT_TIMEOUT_MS
             user_interactor.wait_for_camera_shutter()
-            timeout = 1000  # wait 1s for each event loop
+            timeout = CAMERA_EVENT_TIMEOUT_MS  # wait 1s for each event loop
 
             while True:
                 # waits for a camera event
@@ -172,7 +173,8 @@ class PhotoManager:
         if not os.path.exists(hotfolder):
             os.makedirs(hotfolder, exist_ok=True)
 
-        temp_data_path = "temp_data.yaml"
+        from photobooth.consts import TEMP_DATA_PATH, WIFI_POLL_DELAY_SEC
+        temp_data_path = TEMP_DATA_PATH
         if not hasattr(self, '_processed_wifi_photos'):
             self._processed_wifi_photos = set()
             if os.path.exists(temp_data_path):
@@ -216,7 +218,7 @@ class PhotoManager:
                         last_size = current_size
                     except OSError:
                         pass
-                    time.sleep(0.5)
+                    time.sleep(WIFI_POLL_DELAY_SEC)
 
                 target = os.path.join(path, photo_name)
                 shutil.copyfile(source_path, target)
@@ -228,13 +230,14 @@ class PhotoManager:
                 user_interactor.notify_shot_taken()
                 return target
 
-            time.sleep(0.5)
+            time.sleep(WIFI_POLL_DELAY_SEC)
 
     def _save_processed_wifi_photos(self):
         """
         Saves the processed wifi photos list to temp_data.yaml.
         """
-        temp_data_path = "temp_data.yaml"
+        from photobooth.consts import TEMP_DATA_PATH
+        temp_data_path = TEMP_DATA_PATH
         try:
             import yaml
             data = {}
@@ -271,9 +274,10 @@ class PhotoManager:
             print("Mock camera or WiFi connection enabled. Skipping real camera initialization.")
             return
 
+        from photobooth.consts import CAMERA_RETRY_DELAY_SEC
         while not camera_is_connected(self._settings_manager):
             print('camera not found. check if it\'s connected and try again')
-            time.sleep(2)
+            time.sleep(CAMERA_RETRY_DELAY_SEC)
 
         print('camera found')
 

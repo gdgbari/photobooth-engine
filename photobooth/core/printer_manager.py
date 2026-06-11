@@ -18,11 +18,11 @@ import os
 
 class Printer:
 
-    def __init__(self, printer_name, user_options=None, print_size='4x6', mock=False, enable_hotfolder=False,
+    def __init__(self, printer_name, user_options=None, print_size=None, mock=False, enable_hotfolder=False,
                  hotfolder_path=''):
-
+        from photobooth.consts import DEFAULT_PRINT_SIZE
         self.printer_name = printer_name
-        self.print_size = print_size
+        self.print_size = print_size or DEFAULT_PRINT_SIZE
         self.mock = mock
         self.enable_hotfolder = enable_hotfolder
         self.hotfolder_path = hotfolder_path
@@ -44,25 +44,9 @@ class Printer:
         if self._filling_command == "":
             # here we check which command to execute to fill the corner
             # check for
-            possible_printer_options = {
-                "StpiShrinkOutput": ["Shrink", "Crop", "Expand"],  # Opzione Gutenprint (se disponibile)
-                "fit-to-page": [True, False],  # Opzione CUPS standard
-                "scaling": list(range(1, 201)),  # Percentuale di ridimensionamento (1-200)
-                "ImageableArea": ["Auto", "Custom"],  # Area stampabile
-                "fitplot": [True, False],  # Adattamento immagine alla pagina
-                "crop-to-fit": [True, False],  # Ritaglio immagine per adattarla alla pagina
-                "page-border": ["None", "Single", "Double", "Thick"],  # Aggiunta di bordi
-            }
-
-            best_option_value = {
-                "StpiShrinkOutput": "Shrink",
-                "fit-to-page": True,  # Opzione CUPS standard
-                "scaling": 100,  # Percentuale di ridimensionamento (1-200)
-                "ImageableArea": "Auto",  # Area stampabile
-                "fitplot": True,  # Adattamento immagine alla pagina
-                "crop-to-fit": False,  # Ritaglio immagine per adattarla alla pagina
-                "page-border": "None",  # Aggiunta di bordi
-            }
+            from photobooth.consts import POSSIBLE_PRINTER_OPTIONS, BEST_OPTION_VALUE
+            possible_printer_options = POSSIBLE_PRINTER_OPTIONS
+            best_option_value = BEST_OPTION_VALUE
 
             supported_options = self.get_printer_options(self.printer_name)
 

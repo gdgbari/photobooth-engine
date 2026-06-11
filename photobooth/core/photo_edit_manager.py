@@ -12,8 +12,9 @@ It provides methods to edit photos with the selected effects, add padding, combi
 
 class Tailor:
 
-    def __init__(self, print_size='4x6'):
-        self._print_size = print_size
+    def __init__(self, print_size=None):
+        from photobooth.consts import DEFAULT_PRINT_SIZE
+        self._print_size = print_size or DEFAULT_PRINT_SIZE
         self._photo_path = ''
         self._effect_path = ''
         self._output_folder_path = ''
@@ -56,7 +57,8 @@ class Tailor:
         output_file = self._combine_two_photos(first_photo, second_photo)
 
         # HERE PADDING
-        output_file = self.add_final_padding(output_file, 98)
+        from photobooth.consts import FINAL_PADDING_PERCENTAGE
+        output_file = self.add_final_padding(output_file, FINAL_PADDING_PERCENTAGE)
 
         output_file.save(edited_file_path, "JPEG")
 
@@ -73,14 +75,15 @@ class Tailor:
         :return: combined photo
         """
 
+        from photobooth.consts import IMAGE_SIZE_4X3, IMAGE_SIZE_4X6
         # Rotate 90 degrees and resize both photos to landscape 4x3 (2000x1500)
-        first_4x3 = first_photo.rotate(90, expand=True).resize((2000, 1500), Image.Resampling.LANCZOS)
-        second_4x3 = second_photo.rotate(90, expand=True).resize((2000, 1500), Image.Resampling.LANCZOS)
-
+        first_4x3 = first_photo.rotate(90, expand=True).resize(IMAGE_SIZE_4X3, Image.Resampling.LANCZOS)
+        second_4x3 = second_photo.rotate(90, expand=True).resize(IMAGE_SIZE_4X3, Image.Resampling.LANCZOS)
+ 
         # Create a new 2000x3000 canvas to stack them vertically (4x6 portrait print)
-        output_image = Image.new('RGB', size=(2000, 3000))
+        output_image = Image.new('RGB', size=IMAGE_SIZE_4X6)
         output_image.paste(first_4x3, (0, 0))
-        output_image.paste(second_4x3, (0, 1500))
+        output_image.paste(second_4x3, (0, IMAGE_SIZE_4X3[1]))
         return output_image
 
     def prepare_single_photo(self, photo, effect, horizontal_offset=0, vertical_alignment='center',
@@ -107,8 +110,9 @@ class Tailor:
 
         # Find the transparent hole in the frame.
         # We create a mask from the alpha channel where transparent pixels are white.
+        from photobooth.consts import ALPHA_THRESHOLD
         alpha = foreground.getchannel('A')
-        mask = Image.eval(alpha, lambda a: 255 if a < 128 else 0)
+        mask = Image.eval(alpha, lambda a: 255 if a < ALPHA_THRESHOLD else 0)
         hole_bbox = mask.getbbox()
 
         if not hole_bbox:
@@ -170,8 +174,9 @@ class Tailor:
         # builds a background as big as the image but of color: #f0f0f0
         # resize the image with percentage
         # put the image onto the background
+        from photobooth.consts import PADDING_BACKGROUND_COLOR
         img_w, img_h = image.size
-        canvas = Image.new('RGB', (img_w, img_h), (240, 240, 240))
+        canvas = Image.new('RGB', (img_w, img_h), PADDING_BACKGROUND_COLOR)
         resized_w = int(img_w * (percentage / 100))
         resized_h = int(img_h * (percentage / 100))
         resized_image = image.resize((resized_w, resized_h))

@@ -2,14 +2,15 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 def setup_logging() -> None:
-    logger = logging.getLogger("photobooth.upload")
+    from photobooth.consts import LOGGER_NAME, UPLOAD_LOG_FILE
+    logger = logging.getLogger(LOGGER_NAME)
     logger.setLevel(logging.INFO)
 
     if logger.handlers:
         return  # evita duplicati
 
     handler = logging.FileHandler(
-        "photobooth-upload.log",  # unico file
+        UPLOAD_LOG_FILE,  # unico file
         mode="a",                 # append
         encoding="utf-8",
     )

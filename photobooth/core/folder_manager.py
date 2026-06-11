@@ -99,7 +99,8 @@ It provides methods to get the photo name according to the convention and to inc
 class FileNaming:
 
     def __init__(self):
-        self._temp_data_path = "temp_data.yaml"
+        from photobooth.consts import TEMP_DATA_PATH
+        self._temp_data_path = TEMP_DATA_PATH
         self._settings = Settings()
         self._ensure_file_exists()
 

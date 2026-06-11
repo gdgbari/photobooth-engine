@@ -8,7 +8,8 @@ Settings is the class which manages the settings.yaml file.
 class Settings:
 
     def __init__(self):
-        self._settings_path = "./settings.yaml"
+        from photobooth.consts import SETTINGS_PATH
+        self._settings_path = SETTINGS_PATH
 
     def get_main_folder_path(self) -> str:
         """
@@ -68,11 +69,12 @@ class Settings:
         Method which returns the print size set in settings.yaml file.
         :return: print size
         """
+        from photobooth.consts import DEFAULT_PRINT_SIZE
 
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
 
-        return yaml_dict.get('print_size', '4x6')  # Defaults to 4x6 if not specified
+        return yaml_dict.get('print_size', DEFAULT_PRINT_SIZE)  # Defaults to 4x6 if not specified
 
     def get_client_secret(self) -> str:
         """
@@ -90,26 +92,30 @@ class Settings:
         Method which returns the capture mode (pc or camera) set in settings.yaml file.
         :return: capture mode
         """
+        from photobooth.consts import DEFAULT_CAPTURE_MODE
 
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
 
-        return yaml_dict.get('capture_mode', 'pc')  # Defaults to pc if not specified
+        return yaml_dict.get('capture_mode', DEFAULT_CAPTURE_MODE)  # Defaults to pc if not specified
 
     def get_mock_camera(self) -> bool:
+        from photobooth.consts import DEFAULT_MOCK_CAMERA
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
-        return yaml_dict.get('mock_camera', False)
+        return yaml_dict.get('mock_camera', DEFAULT_MOCK_CAMERA)
 
     def get_mock_printer(self) -> bool:
+        from photobooth.consts import DEFAULT_MOCK_PRINTER
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
-        return yaml_dict.get('mock_printer', False)
+        return yaml_dict.get('mock_printer', DEFAULT_MOCK_PRINTER)
 
     def get_enable_hotfolder(self) -> bool:
+        from photobooth.consts import DEFAULT_ENABLE_HOTFOLDER
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
-        return yaml_dict.get('enable_hotfolder', False)
+        return yaml_dict.get('enable_hotfolder', DEFAULT_ENABLE_HOTFOLDER)
 
     def get_printer_hotfolder_path(self) -> str:
         with open(self._settings_path, 'r') as yaml_file:
@@ -117,19 +123,22 @@ class Settings:
         return yaml_dict.get('printer_hotfolder_path', '')
 
     def get_min_num_photos(self) -> int:
+        from photobooth.consts import DEFAULT_MIN_NUM_PHOTOS
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
-        return yaml_dict.get('min_num_photos', 1)
+        return yaml_dict.get('min_num_photos', DEFAULT_MIN_NUM_PHOTOS)
 
     def get_max_num_photos(self) -> int:
+        from photobooth.consts import DEFAULT_MAX_NUM_PHOTOS
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
-        return yaml_dict.get('max_num_photos', 99)
+        return yaml_dict.get('max_num_photos', DEFAULT_MAX_NUM_PHOTOS)
 
     def get_camera_connection(self) -> str:
+        from photobooth.consts import DEFAULT_CAMERA_CONNECTION
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
-        return yaml_dict.get('camera_connection', 'usb')
+        return yaml_dict.get('camera_connection', DEFAULT_CAMERA_CONNECTION)
 
     def get_camera_hotfolder_path(self) -> str:
         with open(self._settings_path, 'r') as yaml_file:

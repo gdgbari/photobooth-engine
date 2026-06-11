@@ -9,9 +9,10 @@ It provides methods to add photos and edits to the queues, check if the photo qu
 
 class QueueManager:
 
-    def __init__(self, print_size='4x6'):
-        self._print_size = print_size
-        self._queue_path = 'temp_data.yaml'
+    def __init__(self, print_size=None):
+        from photobooth.consts import DEFAULT_PRINT_SIZE, TEMP_DATA_PATH
+        self._print_size = print_size or DEFAULT_PRINT_SIZE
+        self._queue_path = TEMP_DATA_PATH
         self._dict = {'photos': [], 'edits': []}
         self._ensure_file_exists()
 
