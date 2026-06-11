@@ -111,10 +111,10 @@ class Settings:
             yaml_dict = yaml.safe_load(yaml_file)
         return yaml_dict.get('enable_hotfolder', False)
 
-    def get_hotfolder_path(self) -> str:
+    def get_printer_hotfolder_path(self) -> str:
         with open(self._settings_path, 'r') as yaml_file:
             yaml_dict = yaml.safe_load(yaml_file)
-        return yaml_dict.get('hotfolder_path', '')
+        return yaml_dict.get('printer_hotfolder_path', '')
 
     def get_min_num_photos(self) -> int:
         with open(self._settings_path, 'r') as yaml_file:
