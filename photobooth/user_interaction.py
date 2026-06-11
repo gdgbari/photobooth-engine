@@ -101,15 +101,18 @@ class UserInterface:
             if times.isdigit():
                 times = int(times)
                 if min_num <= times <= max_num:
+                    warn_limit = self._settings.get_warn_num_photos()
                     while True:
-                        print('you choose ' + str(times) + ' copies, is it correct?')
-                        ui_input = input('[y]/n: ')
-                        ui_input_clean = ui_input.strip().lower()
-                        if ui_input_clean in ('y', ''):
+                        if times >= warn_limit:
+                            print(f'WARNING: You selected a high number of copies ({times} copies).')
+                            print('you choose ' + str(times) + ' copies, is it correct?')
+                            ui_input = input('[y]/n: ')
+                            ui_input_clean = ui_input.strip().lower()
+                            if ui_input_clean == 'n':
+                                break
+                        else:
                             print('all right')
                             return times
-                        elif ui_input_clean == 'n':
-                            break
             print('Some error occurred, please try again')
 
     def wait_for_camera_shutter(self):
